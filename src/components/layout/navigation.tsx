@@ -47,7 +47,7 @@ export function Navigation() {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-reverse space-x-8">
+          <div className="hidden md:flex flex-row-reverse items-center gap-6 lg:gap-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}

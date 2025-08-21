@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 
 export function MobileCTA() {
   return (
-    <div className="sticky bottom-0 inset-x-0 bg-blue-700 border-t border-blue-600 px-6 py-4 z-30 sm:hidden">
+    <div className="fixed bottom-0 inset-x-0 bg-blue-700 border-t border-blue-600 px-6 py-4 z-30 sm:hidden">
       <div className="flex gap-3 justify-center">
         <Link
           href="/demos"
