@@ -8,10 +8,18 @@ export default function Home() {
       <section className="bg-white py-20">
         <div className="container">
           <div className="text-center">
-            <h1 className="mb-6 text-[var(--navy)]">
-              <span>אוטומציה </span>
-              <span className="bg-clip-text text-transparent" style={{ background: 'var(--accent)' }}>חכמה לעסק </span>
-              <span>שלך</span>
+            <h1 className="mb-6">
+              <span className="text-[var(--navy)]">אוטומציה </span>
+              <span 
+                className="bg-clip-text text-transparent" 
+                style={{ 
+                  backgroundImage: 'var(--accent)',
+                  WebkitBackgroundClip: 'text'
+                }}
+              >
+                חכמה לעסק 
+              </span>
+              <span className="text-[var(--navy)]">שלך</span>
             </h1>
             <div className="max-w-[70ch] mx-auto mb-10">
               <p className="text-right text-[var(--navy)]">
