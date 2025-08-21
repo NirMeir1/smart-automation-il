@@ -45,7 +45,7 @@ export function Navigation() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                    'px-3 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]',
                     'hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
                     pathname === item.href
                       ? 'text-[var(--accent-from)] bg-[var(--muted)]'
@@ -58,7 +58,7 @@ export function Navigation() {
             </div>
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 min-h-[44px] text-white font-medium transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus:scale-105 focus:shadow-[var(--shadow)] focus:outline-none"
+              className="hidden md:inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 min-h-[44px] text-white font-medium transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
               style={{ background: 'var(--accent)' }}
             >
               מעוניינים לשמוע?
@@ -99,7 +99,7 @@ export function Navigation() {
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  'block px-3 py-2 rounded-md text-base font-medium transition-colors',
+                  'block px-3 py-2 rounded-md text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]',
                   'hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
                   pathname === item.href
                     ? 'text-[var(--accent-from)] bg-[var(--muted)]'

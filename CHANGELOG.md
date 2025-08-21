@@ -6,3 +6,7 @@
 - Introduced Sogomatic-inspired tokens and typography, added gradient CTA in the header and hero, and increased section spacing for breathing room.
 - Removed `any` types and direct `<a>` usage in the error boundary to satisfy lint rules.
 - Introduced theme tokens for colors, spacing, radius, shadow and gradient text; revamped navigation pill, hero CTA, card grids, footer and contact dock for consistent spacing, contrast and focus states.
+- globals.css: prevent horizontal scroll and ensure RTL layout.
+- page.tsx: fix hero gradient text and polish CTA pills and dual CTAs with accessible focus states.
+- components/layout/navigation.tsx: add focus rings and hover states to navigation links and header pill.
+- components/layout/contact-dock.tsx: rebuild fixed dock with centered cards, spacing and focus rings.

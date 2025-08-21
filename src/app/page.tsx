@@ -20,7 +20,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/contact?type=consultation"
-                className="rounded-full px-6 py-3.5 text-white font-semibold inline-flex items-center justify-center gap-2 transition-transform hover:scale-105 focus:scale-105 focus:outline-none"
+                className="rounded-full px-6 py-[14px] min-h-[44px] text-white font-semibold inline-flex items-center justify-center gap-2 transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
                 style={{ background: 'var(--accent)' }}
                 aria-label="קבעו שיחת ייעוץ חינמית"
               >
@@ -29,7 +29,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/demos"
-                className="text-[var(--accent-from)] underline font-semibold min-w-[44px] min-h-[44px] inline-flex items-center gap-3"
+                className="text-[var(--accent-from)] underline font-semibold min-w-[44px] min-h-[44px] inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
                 aria-label="נסו את הדמו האינטראקטיבי שלנו"
               >
                 נסו דמו
@@ -215,13 +215,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row-reverse gap-4 justify-center">
               <Link
                 href="/contact?type=consultation"
-                className="bg-white text-[var(--navy)] px-8 py-4 rounded-[var(--radius)] font-semibold hover:shadow focus:shadow focus:outline-none transition-colors duration-200"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[var(--navy)] px-8 py-4 min-h-[44px] rounded-full font-semibold hover:shadow-[var(--shadow)] focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--navy)] transition-colors duration-200"
               >
                 קבעו שיחת ייעוץ
               </Link>
               <Link
                 href="/demos"
-                className="border-2 border-white text-white px-8 py-4 rounded-[var(--radius)] font-semibold hover:bg-white hover:text-[var(--navy)] focus:bg-white focus:text-[var(--navy)] focus:outline-none transition-colors duration-200"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 min-h-[44px] rounded-full font-semibold hover:bg-white hover:text-[var(--navy)] focus-visible:bg-white focus-visible:text-[var(--navy)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white transition-colors duration-200"
               >
                 צפו בדוגמאות
               </Link>
