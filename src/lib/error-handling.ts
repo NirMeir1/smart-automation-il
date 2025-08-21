@@ -4,7 +4,7 @@ export interface ErrorInfo {
   message: string
   stack?: string
   component?: string
-  props?: Record<string, any>
+  props?: Record<string, unknown>
   url?: string
   timestamp: Date
 }
@@ -26,7 +26,7 @@ export class AppError extends Error {
   }
 }
 
-export function logError(error: Error | ErrorInfo, context?: Record<string, any>) {
+export function logError(error: Error | ErrorInfo, context?: Record<string, unknown>) {
   const errorInfo: ErrorInfo = error instanceof Error ? {
     message: error.message,
     stack: error.stack,
@@ -71,7 +71,7 @@ export function createErrorBoundary() {
       return { hasError: true, error }
     }
 
-    static componentDidCatch(error: Error, errorInfo: any) {
+    static componentDidCatch(error: Error, errorInfo: unknown) {
       logError(error, { 
         component: 'ErrorBoundary',
         errorInfo 
@@ -118,7 +118,7 @@ export const validators = {
       ? 'מספר חיובי בלבד' : null
 }
 
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   delay: number
 ): (...args: Parameters<T>) => void {
@@ -126,11 +126,11 @@ export function debounce<T extends (...args: any[]) => any>(
   
   return (...args: Parameters<T>) => {
     clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => func.apply(null, args), delay)
+    timeoutId = setTimeout(() => func(...args), delay)
   }
 }
 
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
   delay: number
 ): (...args: Parameters<T>) => void {
@@ -140,7 +140,7 @@ export function throttle<T extends (...args: any[]) => any>(
     const now = Date.now()
     if (now - lastCall >= delay) {
       lastCall = now
-      func.apply(null, args)
+      func(...args)
     }
   }
 }

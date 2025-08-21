@@ -73,7 +73,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-b from-blue-50 to-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             מחירון
           </h1>
@@ -85,9 +85,9 @@ export default function PricingPage() {
       </section>
 
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan, index) => (
+        <div className="container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {pricingPlans.map((plan) => (
               <div
                 key={plan.name}
                 className={`relative rounded-lg border-2 p-8 ${
@@ -115,7 +115,7 @@ export default function PricingPage() {
 
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start gap-3">
+                    <li key={featureIndex} className="flex flex-row-reverse items-start gap-3">
                       <Check className="w-5 h-5 text-green-600 mt-0.5" />
                       <span className="text-gray-700">{feature}</span>
                     </li>
@@ -139,7 +139,7 @@ export default function PricingPage() {
       </section>
 
       <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             שירותים נוספים
           </h2>
@@ -147,7 +147,7 @@ export default function PricingPage() {
             {additionalServices.map((service, index) => (
               <div key={index} className="bg-white rounded-lg border p-6">
                 <div className="flex justify-between items-start">
-                  <div className="flex-1">
+                  <div className="flex-1 text-right">
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.name}</h3>
                     <p className="text-gray-600">{service.description}</p>
                   </div>
@@ -162,11 +162,11 @@ export default function PricingPage() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             למה לבחור בנו?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-green-600" />
@@ -195,7 +195,7 @@ export default function PricingPage() {
       </section>
 
       <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h2 className="text-3xl font-bold mb-6">יש לכם שאלות?</h2>
           <p className="text-xl mb-8 opacity-90">
             נשמח לעזור לכם לבחור את הפתרון המתאים ביותר

@@ -54,7 +54,7 @@ export interface Lead {
 export interface EventLog {
   id: string
   type: 'page_view' | 'demo_interaction' | 'form_submit' | 'reminder_preview' | 'admin_reset'
-  details: Record<string, any>
+  details: Record<string, unknown>
   timestamp: Date
   userId?: string
 }

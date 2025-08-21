@@ -4,7 +4,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-b from-blue-50 to-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             אודות אוטומציה חכמה
           </h1>
@@ -16,7 +16,7 @@ export default function AboutPage() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">המשימה שלנו</h2>
@@ -25,21 +25,21 @@ export default function AboutPage() {
                 המטרה שלנו היא להפוך משימות שגרתיות ומייגעות לאוטומטיות וחכמות.
               </p>
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
+                <div className="flex flex-row-reverse items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">חיסכון בזמן</h3>
                     <p className="text-gray-600">עד 80% חיסכון בזמן על משימות שגרתיות</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
+                <div className="flex flex-row-reverse items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">דיוק מלא</h3>
                     <p className="text-gray-600">מזעור טעויות אנוש במשימות קריטיות</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
+                <div className="flex flex-row-reverse items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">זמינות 24/7</h3>
@@ -74,11 +74,11 @@ export default function AboutPage() {
       </section>
 
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             הערכים שמובילים אותנו
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="w-8 h-8 text-blue-600" />
@@ -113,7 +113,7 @@ export default function AboutPage() {
       </section>
 
       <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h2 className="text-3xl font-bold mb-6">מוכנים להתחיל?</h2>
           <p className="text-xl mb-8 opacity-90">
             בואו נכיר ונראה איך אנחנו יכולים לעזור לעסק שלכם לצמוח
