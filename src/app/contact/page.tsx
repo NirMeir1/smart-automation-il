@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
 import { leadStorage, logEvent } from '@/lib/storage'
 import { Lead } from '@/lib/types'
-import { formatDate, generateId } from '@/lib/utils'
+import { generateId } from '@/lib/utils'
 import { addDays } from 'date-fns'
 import { cn } from '@/lib/utils'
 
@@ -170,7 +170,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-b from-blue-50 to-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             צור קשר
           </h1>
@@ -181,17 +181,17 @@ export default function ContactPage() {
       </section>
 
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">פרטי יצירת קשר</h2>
               <div className="space-y-6">
                 {contactInfo.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4">
+                  <div key={index} className="flex flex-row-reverse items-start gap-4">
                     <div className="bg-blue-100 p-3 rounded-lg">
                       <item.icon className="w-6 h-6 text-blue-600" />
                     </div>
-                    <div>
+                    <div className="text-right">
                       <h3 className="font-semibold text-gray-900 mb-1">{item.label}</h3>
                       {item.href ? (
                         <a

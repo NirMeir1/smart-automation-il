@@ -5,6 +5,7 @@ import { ClientProvider } from "@/components/providers/client-provider";
 import { Navigation } from "@/components/layout/navigation";
 import { Footer } from "@/components/layout/footer";
 import { ToastContainer } from "@/components/ui/toast";
+import { MobileCTA } from "@/components/layout/mobile-cta";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
             <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
               {children}
             </main>
+            <MobileCTA />
             <Footer />
           </div>
           <ToastContainer />

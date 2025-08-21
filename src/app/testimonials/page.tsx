@@ -62,7 +62,7 @@ export default function TestimonialsPage() {
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-b from-blue-50 to-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             מה הלקוחות שלנו אומרים
           </h1>
@@ -73,8 +73,8 @@ export default function TestimonialsPage() {
       </section>
 
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg p-6 border">
                 <div className="flex items-center mb-4">
@@ -110,9 +110,9 @@ export default function TestimonialsPage() {
       </section>
 
       <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">המספרים מדברים בעד עצמם</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold mb-2">{stat.number}</div>
@@ -124,7 +124,7 @@ export default function TestimonialsPage() {
       </section>
 
       <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
             רוצים להיות הבאים ברשימה?
           </h2>
@@ -149,7 +149,7 @@ export default function TestimonialsPage() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container text-center">
           <div className="bg-green-50 border border-green-200 rounded-lg p-8">
             <h3 className="text-2xl font-bold text-green-800 mb-4">ערבות שביעות רצון</h3>
             <p className="text-green-700 leading-relaxed">

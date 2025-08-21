@@ -1,7 +1,7 @@
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container">
         <div className="bg-white rounded-lg shadow-sm p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">תנאי השימוש</h1>
           
@@ -14,10 +14,10 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. הגדרות</h2>
               <ul className="space-y-2 text-gray-700">
-                <li>• <strong>"החברה"</strong> - אוטומציה חכמה</li>
-                <li>• <strong>"האתר"</strong> - האתר הדיגיטלי של החברה</li>
-                <li>• <strong>"השירותים"</strong> - כל השירותים המוצעים באתר ו/או על ידי החברה</li>
-                <li>• <strong>"המשתמש"</strong> - כל אדם המשתמש באתר או בשירותים</li>
+                <li>• <strong>&quot;החברה&quot;</strong> - אוטומציה חכמה</li>
+                <li>• <strong>&quot;האתר&quot;</strong> - האתר הדיגיטלי של החברה</li>
+                <li>• <strong>&quot;השירותים&quot;</strong> - כל השירותים המוצעים באתר ו/או על ידי החברה</li>
+                <li>• <strong>&quot;המשתמש&quot;</strong> - כל אדם המשתמש באתר או בשירותים</li>
               </ul>
             </section>
 
