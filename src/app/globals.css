@@ -4,24 +4,27 @@
   --background: #ffffff;
   --foreground: #171717;
   /* design tokens */
-  --color-hero: #07C8A9;
-  --color-hero-700: #05B79A;
-  --color-navy: #0B2A4A;
-  --color-accent: #2B4FE8;
-  --color-text: #0F2340;
-  --color-muted: #F5F7FB;
+  --hero: #07C8A9;
+  --hero-700: #05B79A;
+  --navy: #0B2A4A;
+  --accent: #2B4FE8;
+  --text: #0F2340;
+  --muted: #F5F7FB;
+  --card: #FFFFFF;
   --radius: 14px;
   --gap: 24px;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-heebo);
-  --color-hero: var(--color-hero);
-  --color-accent: var(--color-accent);
-  --color-navy: var(--color-navy);
-  --color-muted: var(--color-muted);
+  --hero: var(--hero);
+  --accent: var(--accent);
+  --navy: var(--navy);
+  --muted: var(--muted);
+  --text: var(--text);
 }
 
 /* Reset and base styles */
@@ -53,7 +56,7 @@ html {
 
 body {
   background: var(--background);
-  color: var(--color-text);
+  color: var(--text);
   font-family: var(--font-heebo), system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -66,21 +69,21 @@ h1 {
   font-size: 48px;
   font-weight: 700;
   line-height: 1.5;
-  color: var(--color-navy);
+  color: var(--navy);
 }
 
 h2 {
   font-size: 32px;
   font-weight: 700;
   line-height: 1.5;
-  color: var(--color-navy);
+  color: var(--navy);
 }
 
 h3 {
   font-size: 20px;
   font-weight: 600;
   line-height: 1.5;
-  color: var(--color-navy);
+  color: var(--navy);
 }
 
 /* RTL/LTR support */
@@ -174,11 +177,7 @@ h3 {
   }
 }
 
-@media (min-width: 640px) {
-  body {
-    padding-bottom: 0;
-  }
-}
+
 
 /* Line clamping utility */
 .line-clamp-2 {
