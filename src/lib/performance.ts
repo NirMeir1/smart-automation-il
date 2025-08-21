@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 // Performance monitoring
 export class PerformanceMonitor {
@@ -191,7 +191,7 @@ export function loadScript(src: string): Promise<void> {
   })
 }
 
-export function dynamicImport<T = any>(
+export function dynamicImport<T = unknown>(
   importFn: () => Promise<T>
 ): Promise<T> {
   return importFn().catch(error => {

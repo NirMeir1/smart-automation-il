@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { validateInput, validators, debounce, throttle, retry } from '@/lib/error-handling'
+import { describe, it, expect, vi } from 'vitest'
+import { validateInput, validators, debounce, retry } from '@/lib/error-handling'
 
 describe('Error Handling', () => {
   describe('validateInput', () => {

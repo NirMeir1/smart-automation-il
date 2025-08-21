@@ -35,40 +35,49 @@ export function Navigation() {
         עבור לתפריט ניווט
       </a>
       
-      <nav id="navigation" className="bg-white shadow-sm border-b" role="navigation" aria-label="תפריט ניווט ראשי">
+      <nav id="navigation" className="bg-white shadow-sm border-b sticky top-0 z-40" role="navigation" aria-label="תפריט ניווט ראשי">
         <div className="container">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between items-center h-16">
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex flex-row-reverse items-center gap-6 lg:gap-8">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                    'hover:text-[var(--purple)] hover:bg-purple-50',
+                    pathname === item.href
+                      ? 'text-[var(--purple)] bg-purple-50'
+                      : 'text-gray-700'
+                  )}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="/contact"
+              className="rounded-full px-4 py-2 text-white font-medium hidden md:inline-flex"
+              style={{ background: 'var(--accent-gradient)' }}
+            >
+              מעוניינים לשמוע?
+            </Link>
+          </div>
+
           <div className="flex items-center">
-            <Link 
-              href="/" 
-              className="text-xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
+            <Link
+              href="/"
+              className="text-xl font-bold text-[var(--purple)] hover:opacity-80 transition-colors"
             >
               אוטומציה חכמה
             </Link>
           </div>
 
-          <div className="hidden md:flex flex-row-reverse items-center gap-6 lg:gap-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-                  'hover:text-blue-600 hover:bg-blue-50',
-                  pathname === item.href
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700'
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 rounded-md text-gray-700 hover:text-[var(--purple)] hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-[var(--purple)]"
               aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
             >
               {isOpen ? (
@@ -91,9 +100,9 @@ export function Navigation() {
                 onClick={() => setIsOpen(false)}
                 className={cn(
                   'block px-3 py-2 rounded-md text-base font-medium transition-colors',
-                  'hover:text-blue-600 hover:bg-blue-50',
+                  'hover:text-purple-600 hover:bg-purple-50',
                   pathname === item.href
-                    ? 'text-blue-600 bg-blue-50'
+                    ? 'text-purple-600 bg-purple-50'
                     : 'text-gray-700'
                 )}
               >

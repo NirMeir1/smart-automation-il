@@ -1,13 +1,14 @@
 'use client'
 
-import { Component, ReactNode } from 'react'
+import { Component, ReactNode, ErrorInfo } from 'react'
+import Link from 'next/link'
 import { AlertTriangle, RefreshCcw, Home } from 'lucide-react'
 import { logError } from '@/lib/error-handling'
 
 interface Props {
   children: ReactNode
   fallback?: ReactNode
-  onError?: (error: Error, errorInfo: any) => void
+  onError?: (error: Error, errorInfo: ErrorInfo) => void
 }
 
 interface State {
@@ -28,7 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError(error, {
       component: 'ErrorBoundary',
       componentStack: errorInfo.componentStack,
@@ -63,13 +64,13 @@ export class ErrorBoundary extends Component<Props, State> {
                 רענן דף
               </button>
               
-              <a
+              <Link
                 href="/"
                 className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <Home className="w-4 h-4" />
                 חזור לדף הבית
-              </a>
+              </Link>
             </div>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
@@ -93,7 +94,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // React 18 compatible error boundary hook
 export function useErrorHandler() {
-  return (error: Error, errorInfo?: any) => {
+  return (error: Error, errorInfo?: ErrorInfo) => {
     logError(error, errorInfo)
   }
 }

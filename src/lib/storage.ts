@@ -1,5 +1,5 @@
 import { Invoice, Expense, TimeSlot, Booking, Lead, EventLog } from './types'
-import { generateId, getMonthVATDueDate } from './utils'
+import { generateId } from './utils'
 
 const STORAGE_KEYS = {
   INVOICES: 'smart-automation-invoices',
@@ -11,7 +11,7 @@ const STORAGE_KEYS = {
   INITIALIZED: 'smart-automation-initialized'
 }
 
-class LocalStorage<T> {
+class LocalStorage<T extends { id: string }> {
   constructor(private key: string) {}
 
   get(): T[] {
@@ -40,18 +40,18 @@ class LocalStorage<T> {
     this.set(current)
   }
 
-  update(id: string, updater: (item: T) => T): void {
-    const current = this.get()
-    const index = current.findIndex((item: any) => item.id === id)
+    update(id: string, updater: (item: T) => T): void {
+      const current = this.get()
+      const index = current.findIndex((item) => item.id === id)
     if (index !== -1) {
       current[index] = updater(current[index])
       this.set(current)
     }
   }
 
-  delete(id: string): void {
-    const current = this.get()
-    const filtered = current.filter((item: any) => item.id !== id)
+    delete(id: string): void {
+      const current = this.get()
+      const filtered = current.filter((item) => item.id !== id)
     this.set(filtered)
   }
 
@@ -179,7 +179,7 @@ export function resetAllData() {
   logEvent('admin_reset', { timestamp: new Date() })
 }
 
-export function logEvent(type: EventLog['type'], details: Record<string, any>) {
+export function logEvent(type: EventLog['type'], details: Record<string, unknown>) {
   const event: EventLog = {
     id: generateId(),
     type,

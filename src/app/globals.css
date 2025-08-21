@@ -3,28 +3,31 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* design tokens */
-  --hero: #07C8A9;
-  --hero-700: #05B79A;
-  --navy: #0B2A4A;
-  --accent: #2B4FE8;
-  --text: #0F2340;
-  --muted: #F5F7FB;
+  --navy: #0E2A47;
+  --ink: #1C2B3A;
+  --muted: #F6F7FB;
   --card: #FFFFFF;
-  --radius: 14px;
+  --pink: #FF3E7F;
+  --purple: #7B3FE4;
+  --accent: #7B3FE4;
+  --accent-gradient: linear-gradient(90deg,#7B3FE4 0%,#FF3E7F 100%);
+  --radius: 24px;
   --gap: 24px;
-  --shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  --shadow: 0 10px 30px rgba(16,24,40,0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-heebo);
-  --hero: var(--hero);
-  --accent: var(--accent);
   --navy: var(--navy);
+  --ink: var(--ink);
   --muted: var(--muted);
-  --text: var(--text);
+  --card: var(--card);
+  --pink: var(--pink);
+  --purple: var(--purple);
+  --accent: var(--accent);
+  --accent-gradient: var(--accent-gradient);
 }
 
 /* Reset and base styles */
@@ -56,7 +59,7 @@ html {
 
 body {
   background: var(--background);
-  color: var(--text);
+  color: var(--ink);
   font-family: var(--font-heebo), system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -66,21 +69,21 @@ body {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 700;
   line-height: 1.5;
   color: var(--navy);
 }
 
 h2 {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 700;
   line-height: 1.5;
   color: var(--navy);
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.5;
   color: var(--navy);
@@ -211,7 +214,7 @@ h3 {
 /* Centered content container */
 .container {
   width: 100%;
-  max-width: 72rem; /* ~1152px */
+  max-width: 75rem; /* 1200px */
   margin-inline: auto;
   padding-inline: 1rem;
 }
@@ -219,5 +222,21 @@ h3 {
 @media (min-width: 640px) {
   .container {
     padding-inline: 1.5rem;
+  }
+}
+
+section {
+  padding-block: 80px;
+}
+
+@media (max-width: 1024px) {
+  section {
+    padding-block: 56px;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding-block: 40px;
   }
 }

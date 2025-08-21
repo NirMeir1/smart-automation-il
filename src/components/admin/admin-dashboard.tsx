@@ -138,12 +138,12 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
             { key: 'overview', label: 'סקירה', icon: BarChart3 },
             { key: 'data', label: 'ניהול נתונים', icon: Database },
             { key: 'events', label: 'יומן אירועים', icon: Eye }
-          ].map(({ key, label, icon: Icon }) => (
-            <button
-              key={key}
-              onClick={() => setSelectedTab(key as any)}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors flex-1 justify-center",
+            ].map(({ key, label, icon: Icon }) => (
+              <button
+                key={key}
+                onClick={() => setSelectedTab(key)}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors flex-1 justify-center",
                 selectedTab === key
                   ? "bg-white text-blue-600 shadow-sm"
                   : "text-gray-600 hover:text-gray-800"
