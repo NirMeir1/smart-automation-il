@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Bot, Calendar, FileText, MessageSquare, Zap } from 'lucide-react'
+import { Bot, Calendar, FileText, MessageSquare, Zap } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
         <div className="container">
           <div className="text-center">
             <h1 className="mb-6 text-[var(--navy)]">
-              אוטומציה <span className="bg-clip-text text-transparent" style={{ background: 'var(--accent-gradient)' }}>חכמה לעסק</span> שלך
+              אוטומציה <span className="bg-clip-text text-transparent" style={{ background: 'var(--accent)' }}>חכמה לעסק</span> שלך
             </h1>
             <div className="max-w-[70ch] mx-auto mb-10">
               <p className="text-right text-[var(--navy)]">
@@ -20,16 +20,16 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/contact?type=consultation"
-                className="rounded-full px-8 py-4 text-white font-semibold inline-flex items-center gap-3"
-                style={{ background: 'var(--accent-gradient)' }}
+                className="rounded-full px-6 py-3.5 text-white font-semibold inline-flex items-center justify-center gap-2 transition-transform hover:scale-105 focus:scale-105 focus:outline-none"
+                style={{ background: 'var(--accent)' }}
                 aria-label="קבעו שיחת ייעוץ חינמית"
               >
+                <Calendar className="w-5 h-5" />
                 קבעו שיחת ייעוץ
-                <ArrowLeft className="w-5 h-5" />
               </Link>
               <Link
                 href="/demos"
-                className="text-[var(--purple)] underline font-semibold min-w-[44px] min-h-[44px] inline-flex items-center gap-3"
+                className="text-[var(--accent-from)] underline font-semibold min-w-[44px] min-h-[44px] inline-flex items-center gap-3"
                 aria-label="נסו את הדמו האינטראקטיבי שלנו"
               >
                 נסו דמו
@@ -43,10 +43,10 @@ export default function Home() {
       <section className="py-20 bg-white">
         <div className="container text-center">
           <h2 className="mb-12">פתרונות אוטומציה מתקדמים</h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--gap)] text-right">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--space-4)] text-right">
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
               <div className="flex flex-col items-center mb-4">
-                <FileText className="w-12 h-12 text-[var(--accent)] mb-4" />
+                <FileText className="w-10 h-10 text-[var(--accent-from)] mb-4" />
                 <h3 className="mb-2">ניהול מס ערך מוסף</h3>
                 <p className="text-[var(--ink)]">
                   מערכת חכמה לניהול חשבוניות והוצאות עם חישוב מע״ם אוטומטי ותזכורות לתשלום
@@ -56,7 +56,7 @@ export default function Home() {
 
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
               <div className="flex flex-col items-center mb-4">
-                <Calendar className="w-12 h-12 text-[var(--accent)] mb-4" />
+                <Calendar className="w-10 h-10 text-[var(--accent-from)] mb-4" />
                 <h3 className="mb-2">קיבוע פגישות אוטומטי</h3>
                 <p className="text-[var(--ink)]">
                   בוט חכם לניהול יומן ושליחת תזכורות ללקוחות באופן אוטומטי
@@ -66,7 +66,7 @@ export default function Home() {
 
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
               <div className="flex flex-col items-center mb-4">
-                <MessageSquare className="w-12 h-12 text-[var(--accent)] mb-4" />
+                <MessageSquare className="w-10 h-10 text-[var(--accent-from)] mb-4" />
                 <h3 className="mb-2">ניהול לידים אוטומטי</h3>
                 <p className="text-[var(--ink)]">
                   לכידת לידים ומעקב אוטומטי עם תזכורות למכירות ותגובות אוטומטיות
@@ -81,27 +81,27 @@ export default function Home() {
       <section className="py-20 bg-[var(--muted)]">
         <div className="container text-center">
           <h2 className="mb-12">למה לבחור בנו?</h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--gap)]">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--space-4)]">
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] text-center">
-              <Bot className="w-12 h-12 text-[var(--accent)] mx-auto mb-4" />
+              <Bot className="w-10 h-10 text-[var(--accent-from)] mx-auto mb-4" />
               <h3 className="mb-3">טכנולוגיה מתקדמת</h3>
               <p className="text-[var(--ink)] text-right">פתרונות מבוססי AI ואוטומציה חכמה</p>
             </div>
 
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] text-center">
-              <Zap className="w-12 h-12 text-[var(--accent)] mx-auto mb-4" />
+              <Zap className="w-10 h-10 text-[var(--accent-from)] mx-auto mb-4" />
               <h3 className="mb-3">יישום מהיר</h3>
               <p className="text-[var(--ink)] text-right">התקנה ויישום תוך שבועיים</p>
             </div>
 
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] text-center">
-              <MessageSquare className="w-12 h-12 text-[var(--accent)] mx-auto mb-4" />
+              <MessageSquare className="w-10 h-10 text-[var(--accent-from)] mx-auto mb-4" />
               <h3 className="mb-3">תמיכה בעברית</h3>
               <p className="text-[var(--ink)] text-right">מותאם למשתמשים ישראלים</p>
             </div>
 
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] text-center">
-              <FileText className="w-12 h-12 text-[var(--accent)] mx-auto mb-4" />
+              <FileText className="w-10 h-10 text-[var(--accent-from)] mx-auto mb-4" />
               <h3 className="mb-3">תיעוד מלא</h3>
               <p className="text-[var(--ink)] text-right">הדרכה ותמיכה מתמשכת</p>
             </div>
@@ -113,7 +113,7 @@ export default function Home() {
         <section className="py-20 bg-white">
           <div className="container text-center">
             <h2 className="mb-12">איך זה עובד?</h2>
-            <div className="flex flex-col md:flex-row gap-[var(--gap)]">
+            <div className="flex flex-col md:flex-row gap-[var(--space-4)]">
               {[{
                 step: 'מיפוי',
                 desc: 'נזהה את הצרכים והיעדים',
@@ -132,7 +132,7 @@ export default function Home() {
               }].map((item, index) => (
                 <div key={item.step} className="flex-1">
                   <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] h-full flex flex-col items-center">
-                    <span className="text-2xl font-bold text-[var(--accent)] mb-3">{index + 1}</span>
+                    <span className="text-2xl font-bold text-[var(--accent-from)] mb-3">{index + 1}</span>
                     <h3 className="mb-2">{item.step}</h3>
                     <p className="text-[var(--ink)] text-right">{item.desc}</p>
                   </div>
@@ -151,13 +151,13 @@ export default function Home() {
               <img src="/next.svg" alt="Next" className="h-8 w-auto" />
               <img src="/globe.svg" alt="Globe" className="h-8 w-auto" />
             </div>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-[var(--gap)]">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-[var(--space-4)]">
               <div className="text-center">
-                <p className="text-4xl font-bold text-[var(--accent)]">+25%</p>
+                <p className="text-4xl font-bold text-[var(--accent-from)]">+25%</p>
                 <p className="text-[var(--ink)]">המרות</p>
               </div>
               <div className="text-center">
-                <p className="text-4xl font-bold text-[var(--accent)]">-40</p>
+                <p className="text-4xl font-bold text-[var(--accent-from)]">-40</p>
                 <p className="text-[var(--ink)]">שעות עבודה לחודש</p>
               </div>
             </div>
@@ -168,16 +168,16 @@ export default function Home() {
         <section className="py-20 bg-white">
           <div className="container text-center">
             <h2 className="mb-12">סיפורי הצלחה</h2>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--gap)] text-right">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--space-4)] text-right">
               <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
                 <h3 className="mb-2 text-center">חברת תוכנה</h3>
                 <p className="mb-4 text-[var(--ink)]">הפחתת זמן תיאום פגישות ב-60%</p>
-                <Link href="#" className="text-[var(--accent)] underline">לפרטים</Link>
+                <Link href="#" className="text-[var(--accent-from)] underline">לפרטים</Link>
               </div>
               <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
                 <h3 className="mb-2 text-center">סטודיו דיגיטל</h3>
                 <p className="mb-4 text-[var(--ink)]">+30% לידים בחודש הראשון</p>
-                <Link href="#" className="text-[var(--accent)] underline">לפרטים</Link>
+                <Link href="#" className="text-[var(--accent-from)] underline">לפרטים</Link>
               </div>
             </div>
           </div>
@@ -206,13 +206,13 @@ export default function Home() {
         </section>
 
         {/* Final Section */}
-        <section className="py-20 mt-auto text-white" style={{ background: 'var(--accent-gradient)' }}>
+        <section className="py-20 mt-auto text-white" style={{ background: 'var(--accent)' }}>
           <div className="container text-center">
             <h2 className="text-white mb-6">מוכנים להתחיל?</h2>
             <div className="max-w-[70ch] mx-auto mb-10">
               <p className="text-white text-right">שיחת היכרות ללא עלות וללא התחייבות</p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row-reverse gap-4 justify-center">
               <Link
                 href="/contact?type=consultation"
                 className="bg-white text-[var(--navy)] px-8 py-4 rounded-[var(--radius)] font-semibold hover:shadow focus:shadow focus:outline-none transition-colors duration-200"

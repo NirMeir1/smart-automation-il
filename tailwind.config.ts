@@ -14,6 +14,25 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        navy: "var(--navy)",
+        ink: "var(--ink)",
+        muted: "var(--muted)",
+        card: "var(--card)",
+        outline: "var(--outline)",
+        "accent-from": "var(--accent-from)",
+        "accent-to": "var(--accent-to)",
+        accent: "var(--accent)",
+      },
+      boxShadow: {
+        card: "var(--shadow)",
+      },
+      borderRadius: {
+        DEFAULT: "var(--radius-sm)",
+        lg: "var(--radius)",
+        full: "9999px",
+      },
+      backgroundImage: {
+        accent: "var(--accent)",
       },
       spacing: {
         'safe-top': 'env(safe-area-inset-top)',

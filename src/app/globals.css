@@ -7,13 +7,18 @@
   --ink: #1C2B3A;
   --muted: #F6F7FB;
   --card: #FFFFFF;
-  --pink: #FF3E7F;
-  --purple: #7B3FE4;
-  --accent: #7B3FE4;
-  --accent-gradient: linear-gradient(90deg,#7B3FE4 0%,#FF3E7F 100%);
+  --outline: #E6EAF2;
+  --accent-from: #6C4CE3;
+  --accent-to: #FF4E86;
+  --accent: linear-gradient(90deg, var(--accent-from), var(--accent-to));
   --radius: 24px;
-  --gap: 24px;
+  --radius-sm: 20px;
   --shadow: 0 10px 30px rgba(16,24,40,0.08);
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
 }
 
 @theme inline {
@@ -24,10 +29,10 @@
   --ink: var(--ink);
   --muted: var(--muted);
   --card: var(--card);
-  --pink: var(--pink);
-  --purple: var(--purple);
+  --outline: var(--outline);
+  --accent-from: var(--accent-from);
+  --accent-to: var(--accent-to);
   --accent: var(--accent);
-  --accent-gradient: var(--accent-gradient);
 }
 
 /* Reset and base styles */
