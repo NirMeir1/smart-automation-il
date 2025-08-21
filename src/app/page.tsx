@@ -5,15 +5,15 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-bl from-blue-50 via-indigo-50 to-purple-50 py-20">
+      <section className="bg-[var(--color-hero)] py-20">
         <div className="container">
           <div className="text-center">
-            <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 leading-[1.5] mb-6">
+            <h1 className="mb-6">
               אוטומציה חכמה
-              <span className="block text-2xl sm:text-[2rem] font-bold text-blue-700 mt-3">לעסק שלך</span>
+              <span className="block mt-3">לעסק שלך</span>
             </h1>
             <div className="max-w-[70ch] mx-auto mb-10">
-              <p className="text-base leading-[1.5] text-gray-700 text-right">
+              <p className="text-right text-[var(--color-navy)]">
                 מומחה באוטומציה עסקית, בוטים חכמים ופתרונות טכנולוגיים מתקדמים.
                 חסוך זמן יקר ושפר את היעילות העסקית שלך עם פתרונות מותאמים אישית.
               </p>
@@ -21,7 +21,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/demos"
-                className="bg-blue-700 text-white px-8 py-4 rounded-lg text-base font-semibold hover:bg-blue-800 focus:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition-colors duration-200 min-w-[44px] min-h-[44px] inline-flex items-center gap-3"
+                className="bg-white text-[var(--color-navy)] px-8 py-4 rounded-[var(--radius)] text-base font-semibold hover:shadow focus:shadow focus:outline-none transition-colors duration-200 min-w-[44px] min-h-[44px] inline-flex items-center gap-3"
                 aria-label="נסו את הדמו האינטראקטיבי שלנו"
               >
                 נסו דמו
@@ -29,7 +29,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/contact?type=consultation"
-                className="border-2 border-blue-700 text-blue-700 px-8 py-4 rounded-lg text-base font-semibold hover:bg-blue-700 hover:text-white focus:bg-blue-700 focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition-colors duration-200 min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
+                className="border-2 border-white text-white px-8 py-4 rounded-[var(--radius)] text-base font-semibold hover:bg-white hover:text-[var(--color-navy)] focus:bg-white focus:text-[var(--color-navy)] focus:outline-none transition-colors duration-200 min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
                 aria-label="קבעו שיחת ייעוץ חינמית"
               >
                 קבעו שיחת ייעוץ
@@ -41,44 +41,36 @@ export default function Home() {
 
       {/* Solutions Section */}
       <section className="py-20 bg-white">
-        <div className="container">
-          <h2 className="text-2xl font-bold text-gray-900 leading-[1.5] text-center mb-12">
-            פתרונות אוטומציה מתקדמים
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="flex flex-row-reverse items-start gap-4 mb-4">
-                <FileText className="w-12 h-12 text-blue-600 flex-shrink-0" />
-                <div className="text-right">
-                  <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-2">ניהול מס ערך מוסף</h3>
-                  <p className="text-base text-gray-600 leading-[1.5]">
-                    מערכת חכמה לניהול חשבוניות והוצאות עם חישוב מע״ם אוטומטי ותזכורות לתשלום
-                  </p>
-                </div>
+        <div className="container text-center">
+          <h2 className="mb-12">פתרונות אוטומציה מתקדמים</h2>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--gap)] text-right">
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)]">
+              <div className="flex flex-col items-center mb-4">
+                <FileText className="w-12 h-12 text-[var(--color-accent)] mb-4" />
+                <h3 className="mb-2">ניהול מס ערך מוסף</h3>
+                <p className="text-[var(--color-text)]">
+                  מערכת חכמה לניהול חשבוניות והוצאות עם חישוב מע״ם אוטומטי ותזכורות לתשלום
+                </p>
               </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="flex flex-row-reverse items-start gap-4 mb-4">
-                <Calendar className="w-12 h-12 text-green-600 flex-shrink-0" />
-                <div className="text-right">
-                  <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-2">קיבוע פגישות אוטומטי</h3>
-                  <p className="text-base text-gray-600 leading-[1.5]">
-                    בוט חכם לניהול יומן ושליחת תזכורות ללקוחות באופן אוטומטי
-                  </p>
-                </div>
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)]">
+              <div className="flex flex-col items-center mb-4">
+                <Calendar className="w-12 h-12 text-[var(--color-accent)] mb-4" />
+                <h3 className="mb-2">קיבוע פגישות אוטומטי</h3>
+                <p className="text-[var(--color-text)]">
+                  בוט חכם לניהול יומן ושליחת תזכורות ללקוחות באופן אוטומטי
+                </p>
               </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="flex flex-row-reverse items-start gap-4 mb-4">
-                <MessageSquare className="w-12 h-12 text-purple-600 flex-shrink-0" />
-                <div className="text-right">
-                  <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-2">ניהול לידים אוטומטי</h3>
-                  <p className="text-base text-gray-600 leading-[1.5]">
-                    לכידת לידים ומעקב אוטומטי עם תזכורות למכירות ותגובות אוטומטיות
-                  </p>
-                </div>
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)]">
+              <div className="flex flex-col items-center mb-4">
+                <MessageSquare className="w-12 h-12 text-[var(--color-accent)] mb-4" />
+                <h3 className="mb-2">ניהול לידים אוטומטי</h3>
+                <p className="text-[var(--color-text)]">
+                  לכידת לידים ומעקב אוטומטי עם תזכורות למכירות ותגובות אוטומטיות
+                </p>
               </div>
             </div>
           </div>
@@ -86,45 +78,43 @@ export default function Home() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container">
-          <h2 className="text-2xl font-bold text-gray-900 leading-[1.5] text-center mb-12">
-            למה לבחור בנו?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-center">
-              <Bot className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-3">טכנולוגיה מתקדמת</h3>
-              <p className="text-base text-gray-600 leading-[1.5] text-right">פתרונות מבוססי AI ואוטומציה חכמה</p>
+      <section className="py-20 bg-[var(--color-muted)]">
+        <div className="container text-center">
+          <h2 className="mb-12">למה לבחור בנו?</h2>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--gap)]">
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)] text-center">
+              <Bot className="w-12 h-12 text-[var(--color-accent)] mx-auto mb-4" />
+              <h3 className="mb-3">טכנולוגיה מתקדמת</h3>
+              <p className="text-[var(--color-text)] text-right">פתרונות מבוססי AI ואוטומציה חכמה</p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-center">
-              <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-3">יישום מהיר</h3>
-              <p className="text-base text-gray-600 leading-[1.5] text-right">התקנה ויישום תוך שבועיים</p>
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)] text-center">
+              <Zap className="w-12 h-12 text-[var(--color-accent)] mx-auto mb-4" />
+              <h3 className="mb-3">יישום מהיר</h3>
+              <p className="text-[var(--color-text)] text-right">התקנה ויישום תוך שבועיים</p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-center">
-              <MessageSquare className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-3">תמיכה בעברית</h3>
-              <p className="text-base text-gray-600 leading-[1.5] text-right">מותאם למשתמשים ישראלים</p>
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)] text-center">
+              <MessageSquare className="w-12 h-12 text-[var(--color-accent)] mx-auto mb-4" />
+              <h3 className="mb-3">תמיכה בעברית</h3>
+              <p className="text-[var(--color-text)] text-right">מותאם למשתמשים ישראלים</p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-center">
-              <FileText className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 leading-[1.5] mb-3">תיעוד מלא</h3>
-              <p className="text-base text-gray-600 leading-[1.5] text-right">הדרכה ותמיכה מתמשכת</p>
+            <div className="bg-white p-6 rounded-[var(--radius)] shadow-[0_6px_18px_rgba(0,0,0,0.06)] text-center">
+              <FileText className="w-12 h-12 text-[var(--color-accent)] mx-auto mb-4" />
+              <h3 className="mb-3">תיעוד מלא</h3>
+              <p className="text-[var(--color-text)] text-right">הדרכה ותמיכה מתמשכת</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Final Section */}
-      <section className="py-20 bg-blue-700 mt-auto">
+      <section className="py-20 bg-[var(--color-accent)] mt-auto">
         <div className="container text-center">
-          <h2 className="text-2xl font-bold text-white leading-[1.5] mb-6">מוכנים להתחיל?</h2>
+          <h2 className="text-white mb-6">מוכנים להתחיל?</h2>
           <div className="max-w-[70ch] mx-auto mb-10">
-            <p className="text-base text-blue-100 leading-[1.5] text-right">
+            <p className="text-white text-right">
               בואו נראה איך אוטומציה יכולה לשנות את העסק שלכם
             </p>
           </div>

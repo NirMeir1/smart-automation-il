@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
       <body className={`${heebo.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
         <ClientProvider>
-          <div className="min-h-screen flex flex-col pb-24 sm:pb-0">
+          <div className="min-h-screen flex flex-col">
             <Navigation />
             <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
               {children}
