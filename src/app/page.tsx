@@ -9,7 +9,9 @@ export default function Home() {
         <div className="container">
           <div className="text-center">
             <h1 className="mb-6 text-[var(--navy)]">
-              אוטומציה <span className="bg-clip-text text-transparent" style={{ background: 'var(--accent)' }}>חכמה לעסק</span> שלך
+              <span>אוטומציה </span>
+              <span className="bg-clip-text text-transparent" style={{ background: 'var(--accent)' }}>חכמה לעסק </span>
+              <span>שלך</span>
             </h1>
             <div className="max-w-[70ch] mx-auto mb-10">
               <p className="text-right text-[var(--navy)]">
