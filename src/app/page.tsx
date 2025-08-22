@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/contact?type=consultation"
-                className="rounded-full px-6 py-[14px] min-h-[44px] text-white font-semibold inline-flex items-center justify-center gap-2 transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
+                className="rounded-full px-6 py-[14px] min-h-[44px] text-white font-semibold inline-flex flex-row-reverse items-center justify-center gap-2 transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
                 style={{ background: 'var(--accent)' }}
                 aria-label="קבעו שיחת ייעוץ חינמית"
               >
@@ -53,7 +53,7 @@ export default function Home() {
       <section className="py-20 bg-white">
         <div className="container text-center">
           <h2 className="mb-12">פתרונות אוטומציה מתקדמים</h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--space-4)] text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[var(--space-4)] text-right">
             <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
               <div className="flex flex-col items-center mb-4">
                 <FileText className="w-10 h-10 text-[var(--accent-from)] mb-4" />
@@ -178,7 +178,7 @@ export default function Home() {
         <section className="py-20 bg-white">
           <div className="container text-center">
             <h2 className="mb-12">סיפורי הצלחה</h2>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[var(--space-4)] text-right">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[var(--space-4)] text-right">
               <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
                 <h3 className="mb-2 text-center">חברת תוכנה</h3>
                 <p className="mb-4 text-[var(--ink)]">הפחתת זמן תיאום פגישות ב-60%</p>

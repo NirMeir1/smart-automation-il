@@ -1,5 +1,12 @@
 # Changelog
 
+## [2025-08-22] - RTL layout refinements
+
+### Changed
+- **Button Component**: use logical margin (`ms-2`) for spinner spacing in RTL contexts and updated tests.
+- **Home Page**: reversed hero CTA icon order and enforced 3/2/1 responsive grids for solution and case-study cards.
+- **Contact Dock**: icons now appear after text with `flex-row-reverse` for proper RTL alignment.
+
 ## [2024-08-22] - Theme System Implementation
 
 ### Added
