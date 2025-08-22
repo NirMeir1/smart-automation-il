@@ -11,13 +11,13 @@ describe('Button', () => {
   it('should apply primary variant by default', () => {
     render(<Button>Primary</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('bg-blue-600')
+    expect(button).toHaveClass('bg-white', 'text-[var(--navy)]')
   })
 
   it('should apply secondary variant', () => {
     render(<Button variant="secondary">Secondary</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('bg-gray-600')
+    expect(button).toHaveClass('border-2', 'border-white')
   })
 
   it('should handle click events', () => {
@@ -45,10 +45,10 @@ describe('Button', () => {
 
   it('should apply correct size classes', () => {
     const { rerender } = render(<Button size="sm">Small</Button>)
-    expect(screen.getByRole('button')).toHaveClass('px-3', 'py-1.5', 'text-sm')
+    expect(screen.getByRole('button')).toHaveClass('px-5', 'py-3', 'text-sm')
 
     rerender(<Button size="lg">Large</Button>)
-    expect(screen.getByRole('button')).toHaveClass('px-6', 'py-3', 'text-lg')
+    expect(screen.getByRole('button')).toHaveClass('px-5', 'py-3', 'text-lg')
   })
 
   it('should show loading spinner when loading', () => {

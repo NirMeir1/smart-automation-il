@@ -54,7 +54,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading ? (
           <>
-            <div className="animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent ml-2" />
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent ms-2" />
             <span className="sr-only">טוען...</span>
             {children}
           </>
