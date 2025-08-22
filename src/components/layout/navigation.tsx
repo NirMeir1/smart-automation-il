@@ -35,7 +35,7 @@ export function Navigation() {
         עבור לתפריט ניווט
       </a>
       
-      <nav id="navigation" className="bg-white shadow-sm border-b sticky top-0 z-40" role="navigation" aria-label="תפריט ניווט ראשי">
+      <nav id="navigation" className="bg-[var(--card)] border-b border-[var(--outline)] sticky top-0 z-40" role="navigation" aria-label="תפריט ניווט ראשי" style={{ boxShadow: 'var(--shadow)' }}>
         <div className="container">
         <div className="flex justify-between items-center h-16">
           <div className="hidden md:flex items-center gap-6">
@@ -49,7 +49,7 @@ export function Navigation() {
                     'hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
                     pathname === item.href
                       ? 'text-[var(--accent-from)] bg-[var(--muted)]'
-                      : 'text-gray-700'
+                      : 'text-[var(--ink)]'
                   )}
                 >
                   {item.name}
@@ -77,7 +77,8 @@ export function Navigation() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-[var(--accent-from)] hover:bg-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)]"
+              className="p-2 text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)]"
+              style={{ borderRadius: 'var(--radius-sm)' }}
               aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
             >
               {isOpen ? (
@@ -92,7 +93,7 @@ export function Navigation() {
 
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-[var(--card)]" style={{ boxShadow: 'var(--shadow)' }}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -103,7 +104,7 @@ export function Navigation() {
                   'hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
                   pathname === item.href
                     ? 'text-[var(--accent-from)] bg-[var(--muted)]'
-                    : 'text-gray-700'
+                    : 'text-[var(--ink)]'
                 )}
               >
                 {item.name}

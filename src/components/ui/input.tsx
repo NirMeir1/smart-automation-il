@@ -18,7 +18,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label 
             htmlFor={inputId}
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-[var(--navy)]"
           >
             {label}
             {props.required && <span className="text-red-500 mr-1">*</span>}
@@ -28,13 +28,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           id={inputId}
           className={cn(
-            "w-full px-3 py-2 border border-gray-300 rounded-md text-sm",
-            "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-            "disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed",
-            "placeholder:text-gray-400",
+            "w-full px-3 py-2 border border-[var(--outline)] text-sm",
+            "focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)] focus:border-transparent",
+            "disabled:bg-[var(--muted)] disabled:text-[var(--ink)] disabled:cursor-not-allowed",
+            "placeholder:text-[var(--ink)] placeholder:opacity-60",
             error && "border-red-500 focus:ring-red-500",
             className
           )}
+          style={{ borderRadius: 'var(--radius-sm)' }}
           ref={ref}
           aria-invalid={error ? 'true' : 'false'}
           aria-describedby={cn(errorId, helperId).trim() || undefined}
@@ -42,7 +43,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         />
         
         {helper && !error && (
-          <p id={helperId} className="text-sm text-gray-600">
+          <p id={helperId} className="text-sm text-[var(--ink)] opacity-70">
             {helper}
           </p>
         )}

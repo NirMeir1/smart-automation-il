@@ -1,5 +1,57 @@
 # Changelog
 
+## [2024-08-22] - Theme System Implementation
+
+### Added
+- **Central Theme System**: Created `src/lib/theme.ts` with centralized design tokens
+  - Colors: navy (#0E2A47), ink (#1C2B3A), muted (#F6F7FB), card (#FFFFFF), outline (#E6EAF2)
+  - Accent gradient: #6C4CE3 → #FF4E86
+  - Typography: H1 (56px/700), H2 (40px/700), H3 (22px/600), body (16px/400), line-height 1.5
+  - Border radius: 24px (standard), 20px (small)
+  - Shadow: 0 10px 30px rgba(16,24,40,0.08)
+
+### Changed
+- **Button Component**: Replaced hardcoded Tailwind colors with CSS variables
+  - Primary buttons now use accent gradient background
+  - Secondary, outline, and ghost variants use theme colors
+  - Focus states use accent color instead of hardcoded blue
+  - Border radius uses theme variable (--radius-sm)
+
+- **Input Component**: Updated styling to use theme variables
+  - Labels use navy color from theme
+  - Borders use outline color from theme
+  - Focus states use accent color
+  - Helper text uses ink color with opacity
+  - Border radius uses theme variable
+
+- **Modal Component**: Migrated to theme-based styling
+  - Background uses card color from theme
+  - Headers use navy color for text
+  - Borders use outline color
+  - Shadow uses theme shadow variable
+  - Border radius uses theme variable (--radius)
+
+- **Toast Component**: Updated notification styling
+  - Background uses card color
+  - Shadow uses theme shadow variable
+  - Border radius uses theme variable (--radius-sm)
+  - Close button hover states use muted color
+
+- **Navigation Component**: Replaced hardcoded colors with theme variables
+  - Background uses card color
+  - Text colors use ink color for inactive states
+  - Border uses outline color
+  - Shadow uses theme shadow variable
+  - Mobile menu styling updated to match theme
+
+### Technical Details
+- All components now read from CSS variables defined in `globals.css`
+- Maintained existing functionality while improving design consistency
+- No breaking changes to component APIs
+- Build and development server tested successfully
+
+## Previous Changes
+
 - Centered all content using a shared container and renamed design tokens to new theme variables.
 - Expanded the home page with process, proof, case studies, and FAQ sections for clearer flow and added a final CTA block.
 - Replaced the floating CTA with a fixed bottom contact dock to keep contact options accessible without covering content.

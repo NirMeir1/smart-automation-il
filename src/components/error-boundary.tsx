@@ -75,10 +75,10 @@ export class ErrorBoundary extends Component<Props, State> {
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mt-6 text-right">
-                <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
+                <summary className="cursor-pointer text-sm text-[var(--ink)] hover:text-[var(--accent-from)] min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-from)] focus-visible:ring-offset-2 transition-colors">
                   פרטי השגיאה (פיתוח)
                 </summary>
-                <pre className="mt-2 p-4 bg-gray-100 rounded text-xs text-gray-800 overflow-auto text-left">
+                <pre className="mt-2 p-4 bg-[var(--muted)] text-xs text-[var(--ink)] overflow-auto text-left" style={{ borderRadius: 'var(--radius-sm)' }}>
                   {this.state.error.stack}
                 </pre>
               </details>

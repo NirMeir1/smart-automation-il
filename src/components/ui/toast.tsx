@@ -59,10 +59,12 @@ export function ToastComponent({ id, type, title, message, duration = 5000, onCl
   return (
     <div
       className={cn(
-        "flex items-start gap-3 p-4 rounded-lg border shadow-lg transition-all duration-300",
+        "flex items-start gap-3 p-4 border transition-all duration-300",
+        "shadow-[var(--shadow)] bg-[var(--card)]",
         styles[type],
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
       )}
+      style={{ borderRadius: 'var(--radius-sm)' }}
       role="alert"
       aria-live="polite"
     >
@@ -78,7 +80,8 @@ export function ToastComponent({ id, type, title, message, duration = 5000, onCl
           setIsVisible(false)
           setTimeout(() => onClose(id), 300)
         }}
-        className="flex-shrink-0 p-1 hover:bg-black hover:bg-opacity-5 rounded-md transition-colors"
+        className="flex-shrink-0 p-1 hover:bg-[var(--muted)] transition-colors"
+        style={{ borderRadius: 'var(--radius-sm)' }}
         aria-label="סגור הודעה"
       >
         <X className="w-4 h-4" />

@@ -60,7 +60,8 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       <div
         ref={modalRef}
         className={cn(
-          "relative bg-white rounded-lg shadow-xl mx-4 max-h-[90vh] overflow-y-auto",
+          "relative bg-[var(--card)] mx-4 max-h-[90vh] overflow-y-auto",
+          "shadow-[var(--shadow)]",
           {
             'max-w-sm': size === 'sm',
             'max-w-md': size === 'md',
@@ -68,16 +69,18 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
             'max-w-4xl': size === 'xl',
           }
         )}
+        style={{ borderRadius: 'var(--radius)' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b">
-          <h2 id="modal-title" className="text-xl font-semibold text-gray-900">
+        <div className="flex items-center justify-between p-6 border-b border-[var(--outline)]">
+          <h2 id="modal-title" className="text-xl font-semibold text-[var(--navy)]">
             {title}
           </h2>
           <button
             onClick={onClose}
             data-dismiss="true"
-            className="p-2 hover:bg-gray-100 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 hover:bg-[var(--muted)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)]"
+            style={{ borderRadius: 'var(--radius-sm)' }}
             aria-label="סגור חלון"
           >
             <X className="w-5 h-5" />

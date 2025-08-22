@@ -22,28 +22,31 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           // Base styles
-          "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-          "disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center font-medium min-h-[44px] rounded-full",
+          "transition-all duration-200 ease-out",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-from)] focus-visible:ring-offset-2",
+          "hover:scale-[1.02] hover:shadow-[var(--shadow)]",
+          "disabled:pointer-events-none disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none",
           
           // Variants
           {
-            'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800': variant === 'primary',
-            'bg-gray-600 text-white hover:bg-gray-700 active:bg-gray-800': variant === 'secondary',
-            'border border-gray-300 bg-transparent text-gray-900 hover:bg-gray-50 active:bg-gray-100': variant === 'outline',
-            'bg-transparent text-gray-600 hover:bg-gray-100 active:bg-gray-200': variant === 'ghost',
-            'bg-red-600 text-white hover:bg-red-700 active:bg-red-800': variant === 'danger',
+            'bg-white text-[var(--navy)]': variant === 'primary',
+            'bg-transparent text-white border-2 border-white hover:bg-white hover:text-[var(--navy)]': variant === 'secondary',
+            'border border-[var(--outline)] bg-transparent text-[var(--navy)] hover:bg-[var(--muted)]': variant === 'outline',
+            'bg-transparent text-[var(--ink)] hover:bg-[var(--muted)]': variant === 'ghost',
+            'bg-red-600 text-white hover:bg-red-700': variant === 'danger',
           },
           
-          // Sizes
+          // Sizes - all use 12px vertical, 20px horizontal padding
           {
-            'px-3 py-1.5 text-sm': size === 'sm',
-            'px-4 py-2 text-base': size === 'md',
-            'px-6 py-3 text-lg': size === 'lg',
+            'px-5 py-3 text-sm': size === 'sm',
+            'px-5 py-3 text-base': size === 'md', 
+            'px-5 py-3 text-lg': size === 'lg',
           },
           
           className
         )}
+        style={{}}
         ref={ref}
         disabled={disabled || loading}
         aria-busy={loading}
