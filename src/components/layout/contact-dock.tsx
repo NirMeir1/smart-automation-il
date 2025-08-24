@@ -6,7 +6,7 @@ import { Phone, MessageCircle, Mail } from 'lucide-react'
 export function ContactDock() {
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-50 h-16 pb-safe-bottom"
+      className="fixed inset-x-0 bottom-0 z-50 h-16 pb-safe-bottom md:hidden"
       style={{ background: 'var(--accent)' }}
     >
       <div className="container h-full flex justify-center items-center gap-4">

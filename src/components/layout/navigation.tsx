@@ -57,7 +57,7 @@ export function Navigation() {
             </div>
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 min-h-[44px] text-white font-medium transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
+              className="hidden md:inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-lg min-h-[44px] text-white font-semibold transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
               style={{ background: 'var(--accent)' }}
             >
               מעוניינים לשמוע?

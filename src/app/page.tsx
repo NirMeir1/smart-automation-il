@@ -17,9 +17,9 @@ export default function Home() {
                   WebkitBackgroundClip: 'text'
                 }}
               >
-                חכמה לעסק 
+                חכמה לעסק
               </span>
-              <span className="text-[var(--navy)]">שלך</span>
+              <span className="text-[var(--navy)]">{'\u00A0'}שלך</span>
             </h1>
             <div className="max-w-[70ch] mx-auto mb-10">
               <p className="text-right text-[var(--navy)]">
@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/contact?type=consultation"
-                className="rounded-full px-6 py-[14px] min-h-[44px] text-white font-semibold inline-flex flex-row-reverse items-center justify-center gap-2 transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
+                className="rounded-full px-8 py-4 min-h-[44px] text-lg text-white font-semibold inline-flex flex-row-reverse items-center justify-center gap-2 transition-transform hover:scale-105 hover:shadow-[var(--shadow)] focus-visible:scale-105 focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
                 style={{ background: 'var(--accent)' }}
                 aria-label="קבעו שיחת ייעוץ חינמית"
               >
@@ -143,7 +143,7 @@ export default function Home() {
                 <div key={item.step} className="flex-1">
                   <div className="bg-[var(--card)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] h-full flex flex-col items-center">
                     <span className="text-2xl font-bold text-[var(--accent-from)] mb-3">{index + 1}</span>
-                    <h3 className="mb-2">{item.step}</h3>
+                    <h3 className="mb-4 text-lg font-semibold">{item.step}</h3>
                     <p className="text-[var(--ink)] text-right">{item.desc}</p>
                   </div>
                 </div>
