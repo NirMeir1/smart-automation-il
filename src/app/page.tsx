@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Bot, Calendar, FileText, MessageSquare, Zap } from 'lucide-react'
+import { PainPointForm } from '@/components/sections/pain-point-form'
 
 export default function Home() {
   return (
@@ -117,6 +118,18 @@ export default function Home() {
             </div>
           </div>
         </div>
+        </section>
+
+        <section className="py-20 bg-white">
+          <div className="container">
+            <div className="text-center mb-8">
+              <h2 className="mb-3">ספרו לי על הבעיה בעסק</h2>
+              <p className="text-[var(--ink)] max-w-[70ch] mx-auto">
+                כתבו בקצרה את הכאב התפעולי שחוזר על עצמו – אחזור אליכם עם הצעה לפתרון אוטומטי.
+              </p>
+            </div>
+            <PainPointForm />
+          </div>
         </section>
 
         {/* Process Section */}

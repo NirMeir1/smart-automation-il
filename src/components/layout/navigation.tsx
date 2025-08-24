@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils'
 const navigation = [
   { name: 'בית', href: '/' },
   { name: 'דמואים', href: '/demos' },
-  { name: 'אודותינו', href: '/about' },
   { name: 'המלצות', href: '/testimonials' },
+  { name: 'אודותינו', href: '/about' },
   { name: 'צור קשר', href: '/contact' }
 ]
 

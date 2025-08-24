@@ -6,6 +6,7 @@ import { Navigation } from "@/components/layout/navigation";
 import { Footer } from "@/components/layout/footer";
 import { ToastContainer } from "@/components/ui/toast";
 import { ContactDock } from "@/components/layout/contact-dock";
+import { SavingsCalculator } from "@/components/ui/savings-calculator";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
             <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
               {children}
             </main>
+            <SavingsCalculator />
             <ContactDock />
             <Footer />
           </div>
