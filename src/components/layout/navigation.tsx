@@ -10,7 +10,6 @@ const navigation = [
   { name: 'בית', href: '/' },
   { name: 'דמואים', href: '/demos' },
   { name: 'אודותינו', href: '/about' },
-  { name: 'מחירון', href: '/pricing' },
   { name: 'המלצות', href: '/testimonials' },
   { name: 'צור קשר', href: '/contact' }
 ]

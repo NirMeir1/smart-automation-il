@@ -8,7 +8,6 @@ const footerLinks = {
   ],
   services: [
     { name: 'דמואים', href: '/demos' },
-    { name: 'מחירון', href: '/pricing' },
     { name: 'שיחת ייעוץ', href: '/contact?type=consultation' }
   ],
   legal: [

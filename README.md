@@ -51,7 +51,6 @@ src/
 │   ├── contact/           # Contact form
 │   ├── demos/             # Interactive demos
 │   ├── legal/             # Terms & Privacy pages
-│   ├── pricing/           # Pricing page
 │   └── testimonials/      # Testimonials page
 ├── components/
 │   ├── admin/             # Admin components

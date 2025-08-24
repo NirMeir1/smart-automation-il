@@ -50,12 +50,6 @@ export default function DemosPage() {
             >
               קבעו שיחת ייעוץ
             </a>
-            <a
-              href="/pricing"
-              className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              עיינו במחירון
-            </a>
           </div>
         </div>
       </div>
