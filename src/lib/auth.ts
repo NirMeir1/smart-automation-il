@@ -1,4 +1,4 @@
-const ADMIN_PASSWORD = 'demo2024!'
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
 
 export function validateAdminAuth(password: string): boolean {
   return password === ADMIN_PASSWORD

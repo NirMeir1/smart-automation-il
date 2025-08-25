@@ -164,12 +164,7 @@ export function preloadImage(src: string): Promise<void> {
   })
 }
 
-export function getOptimizedImageUrl(
-  src: string,
-  width?: number,
-  height?: number,
-  quality: number = 75
-): string {
+export function getOptimizedImageUrl(src: string): string {
   // In a real app, you'd integrate with your image optimization service
   // For now, return the original src
   return src

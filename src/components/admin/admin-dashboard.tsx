@@ -13,18 +13,18 @@ import {
   Calendar,
   MessageSquare
 } from 'lucide-react'
-import { 
-  invoiceStorage, 
-  expenseStorage, 
-  slotStorage, 
-  bookingStorage, 
-  leadStorage, 
+import {
+  invoiceStorage,
+  expenseStorage,
+  slotStorage,
+  bookingStorage,
+  leadStorage,
   eventLogStorage,
-  resetAllData 
+  resetAllData
 } from '@/lib/storage'
 import { removeAuthToken } from '@/lib/auth'
 import { EventLog } from '@/lib/types'
-import { formatDate, formatCurrency } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
 interface AdminDashboardProps {
@@ -90,18 +90,13 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   }
 
   const clearAllData = () => {
-    invoiceStorage.clear()
-    expenseStorage.clear()
-    slotStorage.clear()
-    bookingStorage.clear()
-    leadStorage.clear()
-    eventLogStorage.clear()
+    resetAllData()
     loadData()
   }
 
   const eventTypeColors = {
     page_view: 'bg-blue-100 text-blue-800',
-    demo_interaction: 'bg-green-100 text-green-800',
+    user_interaction: 'bg-green-100 text-green-800',
     form_submit: 'bg-purple-100 text-purple-800',
     reminder_preview: 'bg-yellow-100 text-yellow-800',
     admin_reset: 'bg-red-100 text-red-800'
@@ -109,7 +104,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
   const eventTypeLabels = {
     page_view: 'צפייה בדף',
-    demo_interaction: 'פעולה בדמו',
+    user_interaction: 'פעולת משתמש',
     form_submit: 'שליחת טופס',
     reminder_preview: 'תצוגת תזכורת',
     admin_reset: 'איפוס מנהל'
@@ -219,7 +214,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                       )}>
                         {eventTypeLabels[event.type]}
                       </span>
-                      <span className="text-sm font-medium">{event.details.demo || event.details.path || 'כללי'}</span>
+                      <span className="text-sm font-medium">{event.details.path || 'כללי'}</span>
                     </div>
                     <span className="text-xs text-gray-500">
                       {formatDate(event.timestamp)} {event.timestamp.toLocaleTimeString('he-IL')}

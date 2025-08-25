@@ -125,12 +125,6 @@ export default function AboutPage() {
             >
               קבעו שיחת ייעוץ
             </a>
-            <a
-              href="/demos"
-              className="border border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              נסו דמו
-            </a>
           </div>
         </div>
       </section>

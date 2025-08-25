@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Bot, Calendar, FileText, MessageSquare, Zap } from 'lucide-react'
 import { PainPointForm } from '@/components/sections/pain-point-form'
 
@@ -37,13 +38,6 @@ export default function Home() {
               >
                 <Calendar className="w-5 h-5" />
                 קבעו שיחת ייעוץ
-              </Link>
-              <Link
-                href="/demos"
-                className="text-[var(--accent-from)] underline font-semibold min-w-[44px] min-h-[44px] inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-from)]"
-                aria-label="נסו את הדמו האינטראקטיבי שלנו"
-              >
-                נסו דמו
               </Link>
             </div>
           </div>
@@ -170,9 +164,9 @@ export default function Home() {
           <div className="container text-center">
             <h2 className="mb-12">לקוחות וביצועים</h2>
             <div className="flex flex-wrap justify-center items-center gap-8 mb-10">
-              <img src="/vercel.svg" alt="Vercel" className="h-8 w-auto" />
-              <img src="/next.svg" alt="Next" className="h-8 w-auto" />
-              <img src="/globe.svg" alt="Globe" className="h-8 w-auto" />
+              <Image src="/vercel.svg" alt="Vercel" width={32} height={32} className="h-8 w-auto" />
+              <Image src="/next.svg" alt="Next" width={32} height={32} className="h-8 w-auto" />
+              <Image src="/globe.svg" alt="Globe" width={32} height={32} className="h-8 w-auto" />
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-[var(--space-4)]">
               <div className="text-center">
@@ -235,18 +229,12 @@ export default function Home() {
             <div className="max-w-[70ch] mx-auto mb-10">
               <p className="text-white text-right">שיחת היכרות ללא עלות וללא התחייבות</p>
             </div>
-            <div className="flex flex-col sm:flex-row-reverse gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact?type=consultation"
                 className="inline-flex items-center justify-center gap-2 bg-white text-[var(--navy)] px-8 py-4 min-h-[44px] rounded-full font-semibold hover:shadow-[var(--shadow)] focus-visible:shadow-[var(--shadow)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--navy)] transition-colors duration-200"
               >
                 קבעו שיחת ייעוץ
-              </Link>
-              <Link
-                href="/demos"
-                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 min-h-[44px] rounded-full font-semibold hover:bg-white hover:text-[var(--navy)] focus-visible:bg-white focus-visible:text-[var(--navy)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white transition-colors duration-200"
-              >
-                צפו בדוגמאות
               </Link>
             </div>
           </div>
