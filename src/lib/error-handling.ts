@@ -37,7 +37,7 @@ export function logError(error: Error | ErrorInfo, context?: Record<string, unkn
   // Log to storage for admin review
   eventLogStorage.add({
     id: Math.random().toString(36).substr(2, 9),
-    type: 'demo_interaction',
+    type: 'user_interaction',
     details: {
       error: true,
       message: errorInfo.message,

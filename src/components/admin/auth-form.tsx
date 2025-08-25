@@ -27,7 +27,7 @@ export function AuthForm({ onAuthenticated }: AuthFormProps) {
       } else {
         setError('סיסמה שגויה')
       }
-    } catch (error) {
+    } catch {
       setError('שגיאה במערכת')
     } finally {
       setIsSubmitting(false)
@@ -91,10 +91,6 @@ export function AuthForm({ onAuthenticated }: AuthFormProps) {
             {isSubmitting ? 'מתחבר...' : 'התחבר'}
           </button>
 
-          <div className="bg-yellow-50 border border-yellow-200 rounded-md p-3 text-yellow-800 text-sm">
-            <p className="font-medium">סיסמת דמו:</p>
-            <code className="font-mono">demo2024!</code>
-          </div>
         </form>
       </div>
     </div>

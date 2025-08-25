@@ -7,7 +7,6 @@ const footerLinks = {
     { name: 'המלצות', href: '/testimonials' }
   ],
   services: [
-    { name: 'דמואים', href: '/demos' },
     { name: 'שיחת ייעוץ', href: '/contact?type=consultation' }
   ],
   legal: [

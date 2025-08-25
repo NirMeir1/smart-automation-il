@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { initializeData, logEvent } from '@/lib/storage'
+import { logEvent } from '@/lib/storage'
 import { measureWebVitals } from '@/lib/performance'
 import { ErrorBoundary } from '@/components/error-boundary'
 
@@ -11,9 +11,6 @@ interface ClientProviderProps {
 
 export function ClientProvider({ children }: ClientProviderProps) {
   useEffect(() => {
-    // Initialize demo data
-    initializeData()
-    
     // Log page view
     logEvent('page_view', { path: window.location.pathname })
     

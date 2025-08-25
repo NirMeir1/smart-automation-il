@@ -23,8 +23,7 @@ const contactTypes = [
   { value: 'general', label: 'פנייה כללית' },
   { value: 'consultation', label: 'שיחת ייעוץ' },
   { value: 'quote', label: 'בקשת הצעת מחיר' },
-  { value: 'support', label: 'תמיכה טכנית' },
-  { value: 'demo', label: 'בקשת דמו' }
+  { value: 'support', label: 'תמיכה טכנית' }
 ]
 
 const contactInfo = [
