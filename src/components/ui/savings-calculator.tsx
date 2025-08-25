@@ -32,7 +32,7 @@ export function SavingsCalculator() {
 
   return (
     <div
-      className="fixed left-4 bottom-24 z-50"
+      className="fixed right-4 top-20 z-40"
       aria-live="polite"
     >
       {/* Toggle */}
