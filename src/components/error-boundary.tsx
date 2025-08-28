@@ -95,6 +95,6 @@ export class ErrorBoundary extends Component<Props, State> {
 // React 18 compatible error boundary hook
 export function useErrorHandler() {
   return (error: Error, errorInfo?: ErrorInfo) => {
-    logError(error, errorInfo)
+    logError(error, errorInfo as unknown as Record<string, unknown>)
   }
 }

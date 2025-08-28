@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
 import { leadStorage, logEvent } from '@/lib/storage'
@@ -8,6 +8,8 @@ import { Lead } from '@/lib/types'
 import { generateId } from '@/lib/utils'
 import { addDays } from 'date-fns'
 import { cn } from '@/lib/utils'
+
+export const dynamic = 'force-dynamic'
 
 interface ContactFormData {
   name: string
@@ -54,6 +56,14 @@ const contactInfo = [
 ]
 
 export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageContent />
+    </Suspense>
+  )
+}
+
+function ContactPageContent() {
   const searchParams = useSearchParams()
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',

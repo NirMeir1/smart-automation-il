@@ -129,11 +129,11 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       <div className="container py-8">
         <div className="flex space-x-1 bg-gray-100 rounded-lg p-1 mb-8">
-          {[
+          {([
             { key: 'overview', label: 'סקירה', icon: BarChart3 },
             { key: 'data', label: 'ניהול נתונים', icon: Database },
             { key: 'events', label: 'יומן אירועים', icon: Eye }
-            ].map(({ key, label, icon: Icon }) => (
+          ] as const).map(({ key, label, icon: Icon }) => (
               <button
                 key={key}
                 onClick={() => setSelectedTab(key)}
@@ -214,7 +214,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                       )}>
                         {eventTypeLabels[event.type]}
                       </span>
-                      <span className="text-sm font-medium">{event.details.path || 'כללי'}</span>
+                      <span className="text-sm font-medium">{(event.details as Record<string, string>).path || 'כללי'}</span>
                     </div>
                     <span className="text-xs text-gray-500">
                       {formatDate(event.timestamp)} {event.timestamp.toLocaleTimeString('he-IL')}
