@@ -1,52 +1,49 @@
-import type { Metadata } from "next";
-import { Heebo } from "next/font/google";
-import "./globals.css";
-import { ClientProvider } from "@/components/providers/client-provider";
-import { Navigation } from "@/components/layout/navigation";
-import { Footer } from "@/components/layout/footer";
-import { ToastContainer } from "@/components/ui/toast";
-import { ContactDock } from "@/components/layout/contact-dock";
-import { SavingsCalculator } from "@/components/ui/savings-calculator";
+// src/app/layout.tsx
+import type { Metadata } from 'next'
+import { Heebo } from 'next/font/google'
+import './globals.css'
+import Script from 'next/script'
 
-const heebo = Heebo({
-  subsets: ["hebrew", "latin"],
-  variable: "--font-heebo",
-});
+const heebo = Heebo({ 
+  subsets: ['hebrew'],
+  variable: '--font-heebo',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: "אוטומציה חכמה - פתרונות אוטומציה מתקדמים",
-  description: "מומחה באוטומציה עסקית, בוטים חכמים ופתרונות טכנולוגיים מתקדמים לעסקים",
-  keywords: "אוטומציה, בוטים, מערכות ניהול, ישראל, עסקים",
-  authors: [{ name: "Smart Automation IL" }],
+  title: 'שיפור ביצועים עסקיים - Sogomatic ניהול תהליכים דיגיטליים בשילוב אינטגרציות ואוטומציות',
+  description: 'פתרונות אוטומציה עסקית מתקדמים לחיסכון בזמן ושיפור תהליכים. אינטגרציות חכמות, מדידה ותוצאות מוכחות.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: "אוטומציה חכמה - פתרונות אוטומציה מתקדמים",
-    description: "מומחה באוטומציה עסקית, בוטים חכמים ופתרונות טכנולוגיים מתקדמים לעסקים",
-    type: "website",
-    locale: "he_IL"
-  }
-};
+    title: 'אוטומציה עסקית - חיסכון של עד 50% בזמן עבודה',
+    description: 'פתרונות אוטומציה עסקית מתקדמים לחיסכון בזמן ושיפור תהליכים',
+    url: '/',
+    siteName: 'Sogomatic',
+    locale: 'he_IL',
+    type: 'website',
+  },
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${heebo.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
-        <ClientProvider>
-          <div className="min-h-screen flex flex-col">
-            <Navigation />
-            <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
-              {children}
-            </main>
-            <SavingsCalculator />
-            <ContactDock />
-            <Footer />
-          </div>
-          <ToastContainer />
-        </ClientProvider>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className={heebo.className}>
+        <a href="#main" className="skip-link">
+          דלג לתוכן הראשי
+        </a>
+        {children}
       </body>
     </html>
-  );
+  )
 }
