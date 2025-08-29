@@ -115,7 +115,7 @@ export default function Benefits() {
       kind: 'lottie',
       src: "https://lottie.host/612f6525-c7ee-4be7-b2aa-6e3062f05d57/MVhDAd3K4L.lottie",
       fallbackColor: 'from-green-400 to-blue-400',
-      aspect: 'aspect-square',
+      aspect: 'aspect-[16/10]',
     },
     {
       title: 'שוברים את תקרת הזכוכית: מגדילים מכירות בקליק',
@@ -124,7 +124,7 @@ export default function Benefits() {
       kind: 'lottie',
       src: "https://lottie.host/c43f792b-6b78-4571-bb59-308955316bf6/HlVje0JSCT.lottie",
       fallbackColor: 'from-orange-400 to-red-400',
-      aspect: 'aspect-square',
+      aspect: 'aspect-[16/10]',
     },
     {
       title: 'שדרוג מערכת הלידים: יותר לקוחות, פחות מאמץ',
@@ -133,7 +133,7 @@ export default function Benefits() {
       kind: 'lottie',
       src: "https://lottie.host/19442f0f-0a80-46ca-ac17-09a7903c9bee/E1kYhqnQWt.lottie",
       fallbackColor: 'from-indigo-400 to-purple-400',
-      aspect: 'aspect-square',
+      aspect: 'aspect-[16/10]',
     },
   ]
 
