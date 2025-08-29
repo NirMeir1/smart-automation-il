@@ -66,7 +66,7 @@ export default function Hero() {
             
             <div className="grid lg:grid-cols-4 gap-6 items-center">
               <div className="lg:col-span-1">
-                <p className="text-lg font-bold">
+                <p className="text-lg font-bold text-gray-900">
                   לשפר ביצועים <strong>ועד 30% הגדלה בהכנסות ממכירות</strong> – אל תשאירו כסף על הרצפה!
                 </p>
               </div>
@@ -89,3 +89,4 @@ export default function Hero() {
     </section>
   )
 }
+

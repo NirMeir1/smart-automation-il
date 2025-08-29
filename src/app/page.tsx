@@ -1,5 +1,4 @@
 import Hero from '@/components/Hero'
-import Logos from '@/components/Logos'
 import Benefits from '@/components/Benefits'
 import Integrations from '@/components/Integrations'
 import Process from '@/components/Process'
@@ -12,7 +11,6 @@ export default function HomePage() {
     <>
       <main id="main">
         <Hero />
-        <Logos />
         <Benefits />
         <Integrations />
         <Process />

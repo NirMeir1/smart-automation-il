@@ -18,16 +18,16 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="bg-[var(--navy)] text-white">
-      <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1">
-            <h3 className="text-lg font-bold mb-4">אוטומציה חכמה</h3>
-            <p className="text-white/80 text-base md:text-sm leading-relaxed">
+      <div className="container py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 items-start">
+          <div>
+            <h3 className="text-2xl font-bold mb-3">אוטומציה חכמה</h3>
+            <p className="text-white/80 text-base md:text-sm leading-relaxed max-w-xl">
               מומחה באוטומציה עסקית, בוטים חכמים ופתרונות טכנולוגיים מתקדמים לעסקים בישראל
             </p>
           </div>
 
-          <div>
+          <div className="text-right">
             <h4 className="text-sm font-semibold mb-4 text-white">החברה</h4>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
@@ -43,7 +43,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="text-right">
             <h4 className="text-sm font-semibold mb-4 text-white">שירותים</h4>
             <ul className="space-y-2">
               {footerLinks.services.map((link) => (
@@ -59,7 +59,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="text-right">
             <h4 className="text-sm font-semibold mb-4 text-white">משפטי</h4>
             <ul className="space-y-2">
               {footerLinks.legal.map((link) => (
@@ -76,10 +76,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[var(--outline)] mt-8 pt-8">
-          <p className="text-white/80 text-sm text-center">
-            © 2024 אוטומציה חכמה. כל הזכויות שמורות.
-          </p>
+        <div className="border-t border-white/20 mt-10 pt-6 text-center text-white/70 text-sm">
+          © 2024 אוטומציה חכמה. כל הזכויות שמורות.
         </div>
       </div>
     </footer>

@@ -22,7 +22,7 @@ export default function FAQ() {
   ]
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-[var(--navy)] text-white">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12">שאלות נפוצות</h2>
         <div className="max-w-3xl mx-auto space-y-4">
@@ -30,7 +30,7 @@ export default function FAQ() {
             <div key={i} className="bg-white rounded-lg shadow-md">
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full px-6 py-4 text-right flex justify-between items-center"
+                className="w-full px-6 py-4 text-right flex justify-between items-center text-gray-900"
               >
                 <span className="font-bold">{faq.question}</span>
                 <svg className={`w-5 h-5 transition-transform ${openIndex === i ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,7 +39,7 @@ export default function FAQ() {
               </button>
               {openIndex === i && (
                 <div className="px-6 pb-4">
-                  <p>{faq.answer}</p>
+                  <p className="text-gray-700">{faq.answer}</p>
                 </div>
               )}
             </div>
