@@ -3,6 +3,9 @@ import type { Metadata } from 'next'
 import { Heebo } from 'next/font/google'
 import './globals.css'
 import Script from 'next/script'
+import { Navigation } from '@/components/layout/navigation'
+import { Footer } from '@/components/layout/footer'
+import ROIWidget from '@/components/ROIWidget'
 
 const heebo = Heebo({ 
   subsets: ['hebrew'],
@@ -42,7 +45,10 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           דלג לתוכן הראשי
         </a>
+        <Navigation />
         {children}
+        <Footer />
+        <ROIWidget />
       </body>
     </html>
   )

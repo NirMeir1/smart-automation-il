@@ -1,4 +1,7 @@
-import '../styles/globals.css'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -13,7 +16,8 @@ import '../styles/globals.css'
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    /* Brighter, neutral dark that fits overall site */
+    --background: #1f2937;
     --foreground: #ededed;
   }
 }

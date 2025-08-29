@@ -2,6 +2,7 @@
 'use client'
 
 import LeadForm from './LeadForm'
+import { PainPointForm } from './sections/pain-point-form'
 import { useState } from 'react'
 
 export default function Hero() {
@@ -28,9 +29,9 @@ export default function Hero() {
             <p className="text-lg">תנו לנו להראות לכם איך נוכל לשפר את העסק שלכם!</p>
           </div>
           
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 pointer-events-none relative z-0">
             <video
-              className="w-full rounded-lg"
+              className="w-full rounded-lg pointer-events-none"
               autoPlay
               muted
               loop
@@ -43,6 +44,10 @@ export default function Hero() {
               </div>
             </video>
           </div>
+        </div>
+        {/* Free-text pain point form below the hero text */}
+        <div className="mt-10">
+          <PainPointForm />
         </div>
       </div>
 
@@ -61,7 +66,7 @@ export default function Hero() {
             
             <div className="grid lg:grid-cols-4 gap-6 items-center">
               <div className="lg:col-span-1">
-                <p className="text-lg font-bold">
+                <p className="text-lg font-bold text-gray-900">
                   לשפר ביצועים <strong>ועד 30% הגדלה בהכנסות ממכירות</strong> – אל תשאירו כסף על הרצפה!
                 </p>
               </div>
@@ -84,3 +89,4 @@ export default function Hero() {
     </section>
   )
 }
+

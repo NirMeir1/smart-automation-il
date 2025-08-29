@@ -217,7 +217,8 @@ export function measureWebVitals() {
   // First Input Delay
   new PerformanceObserver((list) => {
     list.getEntries().forEach(entry => {
-      monitor.recordMetric('first-input-delay', entry.processingStart - entry.startTime)
+      const timing = entry as PerformanceEventTiming
+      monitor.recordMetric('first-input-delay', timing.processingStart - timing.startTime)
     })
   }).observe({ entryTypes: ['first-input'] })
 }
