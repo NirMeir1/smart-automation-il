@@ -1,15 +1,17 @@
 // src/app/page.tsx
+import dynamic from 'next/dynamic'
 import Hero from '@/components/Hero'
-import Benefits from '@/components/Benefits'
-import Integrations from '@/components/Integrations'
-import Process from '@/components/Process'
-import Testimonials from '@/components/Testimonials'
-import FAQ from '@/components/FAQ'
-import CTASection from '@/components/CTASection'
+
+// Lazy-load heavier sections (improves TTI)
+const Benefits = dynamic(() => import('@/components/Benefits'), { ssr: true })
+const Integrations = dynamic(() => import('@/components/Integrations'), { ssr: true })
+const Process = dynamic(() => import('@/components/Process'), { ssr: true })
+const Testimonials = dynamic(() => import('@/components/Testimonials'), { ssr: true })
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true })
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true })
 
 export default function HomePage() {
-  // Note: <main id="main"> is already provided in RootLayout.
-  // Avoid multiple <main> elements per page.
+  // <main> is in RootLayout. Keep fragment here.
   return (
     <>
       <Hero />
@@ -22,7 +24,6 @@ export default function HomePage() {
         title="מוכנים להתחיל?"
         description="השאירו פרטים ונחזור אליכם עם פתרון מותאם אישית"
         ctaText="קבעו שיחת ייעוץ"
-        ctaHref="/contact"
         gradient
       />
       {/* ROI widget is rendered globally in layout */}
