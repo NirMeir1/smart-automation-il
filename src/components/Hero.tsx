@@ -29,9 +29,9 @@ export default function Hero() {
             <p className="text-lg">תנו לנו להראות לכם איך נוכל לשפר את העסק שלכם!</p>
           </div>
           
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 pointer-events-none relative z-0">
             <video
-              className="w-full rounded-lg"
+              className="w-full rounded-lg pointer-events-none"
               autoPlay
               muted
               loop
