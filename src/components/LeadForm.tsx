@@ -172,8 +172,13 @@ function LeadFormInner() {
               type="submit"
               disabled={status === 'submitting'}
               className="
-                yellow-button w-full px-4 py-3 rounded-lg font-medium
+                w-full px-6 py-3 rounded-lg font-semibold text-lg
+                !text-gray-900 bg-yellow-400 shadow-md
+                transition-transform duration-200
+                hover:bg-yellow-500 hover:scale-105 hover:shadow-lg
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400
                 disabled:opacity-60 disabled:cursor-not-allowed
+                whitespace-nowrap
               "
             >
               {status === 'submitting' ? 'שולח...' : 'אשמח לשמוע פרטים!'}
