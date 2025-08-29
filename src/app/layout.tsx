@@ -2,20 +2,21 @@
 import type { Metadata } from 'next'
 import { Heebo } from 'next/font/google'
 import './globals.css'
-import Script from 'next/script'
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 import ROIWidget from '@/components/ROIWidget'
 
-const heebo = Heebo({ 
+const heebo = Heebo({
   subsets: ['hebrew'],
   variable: '--font-heebo',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'שיפור ביצועים עסקיים - Sogomatic ניהול תהליכים דיגיטליים בשילוב אינטגרציות ואוטומציות',
-  description: 'פתרונות אוטומציה עסקית מתקדמים לחיסכון בזמן ושיפור תהליכים. אינטגרציות חכמות, מדידה ותוצאות מוכחות.',
+  title:
+    'שיפור ביצועים עסקיים - Sogomatic ניהול תהליכים דיגיטליים בשילוב אינטגרציות ואוטומציות',
+  description:
+    'פתרונות אוטומציה עסקית מתקדמים לחיסכון בזמן ושיפור תהליכים. אינטגרציות חכמות, מדידה ותוצאות מוכחות.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
   alternates: {
     canonical: '/',
@@ -37,16 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className={heebo.className}>
+      <body className={`${heebo.className} ${heebo.variable}`}>
         <a href="#main" className="skip-link">
           דלג לתוכן הראשי
         </a>
         <Navigation />
-        {children}
+        <main id="main">{children}</main>
         <Footer />
         <ROIWidget />
       </body>
