@@ -16,7 +16,7 @@ export default function Logos() {
     <section id="secondFloor" className="py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
-          <p className="text-2xl text-navy inline-flex items-center gap-2">
+          <p className="text-2xl font-semibold text-navy dark:text-white inline-flex items-center gap-2">
             בין לקוחותינו:
             <span className="inline-block w-8 h-8 bg-pink rounded-full"></span>
           </p>

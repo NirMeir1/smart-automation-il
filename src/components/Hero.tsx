@@ -2,6 +2,7 @@
 'use client'
 
 import LeadForm from './LeadForm'
+import { PainPointForm } from './sections/pain-point-form'
 import { useState } from 'react'
 
 export default function Hero() {
@@ -43,6 +44,10 @@ export default function Hero() {
               </div>
             </video>
           </div>
+        </div>
+        {/* Free-text pain point form below the hero text */}
+        <div className="mt-10">
+          <PainPointForm />
         </div>
       </div>
 

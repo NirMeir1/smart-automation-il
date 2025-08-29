@@ -45,7 +45,7 @@ export default function LeadForm() {
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="px-4 py-3 border rounded-lg w-full"
+          className="px-4 py-3 border rounded-lg w-full text-gray-900 placeholder:text-gray-500"
         />
         
         <input
@@ -54,7 +54,7 @@ export default function LeadForm() {
           required
           value={formData.company}
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-          className="px-4 py-3 border rounded-lg w-full"
+          className="px-4 py-3 border rounded-lg w-full text-gray-900 placeholder:text-gray-500"
         />
         
         <input
@@ -63,7 +63,7 @@ export default function LeadForm() {
           required
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          className="px-4 py-3 border rounded-lg w-full"
+          className="px-4 py-3 border rounded-lg w-full text-gray-900 placeholder:text-gray-500"
         />
         
         <input
@@ -72,7 +72,7 @@ export default function LeadForm() {
           required
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="px-4 py-3 border rounded-lg w-full"
+          className="px-4 py-3 border rounded-lg w-full text-gray-900 placeholder:text-gray-500"
         />
         
         <button
@@ -84,7 +84,7 @@ export default function LeadForm() {
         </button>
       </div>
       
-      <label className="flex items-center gap-2 mt-4 text-sm">
+      <label className="flex items-center gap-2 mt-4 text-sm text-gray-700">
         <input
           type="checkbox"
           checked={formData.consent}

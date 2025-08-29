@@ -48,9 +48,9 @@ export default function Benefits() {
           {items.map((item, index) => (
             <div key={index} className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 ? 'md:flex-row-reverse' : ''}`}>
               <div>
-                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
+                <h3 className="text-2xl font-bold text-navy dark:text-white mb-4">{item.title}</h3>
                 <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink mb-4"></div>
-                <p className="text-gray-700">{item.description}</p>
+                <p className="text-gray-800 dark:text-gray-200">{item.description}</p>
               </div>
               <div className={index % 2 ? 'md:order-first' : ''}>
                 <div className="relative aspect-square rounded-lg overflow-hidden">

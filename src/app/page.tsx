@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Logos from '@/components/Logos'
 import Benefits from '@/components/Benefits'
@@ -7,12 +6,10 @@ import Process from '@/components/Process'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import CTASection from '@/components/CTASection'
-import ROIWidget from '@/components/ROIWidget'
 
 export default function HomePage() {
   return (
     <>
-      <Header />
       <main id="main">
         <Hero />
         <Logos />
@@ -28,7 +25,7 @@ export default function HomePage() {
           gradient
         />
       </main>
-      <ROIWidget />
+      {/* ROI widget now rendered globally in layout */}
     </>
   )
 }
