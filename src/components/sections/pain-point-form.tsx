@@ -77,7 +77,11 @@ export function PainPointForm() {
         className="bg-[var(--card)] rounded-[var(--radius)] shadow-[var(--shadow)] p-6 md:p-8 text-right"
         aria-labelledby="pain-form-title"
       >
-        <h3 id="pain-form-title" className="mb-4">מה כואב לכם ביומיום?</h3>
+        <h3 id="pain-form-title" className="mb-6 text-xl md:text-2xl font-bold text-white leading-relaxed">
+          ספר לנו על משימות שחוזרות על עצמן או לוקחות לך זמן יקר – אנחנו נבחן איך נכון להטמיע אוטומציה ו/או AI כדי לפתור אותן בשבילך.
+          <br />
+          מלא את הפרטים בטופס הקצר כאן למטה:    
+        </h3>
 
         {result && (
           <div

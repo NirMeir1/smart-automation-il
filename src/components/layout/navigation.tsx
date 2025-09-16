@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -15,13 +15,22 @@ const navigation = [
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <>
       <nav
         id="navigation"
-        className="bg-[var(--card)] border-b border-[var(--outline)] sticky top-0 z-40"
+        className={cn("bg-[var(--card)] sticky top-0 z-40", !isScrolled && "border-b border-[var(--outline)]")}
         role="navigation"
         aria-label="תפריט ניווט ראשי"
         style={{ boxShadow: 'var(--shadow)' }}

@@ -29,9 +29,9 @@ const contactTypes = [
 ]
 
 const contactInfo = [
-  { icon: Phone, label: 'טלפון', value: '050-1234567', href: 'tel:+972501234567' },
+  { icon: Phone, label: 'טלפון', value: '052-2518189', href: 'tel:+972522518189' },
   { icon: Mail, label: 'אימייל', value: 'info@smart-automation.co.il', href: 'mailto:info@smart-automation.co.il' },
-  { icon: MapPin, label: 'מיקום', value: 'תל אביב-יפו, ישראל', href: null },
+  { icon: MapPin, label: 'מיקום', value: 'כפר סבא, ישראל', href: null },
   { icon: Clock, label: 'שעות פעילות', value: 'א׳-ה׳ 9:00-18:00', href: null }
 ]
 
@@ -202,7 +202,7 @@ function ContactPageContent() {
                       value={formData.name}
                       onChange={handleChange('name')}
                       className={cn(
-                        'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2',
+                        'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 bg-white text-gray-900 placeholder:text-gray-500',
                         errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
                       )}
                       placeholder="הזן את שמך המלא"
@@ -223,7 +223,7 @@ function ContactPageContent() {
                       value={formData.email}
                       onChange={handleChange('email')}
                       className={cn(
-                        'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2',
+                        'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 bg-white text-gray-900 placeholder:text-gray-500',
                         errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
                       )}
                       placeholder="example@example.com"
@@ -245,7 +245,7 @@ function ContactPageContent() {
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange('phone')}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 placeholder:text-gray-500"
                       placeholder="050-1234567"
                     />
                   </div>
@@ -256,7 +256,7 @@ function ContactPageContent() {
                       type="text"
                       value={formData.company}
                       onChange={handleChange('company')}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 placeholder:text-gray-500"
                       placeholder="שם החברה (רשות)"
                     />
                   </div>
@@ -267,7 +267,7 @@ function ContactPageContent() {
                   <select
                     value={formData.contactType}
                     onChange={handleChange('contactType')}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 placeholder:text-gray-500"
                   >
                     {contactTypes.map(type => (
                       <option key={type.value} value={type.value}>
@@ -283,7 +283,7 @@ function ContactPageContent() {
                     type="text"
                     value={formData.subject}
                     onChange={handleChange('subject')}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 placeholder:text-gray-500"
                     placeholder="נושא ההודעה (רשות)"
                   />
                 </div>
@@ -295,7 +295,7 @@ function ContactPageContent() {
                     onChange={handleChange('message')}
                     rows={6}
                     className={cn(
-                      'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2',
+                      'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 bg-white text-gray-900 placeholder:text-gray-500',
                       errors.message ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
                     )}
                     placeholder="ספר לנו על הצרכים שלך ואיך נוכל לעזור..."

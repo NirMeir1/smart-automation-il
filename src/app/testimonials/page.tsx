@@ -6,15 +6,15 @@ const testimonials = [
     role: 'בעל חברת הנהלת חשבונות',
     company: 'כהן הנח"ש',
     rating: 5,
-    text: 'המערכת לניהול מע״ם חסכה לי שעות של עבודה כל חודש. החישובים מדויקים והתזכורות מגיעות בדיוק בזמן. השירות מעולה והתמיכה מקצועית.',
+    text: 'הבוט החכם שבנו לי מתחבר ישירות למערכת החשבונות ומפיק דוחות מע״ם אוטומטיים עם AI. חסך לי 15 שעות עבודה בשבוע והכל מתעדכן בזמן אמת עם הבנק!',
     image: '/testimonials/david.jpg'
   },
   {
     name: 'שרה לוי',
     role: 'מנהלת קליניקה',
     company: 'קליניקת שרה',
-    rating: 5,
-    text: 'מערכת קיבוע הפגישות שינתה לי את החיים! כבר לא צריכה לטפל בהזמנות כל יום, הכל אוטומטי. הלקוחות מרוצים והתזכורות מפחיתות משמעותית את מספר הביטולים.',
+    rating: 4,
+    text: 'מערכת ה-AI לניהול פגישות פשוט מדהימה! היא מתחברת לוואטסאפ, גוגל קלנדר ומערכת הרפואית שלי. הבוט מנהל בעצמו ביטולים, שינויים ואפילו שולח תזכורות מותאמות אישית.',
     image: '/testimonials/sara.jpg'
   },
   {
@@ -22,15 +22,15 @@ const testimonials = [
     role: 'סוכן נדל"ן',
     company: 'רוזן נדל"ן',
     rating: 5,
-    text: 'מערכת הלידים פשוט מדהימה. כל פנייה מקבלת מענה מיידי והמעקב אחר הלקוחות הפוטנציאליים מסודר ויעיל. עליתי ב-40% במכירות!',
+    text: 'הטכנולוגיה שהם יצרו לי פשוט חוסכת עולם! אינטגרציה מלאה בין Zapier, WhatsApp Business API, CRM ומערכות חיצוניות. הלידים מתעבדים אוטומטית והמכירות עלו ב-65%!',
     image: '/testimonials/michael.jpg'
   },
   {
     name: 'רחל אברהם',
     role: 'יועצת עסקית',
     company: 'אברהם ייעוץ',
-    rating: 5,
-    text: 'הצוות של אוטומציה חכמה מקצועי ומסור. הם הבינו בדיוק מה אני צריכה ובנו פתרון שמתאים בדיוק לעסק שלי. הכי שווה השקעה שעשיתי!',
+    rating: 4,
+    text: 'החיבור בין כל המערכות שלי עכשיו פועל כמו קסם! API אינטגרציה עם Google Workspace, Notion, ומערכת הביתית. הבוט מכין לי דוחות חכמים ומנתח נתונים עם AI - פשוט מהפכה!',
     image: '/testimonials/rachel.jpg'
   },
   {
@@ -38,24 +38,24 @@ const testimonials = [
     role: 'מנהל סטודיו צילום',
     company: 'מזרחי סטודיו',
     rating: 5,
-    text: 'אחרי שהתקנו את המערכת, זמן התיאום של הפגישות צומצם מ-2 שעות ליום ל-10 דקות בשבוע. יכול להתמקד בצילום במקום בניהול.',
+    text: 'מערכת החכמה שלהם מחברת את הווב-סייט, גוגל קלנדר, WhatsApp ומערכת התשלומים. הכל אוטומטי! מתיאום ועד לחיוב - זמן הניהול ירד מ-20 שעות שבועיות ל-30 דקות!',
     image: '/testimonials/yossi.jpg'
   },
   {
     name: 'לינה חליל',
     role: 'רו"ח',
     company: 'חליל חשבונות',
-    rating: 5,
-    text: 'מערכת מע״ם הפכה להיות חלק בלתי נפרד מהעבודה היומיומית שלי. חיסכון מהותי בזמן וירידה משמעותית בטעויות. ממליצה בחום!',
+    rating: 4,
+    text: 'הטכנולוגיה הזו פתרה לי את הכל! אינטגרציה מלאה עם כל הבנקים, כרטיסי אשראי ומערכות הלקוחות. AI מזהה ומבצע הכל אוטומטית - קידוד, דיווחים ואפילו תזכורות חכמות ללקוחות!',
     image: '/testimonials/lina.jpg'
   }
 ]
 
 const stats = [
   { number: '50+', label: 'עסקים מרוצים' },
-  { number: '98%', label: 'שביעות רצון' },
-  { number: '60%', label: 'חיסכון בזמן ממוצע' },
-  { number: '24/7', label: 'תמיכה זמינה' }
+  { number: '5', label: 'שנות ניסיון' },
+  { number: 'עד 90%', label: 'חיסכון בזמן' },
+  { number: '24/7', label: 'זמינות המערכות' }
 ]
 
 export default function TestimonialsPage() {
@@ -67,7 +67,7 @@ export default function TestimonialsPage() {
             מה הלקוחות שלנו אומרים
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed">
-            קראו המלצות אמיתיות מבעלי עסקים שכבר נהנים מפתרונות האוטומציה שלנו
+           קצת ממה שבעלי עסקים מספרים על החוויה איתנו – ועל איך האוטומציה ו-AI כבר מקלים עליהם את היום-יום:
           </p>
         </div>
       </section>
@@ -78,8 +78,16 @@ export default function TestimonialsPage() {
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg p-6 border">
                 <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`w-5 h-5 ${
+                        i < testimonial.rating 
+                          ? 'text-yellow-400 fill-yellow-400' 
+                          : 'text-gray-300 fill-gray-300'
+                      }`} 
+                      style={i < testimonial.rating ? { fill: '#fbbf24', color: '#fbbf24' } : {}}
+                    />
                   ))}
                 </div>
                 
@@ -138,18 +146,6 @@ export default function TestimonialsPage() {
             >
               קבעו שיחת ייעוץ
             </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white">
-        <div className="container text-center">
-          <div className="bg-green-50 border border-green-200 rounded-lg p-8">
-            <h3 className="text-2xl font-bold text-green-800 mb-4">ערבות שביעות רצון</h3>
-            <p className="text-green-700 leading-relaxed">
-              אנחנו כל כך בטוחים באיכות השירות שלנו, שאנחנו מציעים ערבות מלאה של 30 יום.
-              לא מרוצים מהתוצאות? נחזיר לכם את הכסף, ללא שאלות.
-            </p>
           </div>
         </div>
       </section>
