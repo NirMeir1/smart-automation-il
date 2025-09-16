@@ -19,11 +19,11 @@ export function Footer() {
   return (
     <footer className="bg-[var(--navy)] text-white">
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 items-start justify-items-center md:justify-items-start max-w-6xl mx-auto">
           <div>
             <h3 className="text-2xl font-bold mb-3">אוטומציה חכמה</h3>
             <p className="text-white/80 text-base md:text-sm leading-relaxed max-w-xl">
-              מומחה באוטומציה עסקית, בוטים חכמים ופתרונות טכנולוגיים מתקדמים לעסקים בישראל
+              מומחה באוטומציה עסקית, אינטגרציות AI, בוטים חכמים ופתרונות טכנולוגיים מתקדמים לעסקים בישראל
             </p>
           </div>
 
