@@ -19,7 +19,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 pt-28 lg:pt-32">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           {/* Copy/content */}
-          <div className="lg:col-span-4 text-center lg:text-right space-y-4">
+          <div className="lg:col-span-12 text-center space-y-4">
             <p className="text-xl font-bold">חוסכים זמן, מגדילים רווחים:</p>
             <h1 className="text-4xl lg:text-5xl leading-tight">
               <span className="text-pink">אוטומציה עסקית </span>
