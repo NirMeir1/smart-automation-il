@@ -22,53 +22,68 @@ export function PainPointForm() {
   const statusRef = useRef<HTMLDivElement>(null)
 
   const onChange =
-    (key: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setForm({ ...form, [key]: e.target.value })
-      if (errors[key]) setErrors((prev) => ({ ...prev, [key]: '' }))
-    }
-
-  const validate = () => {
-    const e: Record<string, string> = {}
-    if (!form.name.trim()) e.name = 'שם מלא הוא שדה חובה'
-    if (!form.email.trim()) e.email = 'אימייל הוא שדה חובה'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'כתובת אימייל לא תקינה'
-    if (!form.problem.trim()) e.problem = 'תיאור הבעיה הוא שדה חובה'
-    setErrors(e)
-    return Object.keys(e).length === 0
-  }
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!validate()) return
-    setSubmitting(true)
-    setResult(null)
-    try {
-      const lead: Lead = {
-        id: generateId(),
-        name: form.name,
-        phone: form.phone,
-        email: form.email,
-        source: 'טופס בעיית עסק - דף הבית',
-        message: `תיאור הבעיה:\n${form.problem}`,
-        status: 'new',
-        createdAt: new Date(),
-        followUpDate: addDays(new Date(), 1),
+      (key: keyof typeof form) =>
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setForm({ ...form, [key]: e.target.value })
+        if (errors[key]) setErrors((prev) => ({ ...prev, [key]: '' }))
       }
-      leadStorage.add(lead)
-      logEvent('form_submit', { form: 'pain_point', leadId: lead.id })
-      toast?.success('ההודעה נשלחה', 'נחזור אליך עד 24 שעות.')
-      setForm({ name: '', email: '', phone: '', problem: '' })
-      setResult({ type: 'success', message: 'ההודעה נשלחה! נחזור אליך עד 24 שעות.' })
-      setTimeout(() => statusRef.current?.focus(), 0)
-    } catch {
-      toast?.error?.('משהו השתבש', 'נסה/י שוב בעוד רגע.')
-      setResult({ type: 'error', message: 'השליחה נכשלה. נסו שוב בעוד רגע.' })
-      setTimeout(() => statusRef.current?.focus(), 0)
-    } finally {
-      setSubmitting(false)
+
+    const validate = () => {
+      const e: Record<string, string> = {}
+      if (!form.name.trim()) e.name = 'שם מלא הוא שדה חובה'
+      if (!form.email.trim()) e.email = 'אימייל הוא שדה חובה'
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'כתובת אימייל לא תקינה'
+      if (!form.problem.trim()) e.problem = 'תיאור הבעיה הוא שדה חובה'
+      setErrors(e)
+      return Object.keys(e).length === 0
     }
-  }
+
+    const onSubmit = async (e: React.FormEvent) => {
+      e.preventDefault()
+      if (!validate()) return
+      setSubmitting(true)
+      setResult(null)
+      
+      try {
+        await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            message: `תיאור הבעיה:\n${form.problem}`,
+            source: 'טופס בעיית עסק - דף הבית'
+          })
+        })
+
+        // Local backup/tracking
+        const lead: Lead = {
+          id: generateId(),
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          source: 'טופס בעיית עסק - דף הבית',
+          message: `תיאור הבעיה:\n${form.problem}`,
+          status: 'new',
+          createdAt: new Date(),
+          followUpDate: addDays(new Date(), 1),
+        }
+        leadStorage.add(lead)
+        logEvent('form_submit', { form: 'pain_point', leadId: lead.id })
+        
+        // Success UI
+        toast?.success('ההודעה נשלחה', 'נחזור אליך עד 24 שעות.')
+        setForm({ name: '', email: '', phone: '', problem: '' })
+        setResult({ type: 'success', message: 'ההודעה נשלחה!' })
+      } catch {
+        // Simple error UI
+        toast?.error?.('שגיאה בשליחה', 'נסו שוב.')
+        setResult({ type: 'error', message: 'שגיאה בשליחה' })
+      } finally {
+        setSubmitting(false)
+      }
+    }
 
   return (
     <div className="max-w-3xl mx-auto">
