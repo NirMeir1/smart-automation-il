@@ -29,20 +29,6 @@ export default function Hero() {
             </h1>
             <p className="text-lg">תנו לנו להראות לכם איך נוכל לשפר את העסק שלכם!</p>
           </div>
-
-          {/* Visual */}
-          <div className="lg:col-span-8">
-            <video
-              className="w-full rounded-lg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="/video-poster.jpg"
-            >
-              <source src="/video.mp4" type="video/mp4" />
-            </video>
-          </div>
         </div>
 
         {/* Pain-point free text form (in-flow) */}
