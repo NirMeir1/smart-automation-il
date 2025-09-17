@@ -90,6 +90,24 @@ function ContactPageContent() {
 
     setIsSubmitting(true)
     try {
+       // Send email via API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          subject: formData.subject,
+          message: formData.message,
+          source: `דף צור קשר - ${formData.contactType}`
+        })
+      })
+
+      if (!response.ok) throw new Error('Failed to send email')
+
+      // Still save locally for backup/tracking
       const followUpDate = addDays(new Date(), 1)
       const newLead: Lead = {
         id: generateId(),

@@ -75,10 +75,17 @@ function LeadFormInner() {
     setStatus('submitting')
     announce('שולח...')
     try {
-      const res = await fetch('/api/lead', {
+      const res = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: `בקשת פגישה מהטופס התחתון`,
+          source: 'טופס ליד - תחתית עמוד'
+        }),
       })
       if (!res.ok) throw new Error()
       setStatus('success')
