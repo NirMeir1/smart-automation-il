@@ -187,27 +187,32 @@ export function PainPointForm() {
           {errors.problem && <p id="err-problem" className="mt-1 text-sm text-red-600">{errors.problem}</p>}
         </div>
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className={cn(
-            'w-full md:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full font-semibold text-white shadow-lg transition-transform',
-            submitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[var(--accent)] hover:brightness-110 hover:scale-[1.02)] shadow-[0_8px_20px_rgba(239,54,93,0.35)]'
-          )}
-          aria-label="שליחה"
-        >
-          {submitting ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
-              שולח…
-            </>
-          ) : (
-            <>
-              <Send className="w-5 h-5" aria-hidden="true" />
-              שליחה
-            </>
-          )}
-        </button>
+        <div className="flex justify-center mt-6">
+          <button
+            type="submit"
+            disabled={submitting}
+            className={cn(
+              'inline-flex items-center justify-center gap-3 px-10 py-4 rounded-full font-bold text-lg text-white shadow-2xl transition-all duration-300 transform relative overflow-hidden',
+              submitting 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-[#4ADE80] hover:bg-[#22C55E] hover:scale-105 hover:shadow-[0_20px_40px_rgba(74,222,128,0.4)] border-2 border-white/20 hover:border-white/40'
+            )}
+            aria-label="שליחה"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            {submitting ? (
+              <>
+                <Loader2 className="w-6 h-6 animate-spin" aria-hidden="true" />
+                שולח…
+              </>
+            ) : (
+              <>
+                <Send className="w-6 h-6 animate-pulse" aria-hidden="true" />
+                שליחה
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   )

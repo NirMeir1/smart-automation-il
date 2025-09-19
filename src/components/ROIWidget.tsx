@@ -46,13 +46,13 @@ export default function ROIWidget() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed right-6 bottom-24 md:top-24 md:bottom-auto md:right-6 z-[60] bg-pink text-white rounded-full px-5 py-4 shadow-xl hover:bg-pink/90 hover:scale-105 transition-transform flex items-center gap-3 animate-pulse"
-        aria-label="מחשבון החיסכון"
+        className="fixed right-6 bottom-24 md:top-24 md:bottom-auto md:right-6 z-[60] bg-[#4ADE80] text-white rounded-full px-5 py-4 shadow-xl hover:bg-[#22C55E] hover:scale-105 transition-transform flex items-center gap-3 animate-pulse"
+        aria-label="מחשבון חיסכון"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
         </svg>
-        <span className="font-semibold">מחשבון החיסכון</span>
+        <span className="font-semibold">מחשבון חיסכון</span>
       </button>
     )
   }
@@ -103,7 +103,7 @@ export default function ROIWidget() {
 
         <button
           onClick={calculate}
-          className="w-full bg-pink text-white py-3 rounded-lg font-semibold hover:bg-pink/90"
+          className="w-full bg-[#4ADE80] text-white py-3 rounded-lg font-semibold hover:bg-[#22C55E]"
         >
           חשב חיסכון
         </button>

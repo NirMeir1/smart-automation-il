@@ -20,11 +20,11 @@ export default function Hero() {
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           {/* Copy/content */}
           <div className="lg:col-span-12 text-center space-y-4">
-            <p className="text-xl font-bold">חוסכים זמן, מגדילים רווחים:</p>
+            <p className="text-xl font-bold">חוסכים זמן, מגדילים רווחים!</p>
             <h1 className="text-4xl lg:text-5xl leading-tight">
-              <span className="text-pink">אוטומציה עסקית </span>
+              <span className="text-[#4ADE80]">אוטומציה עסקית </span>
               <strong className="block font-normal">
-                שחוסכת לכם עד 50% מזמן העבודה במשרד
+                שחוסכת לכם עד 50% מזמן העבודה
               </strong>
             </h1>
             <p className="text-lg">תנו לנו להראות לכם איך נוכל לשפר את העסק שלכם!</p>

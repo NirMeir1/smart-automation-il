@@ -40,17 +40,14 @@ export function Navigation() {
             <div className="hidden md:flex items-center gap-6">
               <div className="flex flex-row-reverse items-center gap-6 lg:gap-8">
                 {navigation.map((item) => {
-                  const isContact = item.name === 'צור קשר'
                   return (
                     <Link
                       key={item.name}
                       href={item.href}
                       className={cn(
                         'px-3 py-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-                        isContact
-                          ? 'bg-[var(--accent-from)] text-white hover:bg-[var(--accent-to)] shadow-md'
-                          : 'text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
-                        pathname === item.href && !isContact
+                        'text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
+                         pathname === item.href
                           ? 'text-[var(--accent-from)] bg-[var(--muted)]'
                           : ''
                       )}
@@ -82,7 +79,6 @@ export function Navigation() {
               style={{ boxShadow: 'var(--shadow)' }}
             >
               {navigation.map((item) => {
-                const isContact = item.name === 'צור קשר'
                 return (
                   <Link
                     key={item.name}
@@ -90,12 +86,10 @@ export function Navigation() {
                     onClick={() => setIsOpen(false)}
                     className={cn(
                       'block px-3 py-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-                      isContact
-                        ? 'bg-[var(--accent-from)] text-white hover:bg-[var(--accent-to)] shadow-md text-center'
-                        : 'text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
-                      pathname === item.href && !isContact
-                        ? 'text-[var(--accent-from)] bg-[var(--muted)]'
-                        : ''
+                      'text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
+                       pathname === item.href
+                          ? 'text-[var(--accent-from)] bg-[var(--muted)]'
+                          : ''
                     )}
                   >
                     {item.name}
