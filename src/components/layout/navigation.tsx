@@ -1,111 +1,22 @@
-'use client'
-
+﻿'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
-
-const navigation = [
-  { name: 'בית', href: '/' },
-  { name: 'המלצות', href: '/testimonials' },
-  { name: 'אודותינו', href: '/about' },
-  { name: 'צור קשר', href: '/contact' }
-]
-
+import { useRef, useState } from 'react'
+import { routes } from '@/lib/routes'
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
+  const toggle = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  return (
-    <>
-      <nav
-        id="navigation"
-        className={cn("bg-[var(--card)] sticky top-0 z-40", !isScrolled && "border-b border-[var(--outline)]")}
-        role="navigation"
-        aria-label="תפריט ניווט ראשי"
-        style={{ boxShadow: 'var(--shadow)' }}
-      >
-        <div className="container">
-          <div className="flex justify-between items-center h-16">
-            <div className="hidden md:flex items-center gap-6">
-              <div className="flex flex-row-reverse items-center gap-6 lg:gap-8">
-                {navigation.map((item) => {
-                  const isContact = item.name === 'צור קשר'
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={cn(
-                        'px-3 py-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-                        isContact
-                          ? 'bg-[var(--accent-from)] text-white hover:bg-[var(--accent-to)] shadow-md'
-                          : 'text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
-                        pathname === item.href && !isContact
-                          ? 'text-[var(--accent-from)] bg-[var(--muted)]'
-                          : ''
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
-
-            <div className="md:hidden flex items-center">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)]"
-                style={{ borderRadius: 'var(--radius-sm)' }}
-                aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
-              >
-                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {isOpen && (
-          <div className="md:hidden">
-            <div
-              className="px-2 pt-2 pb-3 space-y-1 bg-[var(--card)]"
-              style={{ boxShadow: 'var(--shadow)' }}
-            >
-              {navigation.map((item) => {
-                const isContact = item.name === 'צור קשר'
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      'block px-3 py-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-                      isContact
-                        ? 'bg-[var(--accent-from)] text-white hover:bg-[var(--accent-to)] shadow-md text-center'
-                        : 'text-[var(--ink)] hover:text-[var(--accent-from)] hover:bg-[var(--muted)]',
-                      pathname === item.href && !isContact
-                        ? 'text-[var(--accent-from)] bg-[var(--muted)]'
-                        : ''
-                    )}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-        )}
+  return <header className="site-header" onKeyDown={event => {
+    if (event.key === 'Escape' && open) { setOpen(false); toggle.current?.focus() }
+  }}>
+    <div className="site-container header-row">
+      <Link href="/" className="wordmark" aria-label="Bottomline — דף הבית" onClick={() => setOpen(false)}><bdi dir="ltr">Bottomline<span>.</span></bdi></Link>
+      <button ref={toggle} className="menu-toggle" aria-expanded={open} aria-controls="primary-navigation" aria-label={open ? 'סגירת תפריט' : 'פתיחת תפריט'} onClick={() => setOpen(!open)}>{open ? 'סגירה ×' : 'תפריט ☰'}</button>
+      <nav id="primary-navigation" aria-label="ניווט ראשי" className={open ? 'primary-nav is-open' : 'primary-nav'}>
+        {routes.map(route => <Link href={route.href} key={route.key} aria-current={pathname === route.href ? 'page' : undefined} onClick={() => setOpen(false)}>{route.label}</Link>)}
+        <Link href="/contact#inquiry" className="action header-action" onClick={() => setOpen(false)}>לקביעת פגישת היכרות <span aria-hidden="true">↖</span></Link>
       </nav>
-    </>
-  )
+    </div>
+  </header>
 }

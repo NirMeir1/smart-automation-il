@@ -9,9 +9,18 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+/.npm-cache/
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# lint cache
+.eslintcache
 
 # next.js
 /.next/
@@ -23,6 +32,8 @@
 
 # misc
 .DS_Store
+Thumbs.db
+Desktop.ini
 *.pem
 
 # debug
@@ -31,8 +42,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# private environment files; example files must contain no secrets
 .env*
+!.env.example
+
+# local assistant settings (already tracked files are unaffected)
+/.claude/settings.local.json
 
 # vercel
 .vercel
