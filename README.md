@@ -1,81 +1,49 @@
-# אוטומציה חכמה - Smart Automation IL
+﻿# Smart Automation IL — אוטומציה חכמה
 
-Production-grade website showcasing automation solutions for Israeli businesses.
+A Hebrew, right-to-left website for business automation services, built with Next.js, React, TypeScript, and Tailwind CSS.
 
-## 🎯 Features
-- ✅ **RTL Hebrew Support** – Fully optimized for Hebrew language and RTL layout
-- ✅ **Accessibility** – WCAG 2.1 compliant with screen reader support
-- ✅ **Performance** – Optimized Core Web Vitals and fast loading
-- ✅ **Responsive Design** – Mobile-first approach across breakpoints
-- ✅ **Admin Panel** – Data management and analytics dashboard
-- ✅ **Event Logging** – Comprehensive user interaction tracking
-- ✅ **Error Handling** – Graceful error boundaries and recovery
-- ✅ **Testing** – Unit and integration tests with Vitest
+## Run locally
 
-## 🚀 Quick Start
+Install Node.js (18.17 or later) and npm, then run from the project directory:
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-
-### Installation
-```bash
-# Clone the repository
-git clone <repository-url>
-cd smart-automation-il
-
-# Install dependencies
-npm install
-
-# Start development server
+```sh
+npm ci
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-Create a `.env.local` file to configure the admin password:
-```bash
-NEXT_PUBLIC_ADMIN_PASSWORD=your_password
-```
+Open [localhost:3000](http://localhost:3000). Stop the server with `Ctrl+C`.
+If PowerShell blocks `npm.ps1`, use `npm.cmd` instead of `npm`.
 
-## 📁 Project Structure
-```
-src/
-├── app/                    # Next.js app router pages
-│   ├── about/             # About page
-│   ├── admin/             # Admin panel
-│   ├── contact/           # Contact form
-│   ├── legal/             # Terms & Privacy pages
-│   └── testimonials/      # Testimonials page
-├── components/
-│   ├── admin/             # Admin components
-│   ├── layout/            # Navigation, footer
-│   ├── providers/         # Context providers
-│   └── ui/                # Reusable UI components
-├── lib/
-│   ├── accessibility.ts   # A11y utilities
-│   ├── auth.ts            # Admin authentication
-│   ├── error-handling.ts  # Error utilities
-│   ├── performance.ts     # Performance monitoring
-│   ├── storage.ts         # LocalStorage management
-│   ├── types.ts           # TypeScript types
-│   └── utils.ts           # General utilities
-└── test/                  # Test files
+## Configuration
+
+Create `.env.local` as needed, then restart the development server:
+
+```dotenv
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+RESEND_API_KEY=your_resend_api_key
+NEXT_PUBLIC_ADMIN_PASSWORD=your_demo_password
 ```
 
-## 🎮 Available Scripts
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run test         # Run tests in watch mode
-npm run test:run     # Run tests once
-npm run test:coverage # Run tests with coverage
-npm run type-check   # TypeScript type checking
-```
+- `NEXT_PUBLIC_SITE_URL`: base URL for page metadata; set it to your public URL when deploying.
+- `RESEND_API_KEY`: required for contact emails. Configure the sender and recipient in `src/app/api/send-email/route.ts`.
+- `NEXT_PUBLIC_ADMIN_PASSWORD`: demo admin access. The password is exposed to the browser; production use requires server-side authentication.
 
-## 🧪 Testing
-```bash
-npm run lint
-npm run test:run
-```
+Keep `.env.local` out of version control.
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production |
+| `npm start` | Serve a production build |
+| `npm run lint` | Run the configured lint script |
+
+Test files exist in `src/test`, but test dependencies and npm scripts are not configured.
+
+## Source
+
+- `src/app`: pages and API routes
+- `src/components`: UI and layout components
+- `src/lib`: shared utilities
+- `public`: static assets
