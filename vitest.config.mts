@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config'
 import { resolve } from 'path'
 
 export default defineConfig({
-  esbuild: { jsx: 'automatic' },
+  oxc: { jsx: { runtime: 'automatic' } },
   test: {
     include: ['src/test/**/*.test.{ts,tsx}'],
     globals: true,
@@ -11,7 +11,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      'server-only': resolve(import.meta.dirname, './src/test/server-only.ts'),
+      '@': resolve(import.meta.dirname, './src'),
     },
   },
 })

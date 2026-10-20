@@ -4,7 +4,8 @@ import { readFileSync } from 'node:fs'
 import { CopyPage } from '@/components/copy-page'
 import { ContactForm } from '@/components/contact-form'
 import { Navigation } from '@/components/layout/navigation'
-import pages from '@/content/pages.json'
+import { pages } from '@/content/pages'
+import { pageTextNodes } from '@/content/schema'
 import { routes, pageMetadata } from '@/lib/site'
 import { inquirySuccess } from '@/lib/inquiry'
 
@@ -37,9 +38,8 @@ describe('Part J pages', () => {
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(normalize(screen.getByRole('heading', { level: 1 }).textContent!)).toBe(normalize(page.h1))
     const rendered = normalize(container.textContent!)
-    for (const node of [...page.hero, ...page.sections.flatMap(s => s.nodes)]) {
+    for (const node of pageTextNodes(page)) {
       expect(rendered).toContain(normalize(node.text))
-      if ('body' in node) expect(rendered).toContain(normalize(String(node.body)))
     }
     const metadata = pageMetadata(route.key)
     expect(metadata.title).toBe(page.title)
@@ -54,9 +54,13 @@ describe('Part J pages', () => {
   })
   it('includes five problem cards, six capabilities, five stages and six native FAQ disclosures', () => {
     const { container } = render(<CopyPage pageKey="home" />)
-    expect(pages.home.sections[0].nodes.filter(n => n.type === 'card')).toHaveLength(5)
-    expect(pages.home.sections[1].nodes.filter(n => n.type === 'h3')).toHaveLength(6)
-    expect(pages.home.sections[3].nodes.filter(n => n.type === 'h3')).toHaveLength(5)
+    const cardCount = (id: string) => {
+      const section = pages.home.sections.find(section => section.id === id)
+      return section?.kind === 'cards' ? section.nodes.filter(node => node.type === 'card').length : 0
+    }
+    expect(cardCount('problems')).toBe(5)
+    expect(cardCount('capabilities')).toBe(6)
+    expect(cardCount('process')).toBe(5)
     expect(container.querySelectorAll('details summary')).toHaveLength(6)
   })
   it('has ordered navigation and Escape returns focus to the mobile toggle', () => {

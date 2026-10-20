@@ -1,3 +1,5 @@
+import type { PageKey, PagePath } from '@/content/schema'
+
 export const routes = [
   { key: 'home', href: '/', label: 'דף הבית' },
   { key: 'solutions', href: '/solutions', label: 'פתרונות' },
@@ -6,4 +8,4 @@ export const routes = [
   { key: 'process', href: '/process', label: 'איך עובדים יחד' },
   { key: 'about', href: '/about', label: 'אודות' },
   { key: 'contact', href: '/contact', label: 'בואו נכיר' },
-] as const
+] as const satisfies readonly { key: PageKey; href: PagePath; label: string }[]

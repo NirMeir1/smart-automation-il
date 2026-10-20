@@ -1,24 +1,30 @@
 // @vitest-environment node
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { NextRequest } from 'next/server'
 import { emptyInquiry } from '@/lib/inquiry'
 const send = vi.hoisted(() => vi.fn())
 vi.mock('resend', () => ({ Resend: class { emails = { send } } }))
-const payload = () => ({ ...emptyInquiry, name: '<script>name</script>', contact: '0501234567', callerType: 'עסק', message: '<img onerror="alert(1)">', privacy: true, startedAt: Date.now() - 3000 })
+const payload = () => ({ ...emptyInquiry, submissionId: '123e4567-e89b-42d3-a456-426614174000', name: '<script>name</script>', contact: '0501234567', callerType: 'עסק', message: '<img onerror="alert(1)">', privacy: true, startedAt: Date.now() - 3000 })
 const request = (body: unknown = payload(), headers: Record<string, string> = {}) => new NextRequest('http://localhost:3000/api/lead', { method: 'POST', headers: { origin: 'http://localhost:3000', 'content-type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) })
 beforeEach(() => {
   vi.resetModules(); vi.unstubAllEnvs(); send.mockReset()
+  vi.spyOn(console, 'info').mockImplementation(() => {})
+  vi.stubEnv('CONTACT_TRUST_PROXY', 'false')
+  vi.stubEnv('UPSTASH_REDIS_REST_URL', '')
+  vi.stubEnv('UPSTASH_REDIS_REST_TOKEN', '')
+  vi.stubEnv('CONTACT_RATE_LIMIT_SECRET', '')
   vi.stubEnv('NEXT_PUBLIC_SITE_URL', '')
   vi.stubEnv('CONTACT_FORM_ENABLED', 'true'); vi.stubEnv('LEGAL_REVIEW_APPROVED', 'true')
   vi.stubEnv('RESEND_API_KEY', 'test-only'); vi.stubEnv('CONTACT_FROM_EMAIL', 'sender@example.test'); vi.stubEnv('CONTACT_TO_EMAIL', 'recipient@example.test')
   send.mockResolvedValue({ data: { id: 'provider-receipt' }, error: null })
 })
+afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers() })
 describe('Inquiry endpoint', () => {
   it('returns success only with provider receipt; sends plain text and no phone replyTo', async () => {
     const { POST } = await import('@/app/api/lead/route')
     const response = await POST(request())
     expect(response.status).toBe(200); expect(await response.json()).toEqual({ success: true })
-    expect(send).toHaveBeenCalledWith(expect.objectContaining({ text: expect.stringContaining('<img onerror='), subject: 'פנייה חדשה מאתר Bottomline' }))
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({ text: expect.stringContaining('<img onerror='), subject: 'פנייה חדשה מאתר Bottomline' }), expect.objectContaining({ idempotencyKey: 'bottomline-inquiry/123e4567-e89b-42d3-a456-426614174000', signal: expect.any(AbortSignal) }))
     expect(send.mock.calls[0][0]).not.toHaveProperty('html')
     expect(send.mock.calls[0][0]).not.toHaveProperty('replyTo')
     expect(response.headers.get('Cache-Control')).toBe('no-store')
@@ -38,6 +44,63 @@ describe('Inquiry endpoint', () => {
     send.mockRejectedValue(new Error('credential detail'))
     const { POST } = await import('@/app/api/lead/route')
     expect((await POST(request())).status).toBe(502)
+  })
+  it('uses identical provider keys and payloads for retries across endpoint aliases', async () => {
+    const body = payload()
+    const { POST } = await import('@/app/api/lead/route')
+    const legacy = await import('@/app/api/send-email/route')
+    await POST(request(body)); await legacy.POST(request(body))
+    expect(send.mock.calls[0][0]).toEqual(send.mock.calls[1][0])
+    expect(send.mock.calls[0][1].idempotencyKey).toBe(send.mock.calls[1][1].idempotencyKey)
+  })
+  it('records only categorical outcomes, timing and server correlation IDs', async () => {
+    const { POST } = await import('@/app/api/lead/route')
+    const response = await POST(request())
+    expect(console.info).toHaveBeenCalledWith(expect.any(String))
+    const logs = JSON.stringify(vi.mocked(console.info).mock.calls)
+    expect(logs).not.toMatch(/0501234567|<script>|<img|recipient@example|test-only/)
+    expect(response.headers.get('X-Request-ID')).toMatch(/^[\da-f-]{36}$/)
+    expect(JSON.parse(vi.mocked(console.info).mock.calls[0][0])).toMatchObject({ event: 'contact', outcome: 'accepted', requestId: response.headers.get('X-Request-ID') })
+  })
+  it('fails closed when the shared limiter is unavailable', async () => {
+    vi.stubEnv('CONTACT_TRUST_PROXY', 'true'); vi.stubEnv('UPSTASH_REDIS_REST_URL', 'https://unit-test.upstash.io')
+    vi.stubEnv('UPSTASH_REDIS_REST_TOKEN', 'fake-token'); vi.stubEnv('CONTACT_RATE_LIMIT_SECRET', 's'.repeat(32))
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('service down')))
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(request(payload(), { 'x-forwarded-for': '203.0.113.7' }))).status).toBe(503)
+    expect(send).not.toHaveBeenCalled()
+  })
+  it('requires shared rate-limit configuration in production', async () => {
+    vi.stubEnv('NODE_ENV', 'production'); vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://configured-origin.co.il')
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(request(payload(), { origin: 'https://configured-origin.co.il' }))).status).toBe(503)
+    expect(send).not.toHaveBeenCalled()
+  })
+  it('signals a changed-payload key conflict without reporting success', async () => {
+    send.mockResolvedValue({ data: null, error: { name: 'invalid_idempotent_request' } })
+    const { POST } = await import('@/app/api/lead/route')
+    const response = await POST(request())
+    expect(response.status).toBe(409)
+    expect(await response.json()).toMatchObject({ retryWithNewId: true })
+  })
+  it('passes an abort signal that cancels a hanging delivery', async () => {
+    // A real abort verifies cancellation reaches the SDK, rather than merely racing a promise.
+    const timeout = vi.spyOn(AbortSignal, 'timeout').mockImplementationOnce(() => {
+      const controller = new AbortController()
+      setTimeout(() => controller.abort(new DOMException('Timed out', 'TimeoutError')), 5)
+      return controller.signal
+    })
+    send.mockImplementation((_body, options) => new Promise((_resolve, reject) => options.signal.addEventListener('abort', () => reject(options.signal.reason), { once: true })))
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(request())).status).toBe(504)
+    expect(timeout).toHaveBeenCalledWith(15_000)
+  })
+  it('classifies the real SDK normalized abort result as a timeout', async () => {
+    vi.spyOn(AbortSignal, 'timeout').mockImplementationOnce(() => AbortSignal.abort(new DOMException('Fixture timeout', 'TimeoutError')))
+    send.mockResolvedValue({ data: null, error: { name: 'application_error' } })
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(request())).status).toBe(504)
+    expect(JSON.parse(vi.mocked(console.info).mock.calls[0][0])).toMatchObject({ outcome: 'delivery_timeout' })
   })
   it.each(['RESEND_API_KEY', 'CONTACT_TO_EMAIL', 'CONTACT_FROM_EMAIL', 'CONTACT_FORM_ENABLED', 'LEGAL_REVIEW_APPROVED'])('fails honestly when %s is absent', async setting => {
     vi.stubEnv(setting, '')

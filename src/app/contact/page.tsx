@@ -4,4 +4,8 @@ import { ContactForm } from '@/components/contact-form'
 import { contactAvailable } from '@/lib/contact-config'
 export const dynamic = 'force-dynamic'
 export const metadata = pageMetadata('contact')
-export default function ContactPage() { return <CopyPage pageKey="contact"><ContactForm enabled={contactAvailable()} /></CopyPage> }
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ intent?: string }> }) {
+  const { intent = '' } = await searchParams
+  const initialIntent = ['business', 'idea', 'problem'].includes(intent) ? intent : ''
+  return <CopyPage pageKey="contact"><ContactForm enabled={contactAvailable()} initialIntent={initialIntent} /></CopyPage>
+}

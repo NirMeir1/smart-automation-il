@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 import { routes } from '../src/lib/routes'
-import pages from '../src/content/pages.json'
+import { pages } from '../src/content/pages'
 
 for (const route of routes) test(`${route.href}: copy, metadata, links, layout and accessibility`, async ({ page }, testInfo) => {
   const issues: string[] = []

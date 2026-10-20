@@ -1,12 +1,13 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next'
-import { Heebo } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 
-const heebo = Heebo({
-  subsets: ['hebrew'],
+const heebo = localFont({
+  src: './fonts/Heebo-Variable.ttf',
+  weight: '100 900',
   variable: '--font-heebo',
   display: 'swap',
 })
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={`${heebo.className} ${heebo.variable}`}>
-        <a href="#main" className="skip-link">
+        <a href="#main" className="skip-link" tabIndex={0}>
           דלג לתוכן הראשי
         </a>
         <Navigation />

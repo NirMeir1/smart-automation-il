@@ -33,7 +33,7 @@ describe('Contact form', () => {
     render(<ContactForm enabled />); fill(contact)
     fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
     await screen.findByRole('heading', { name: inquirySuccess.title })
-    expect(screen.getByRole('status')).toHaveFocus()
+    await waitFor(() => expect(screen.getByRole('status')).toHaveFocus())
     expect(screen.getByText(inquirySuccess.body)).toBeInTheDocument()
     const sent = JSON.parse(fetchMock.mock.calls[0][1].body)
     expect(sent.contact).toBe(contact); expect(sent.privacy).toBe(true)
@@ -49,6 +49,24 @@ describe('Contact form', () => {
     expect(screen.queryByText(inquirySuccess.title)).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('לא התקבל אישור שליחה'))
+  })
+  it('keeps the same retry ID until the visitor changes the inquiry', async () => {
+    fetchMock.mockResolvedValue({ ok: false, json: async () => ({ error: 'לא נשלח' }) })
+    render(<ContactForm enabled />); fill()
+    fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
+    await screen.findByRole('alert')
+    fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2))
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body).submissionId).toBe(JSON.parse(fetchMock.mock.calls[1][1].body).submissionId)
+    await waitFor(() => expect(screen.getByRole('button', { name: /שליחת הפנייה/ })).not.toBeDisabled())
+    fireEvent.change(screen.getByLabelText('מה הייתם רוצים לפתור? *'), { target: { value: 'בעיה אחרת' } })
+    fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(3))
+    expect(JSON.parse(fetchMock.mock.calls[2][1].body).submissionId).not.toBe(JSON.parse(fetchMock.mock.calls[0][1].body).submissionId)
+  })
+  it('retains the audience intent received from the server', () => {
+    render(<ContactForm enabled initialIntent="idea" />)
+    expect(screen.getByLabelText('אני פונה בתור *')).toHaveValue('יזם/ת')
   })
   it('disables repeat submit while awaiting confirmation and never trusts an empty 200 response', async () => {
     let resolve!: (value: unknown) => void

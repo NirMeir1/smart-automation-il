@@ -1,10 +1,23 @@
-﻿# Bottomline
+# Bottomline
 
-Hebrew-first, RTL website built with Next.js 15, React 18, TypeScript and Tailwind CSS.
+Hebrew, RTL website using Next.js 16, React 19, TypeScript 6 and Tailwind CSS 4. Heebo is bundled locally with its license.
+
+## Tech stack
+
+- **Next.js + React** — website pages, forms and server endpoints.
+- **TypeScript** — catches code mistakes before running.
+- **Tailwind CSS + PostCSS** — styles and prepares CSS.
+- **Node.js + npm** — runs the app and manages packages.
+- **Resend** — sends contact inquiries by email.
+- **Upstash Redis** — limits production submission attempts; setup required.
+- **ESLint** — checks code quality.
+- **Vitest + Testing Library + jsdom** — tests logic and components.
+- **Vite** — powers the unit test tooling.
+- **Playwright + axe** — checks browsers and accessibility.
 
 ## Run locally
 
-Use Node.js 24+ and npm.
+Use Node **24.22.0** (`.node-version`) and npm **11.19.1**.
 
 ```sh
 npm ci
@@ -13,51 +26,34 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000). In PowerShell, use `npm.cmd` if `npm.ps1` is blocked.
 
-## Check changes
+## Verify changes
 
 ```sh
+npm run content:check
 npm run lint
 npm run typecheck
 npm test
 npm run build
+npx playwright install chromium firefox webkit
 npm run test:e2e
 ```
 
-Build before running browser tests. They start a local production server on port 3100 and use installed Microsoft Edge. Set `PLAYWRIGHT_BROWSER_CHANNEL=chrome` to use installed Chrome instead. Screenshots and traces go to `test-results/`.
-
-Unit tests mock email delivery. Browser tests expect the default configuration below: no production URL, submissions disabled and indexing disabled.
+Browser tests start local production servers on ports **3100–3101**, cover desktop/mobile and three browser engines, and mock all contact delivery. Screenshots/traces go to ignored `test-results/`. Build without production settings for this suite. Tests never require real credentials.
 
 ## Configuration
 
-Create a private `.env.local` when needed; never commit secrets. These defaults keep submissions and indexing disabled:
+Copy [.env.example](.env.example) to private `.env.local`. Submissions and indexing default to disabled.
 
-```dotenv
-NEXT_PUBLIC_SITE_URL=
-SITE_INDEXING_ENABLED=false
-CONTACT_FORM_ENABLED=false
-LEGAL_REVIEW_APPROVED=false
-RESEND_API_KEY=
-CONTACT_FROM_EMAIL=
-CONTACT_TO_EMAIL=
-CONTACT_TRUST_PROXY=false
-```
+- Use a verified HTTPS origin in `NEXT_PUBLIC_SITE_URL`. Rebuild after changing it or indexing settings; Vercel previews stay noindex.
+- Submissions require `CONTACT_FORM_ENABLED=true`, `LEGAL_REVIEW_APPROVED=true` and valid Resend settings. Production also requires shared Upstash Redis, a random secret of at least 32 characters, and a proxy that **overwrites** `x-forwarded-for`. Enable `CONTACT_TRUST_PROXY` only after checking this. Rate-limit service failure blocks sending.
+- Replace legal drafts with approved documents before enabling `LEGAL_REVIEW_APPROVED`. Provider acceptance does not prove mailbox delivery; verify the real mailbox before launch.
 
-- Set `NEXT_PUBLIC_SITE_URL` to the verified HTTPS production origin, without a path. Rebuild after changing the URL or indexing settings. Vercel previews remain noindex.
-- Contact submissions require both enablement flags, Resend credentials, a verified sender and a recipient. Production also requires the production origin. Replace the legal drafts with approved documents before setting `LEGAL_REVIEW_APPROVED=true`.
-- Enable `CONTACT_TRUST_PROXY` only if the hosting proxy overwrites `x-forwarded-for`. Otherwise, rate limiting uses one shared bucket. Multiple server instances need shared abuse protection.
+Both `/api/lead` and `/api/send-email` use the same validated handler. Retry IDs protect unchanged inquiries against duplicate emails within Resend's 24-hour window. Form data is not saved in browser storage; production application diagnostics exclude it. Meeting buttons request contact, without confirming a booking.
 
-Both `/api/lead` and `/api/send-email` validate inquiries and send through Resend. Success means provider acceptance; actual mailbox delivery still needs verification. Inquiries are not saved in browser storage or application logs. Meeting buttons request contact; they do not confirm a booking.
+## Content and release
 
-## Pages and content
+Seven public pages: `/`, `/solutions`, `/business`, `/individuals`, `/process`, `/about`, `/contact`. Legal drafts live under `/legal/*`; testimonials/thanks redirect, and `/admin` returns 404.
 
-Public pages: `/`, `/solutions`, `/business`, `/individuals`, `/process`, `/about` and `/contact`.
+Reviewed copy is in `src/content/pages.json`; its schema and explicit layouts/links are in `src/content/`. Run `npm run content:generate` to regenerate from Part J of the [specification](docs/Bottomline_Codex_Implementation_Prompt.md), then review the diff and run the checks above.
 
-Legal drafts are under `/legal/privacy`, `/legal/terms` and `/legal/accessibility`. `/testimonials` redirects to About; `/thanks` redirects to Contact. `/admin` is a local demo and returns 404 in production. Do not use it for real customer data.
-
-Reviewed copy lives in `src/content/pages.json`. To regenerate it from Part J of the [specification](docs/Bottomline_Codex_Implementation_Prompt.md), run `node scripts/extract-copy.cjs` and review the diff. Unused legacy components remain for reuse; their old claims are not approved for publication.
-
-## Before launch
-
-Complete the [release checklist](docs/Bottomline_Implementation_Status.md): brand/domain clearance, verified owner details and meeting terms, legal/accessibility approval, production configuration and a real mailbox delivery test. The report also records copy exceptions, verification results and remaining development-tooling security findings.
-
-No deployment, push or live email was performed during implementation.
+See [upgrade results and remaining limitations](docs/Technology_Upgrade_Status.md) and the [launch checklist](docs/Bottomline_Implementation_Status.md). CI and automated dependency monitoring are intentionally deferred. Nothing has been deployed or pushed.
