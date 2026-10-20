@@ -25,6 +25,7 @@ a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .primary-nav > a:hover { color: var(--green); }
 .action { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 48px; padding: 12px 24px; background: var(--green); color: #fff; border: 1px solid var(--green); border-radius: 4px; font-size: 16px; font-weight: 650; text-decoration: none; width: fit-content; max-width: 100%; transition: background .15s; }
 .action:hover { background: #194635; color: white; }
+.action:disabled, .action:disabled:hover { background: #e0e3e1; border-color: #a5ada8; color: #536159; cursor: not-allowed; }
 .action > span { font-size: 22px; }
 .primary-nav .header-action { padding: 10px 16px; color: #fff; }
 .menu-toggle { display: none; min-height: 48px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; }
@@ -98,14 +99,14 @@ p { white-space: pre-line; }
 .form-fields:disabled { opacity: .7; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.field label, .meeting-options legend { font-weight: 600; }
+.field label, .meeting-options legend, .contact-methods legend { font-weight: 600; }
 .field input:not([type=checkbox]), .field textarea, .field select { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #859b8f; border-radius: 4px; background: white; color: var(--ink); }
 input::placeholder, textarea::placeholder { color: #53665b; opacity: 1; }
 textarea { resize: vertical; }
 .field input[aria-invalid=true], .field textarea[aria-invalid=true], .field select[aria-invalid=true] { border-color: #a12c23; }
 .field-error { color: #9f241c; font-size: 15px; }
 .field-help { font-size: 15px; color: var(--muted-ink); }
-.meeting-options { border: 0; padding: 0; min-width: 0; }
+.meeting-options, .contact-methods { border: 0; padding: 0; min-width: 0; }
 .meeting-options > div { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
 .meeting-options label { display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); padding: 12px 18px; background: #fff; cursor: pointer; }
 .privacy-label { display: flex; gap: 12px; align-items: baseline; }
@@ -152,3 +153,10 @@ button:disabled { cursor: not-allowed; }
   .content-section .copy-flow, .page-hero .copy-flow { font-size: 17px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* Responsive introduction video. */
+.introduction-video { min-width: 0; width: 100%; margin: 0; }
+.video-surface { width: 100%; aspect-ratio: 16 / 9; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+.video-surface video { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--ink); }
+.introduction-video figcaption { margin-top: 12px; color: var(--muted-ink); font-size: 14px; text-align: center; }
+@media (max-width: 900px) { .introduction-video { max-width: 540px; justify-self: center; } }

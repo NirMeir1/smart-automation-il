@@ -15,7 +15,7 @@ export function pageMetadata(key: PageKey): Metadata {
   return {
     title, description,
     ...(origin ? { alternates: { canonical: `${origin}${path}` } } : {}),
-    openGraph: { title, description, siteName: 'Bottomline', locale: 'he_IL', type: 'website', ...(origin ? { url: `${origin}${path}` } : {}) },
+    openGraph: { title, description, siteName: 'BottomLine', locale: 'he_IL', type: 'website', ...(origin ? { url: `${origin}${path}` } : {}) },
     robots: { index: indexingAllowed(), follow: indexingAllowed() },
   }
 }

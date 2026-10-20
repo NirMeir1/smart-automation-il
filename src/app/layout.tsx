@@ -12,7 +12,7 @@ const heebo = localFont({
   display: 'swap',
 })
 
-export const metadata: Metadata = { title: 'Bottomline', robots: { index: false, follow: false } }
+export const metadata: Metadata = { title: 'BottomLine', robots: { index: false, follow: false } }
 
 export default function RootLayout({
   children,

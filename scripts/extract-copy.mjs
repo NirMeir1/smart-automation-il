@@ -2,11 +2,12 @@
 import fs from 'node:fs';
 import { parseSiteContent } from '../src/content/schema.ts';
 import { ctaLinks, sectionDefinitions } from '../src/content/structure.ts';
-const source = fs.readFileSync('docs/Bottomline_Codex_Implementation_Prompt.md', 'utf8');
-const deck = source.split('### Home page — דף הבית')[1].split('## Legal/regulatory priorities')[0];
+// Approved brand casing update; preserve the original research document.
+const source = fs.readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8').replaceAll('Bottomline', 'BottomLine');
+const deck = source.split('### Home page — דף הבית')[1].split('## 8. Functional Requirements')[0];
 const chunks = ['### Home page — דף הבית' + deck].join('').split(/(?=^### .+ page — )/m).filter(Boolean);
 const keys = ['home', 'solutions', 'business', 'individuals', 'process', 'about', 'contact'];
-const translations = { 'Home FAQ': 'שאלות שעולות לפני שמתחילים', 'Technical capability block': 'הכלים שאפשר לעבוד איתם', 'Final reassurance': 'לא יודעים אם זה בכלל משהו שאני יכול לעזור בו?' };
+const translations = { 'Home FAQ': 'שאלות שעולות לפני שמתחילים', 'Technical capability block': 'הכלים שאפשר לעבוד איתם', 'Final reassurance': 'לא יודעים אם זה בכלל משהו שאני יכול לעזור בו?', 'The factual block to complete before publication': '[נדרש להשלמה ואימות לפני פרסום:]' };
 const clean = s => s.replace(/\*\*/g, '').replace(/\\\*/g, '*').trim();
 const pages = {};
 chunks.forEach((chunk, pageIndex) => {
@@ -20,13 +21,12 @@ chunks.forEach((chunk, pageIndex) => {
     if (!line) continue;
     if (line.startsWith('#### ')) {
       let title = line.slice(5).replace(/^Section: /, '');
-      skip = title === 'The factual block to complete before publication' || (key === 'contact' && title === 'Form');
+      skip = key === 'contact' && title === 'Form';
       if (skip) continue;
       title = translations[title] || title;
       section = { title, nodes: [] };
       page.sections.push(section); mode = ''; continue;
     }
-    if (skip && line === 'CTA:' && key === 'about') skip = false;
     if (skip) continue;
     if (line.startsWith('>')) {
       const quote = [];
@@ -48,7 +48,6 @@ chunks.forEach((chunk, pageIndex) => {
       const paragraphs = quote.join('\n').split(/\n\s*\n/).filter(s => s.trim());
       for (let p of paragraphs) {
         const plines = p.split('\n');
-        if (key === 'about' && p.includes('[שם מלא')) continue;
         if (mode === 'Card:') {
           add({ type: 'card', text: clean(plines.shift()), body: clean(plines.join('\n')) }); continue;
         }
@@ -56,10 +55,7 @@ chunks.forEach((chunk, pageIndex) => {
           add({ type: 'h3', text: clean(plines.shift()) });
         }
         if (!plines.length) continue;
-        let text = clean(plines.join('\n'));
-        if (section?.title === 'שאלות שעולות לפני שמתחילים' && section.nodes.at(-1)?.text === 'פגישת ההיכרות עולה כסף?') {
-          text = 'את תנאי פגישת ההיכרות נתאם מראש. המטרה שלה היא להבין את הצורך ולבדוק התאמה. בפרויקטים מורכבים שדורשים אפיון או בדיקת היתכנות מעמיקה, ייתכן שיומלץ על שלב אפיון נפרד בתשלום לפני הפיתוח.';
-        }
+        const text = clean(plines.join('\n'));
         add({ type: mode === 'Hero eyebrow' ? 'eyebrow' : /^\*\*.+\*\*$/.test(plines.join('\n')) ? 'strong' : 'p', text });
       }
       mode = ''; continue;
@@ -119,7 +115,7 @@ function structureSection(key, source) {
 }
 
 const content = parseSiteContent(Object.fromEntries(Object.entries(pages).map(([key, page]) => [key, {
-  ...page, heroDiagram: key === 'home', hero: page.hero.map(flow),
+  ...page, heroVideo: key === 'home', hero: page.hero.map(flow),
   sections: page.sections.map(section => structureSection(key, section)),
 }])));
 const output = JSON.stringify(content, null, 2) + '\n';

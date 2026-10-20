@@ -36,6 +36,11 @@
 Thumbs.db
 Desktop.ini
 *.pem
+*.key
+*.p12
+*.pfx
+*.log
+/.cache/
 
 # debug
 npm-debug.log*
@@ -58,3 +63,9 @@ yarn-error.log*
 
 # removed duplicate project subtree
 business-automation/
+
+# Local design concepts and review exports; preserve files outside version control.
+/Bottomline-Review-Highlights/
+/Bottomline-Video-Directions/
+/docs/design-review/
+/docs/Typography_Implementation.md

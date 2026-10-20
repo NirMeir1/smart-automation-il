@@ -12,7 +12,7 @@ export type ContentSection = SectionBase & (
   { kind: 'cards'; columns: 2 | 3; nodes: ContentNode[] } |
   { kind: 'faq'; items: { question: string; answer: FlowNode[] }[] }
 )
-export type PageContent = { title: string; description: string; h1: string; heroDiagram: boolean; hero: FlowNode[]; sections: ContentSection[] }
+export type PageContent = { title: string; description: string; h1: string; heroVideo: boolean; hero: FlowNode[]; sections: ContentSection[] }
 export type SiteContent = Record<PageKey, PageContent>
 
 function object(value: unknown): Record<string, unknown> {
@@ -76,8 +76,8 @@ export function parseSiteContent(value: unknown): SiteContent {
     const page = object(raw[key])
     const sections = list(page.sections).map(section)
     if (new Set(sections.map(section => section.id)).size !== sections.length) throw new Error(`Duplicate section IDs on ${key}`)
-    if (typeof page.heroDiagram !== 'boolean') throw new Error('Hero diagram must be explicit')
-    const result: PageContent = { title: text(page.title), description: text(page.description), h1: text(page.h1), heroDiagram: page.heroDiagram, hero: list(page.hero).map(flowNode), sections }
+    if (typeof page.heroVideo !== 'boolean') throw new Error('Hero video placement must be explicit')
+    const result: PageContent = { title: text(page.title), description: text(page.description), h1: text(page.h1), heroVideo: page.heroVideo, hero: list(page.hero).map(flowNode), sections }
     return [key, result]
   })) as SiteContent
 }

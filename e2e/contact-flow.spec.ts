@@ -9,12 +9,46 @@ test.beforeEach(async ({ page }) => {
 
 async function fill(page: Page) {
   await page.locator('#name').fill('Browser fixture')
-  await page.locator('#contact').fill('visitor@example.test')
+  await page.locator('#email').fill('visitor@example.test')
   await page.locator('#callerType').selectOption(callerTypes[0])
   await page.locator('#message').fill('A browser test inquiry about improving an existing process.')
-  await page.locator('#privacy').focus()
-  await page.keyboard.press('Space')
+  if (!await page.locator('#privacy').isChecked()) {
+    await page.locator('#privacy').focus()
+    await page.keyboard.press('Space')
+  }
 }
+
+for (const method of ['email', 'phone', 'both'] as const) test(`submits ${method} contact details accurately with responsive fields`, async ({ page }) => {
+  let received: Record<string, unknown> | undefined
+  await page.route('**/api/lead', async route => {
+    received = route.request().postDataJSON()
+    await route.fulfill({ json: { success: true } })
+  })
+  await page.goto('/contact')
+  await fill(page)
+  if (method === 'phone') await page.locator('#email').fill('')
+  if (method !== 'email') await page.locator('#phone').fill('0502345678')
+  await page.locator('#systems').fill('Gmail ו-Sheets')
+  await page.locator('#budget').fill('עדיין לא יודע/ת')
+  await expect(page.locator('#email')).toHaveAttribute('type', 'email')
+  await expect(page.locator('#phone')).toHaveAttribute('type', 'tel')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  await page.locator('button[type=submit]').click()
+  await expect(page.getByRole('heading', { name: inquirySuccess.title, exact: true })).toBeVisible()
+  expect(received).toMatchObject({ email: method === 'phone' ? '' : 'visitor@example.test', phone: method === 'email' ? '' : '0502345678', systems: 'Gmail ו-Sheets', budget: 'עדיין לא יודע/ת' })
+})
+
+test('rejects an invalid supplied contact method while keeping the valid one', async ({ page }) => {
+  let requests = 0
+  page.on('request', request => { if (request.url().includes('/api/')) requests++ })
+  await page.goto('/contact')
+  await fill(page)
+  await page.locator('#phone').fill('bad phone')
+  await page.locator('button[type=submit]').click()
+  await expect(page.locator('#phone')).toHaveAttribute('aria-invalid', 'true')
+  await expect(page.locator('#email')).toHaveValue('visitor@example.test')
+  expect(requests).toBe(0)
+})
 
 test('protects edits while client scripts are still loading', async ({ page }) => {
   let release!: () => void
@@ -36,6 +70,7 @@ test('validates without sending, focuses the summary and supports keyboard field
   let requests = 0
   page.on('request', request => { if (request.url().includes('/api/')) requests++ })
   await page.goto('/contact')
+  await page.locator('#privacy').check()
   await page.locator('button[type=submit]').click()
   await expect(page.locator('form').getByRole('alert')).toBeFocused()
   await expect(page.locator('#name')).toHaveAttribute('aria-invalid', 'true')
@@ -49,6 +84,39 @@ test('validates without sending, focuses the summary and supports keyboard field
   await expect(radio).toBeChecked()
   expect(requests).toBe(0)
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([])
+})
+
+test('consent controls the gray disabled button and blocks Enter submission', async ({ page }) => {
+  let requests = 0
+  page.on('request', request => { if (request.url().includes('/api/')) requests++ })
+  await page.goto('/contact')
+  const button = page.locator('button[type=submit]')
+  await expect(button).toBeDisabled()
+  await expect(button).toHaveCSS('background-color', 'rgb(224, 227, 225)')
+  await fill(page)
+  await expect(button).toBeEnabled()
+  await page.locator('#privacy').focus()
+  await page.keyboard.press('Space')
+  await expect(button).toBeDisabled()
+  await page.locator('#email').press('Enter')
+  expect(requests).toBe(0)
+})
+
+test('rejects the reported invalid phone before any API call and accepts correction', async ({ page }) => {
+  let requests = 0
+  page.on('request', request => { if (request.url().includes('/api/')) requests++ })
+  await page.goto('/contact')
+  await fill(page)
+  await page.locator('#phone').fill('05238349823983')
+  await page.locator('#phone').blur()
+  await expect(page.locator('#phone')).toHaveAttribute('aria-invalid', 'true')
+  await expect(page.locator('#phone-error')).toBeVisible()
+  await page.locator('button[type=submit]').click()
+  await expect(page.locator('form').getByRole('alert')).toBeFocused()
+  expect(requests).toBe(0)
+  await page.locator('#phone').fill('0522345678')
+  await expect(page.locator('#phone')).toHaveAttribute('aria-invalid', 'false')
+  await expect(page.locator('#phone-error')).toHaveCount(0)
 })
 
 test('shows pending state and confirms only a successful backend receipt', async ({ page }) => {

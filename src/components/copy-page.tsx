@@ -1,5 +1,7 @@
 ﻿import Link from 'next/link'
 import { pages } from '@/content/pages'
+import { introductionVideo } from '@/content/introduction-video'
+import { IntroductionVideo } from '@/components/introduction-video'
 import type { ContentNode, ContentSection, PageKey } from '@/content/schema'
 
 export function CopyText({ text }: { text: string }) {
@@ -24,9 +26,9 @@ export function ContentNodeView({ node }: { node: ContentNode }) {
 
 export function ContentSectionView({ section, index }: { section: ContentSection; index: number }) {
   const tone = section.tone === 'principle' ? 'principle-section' : section.tone === 'closing' ? 'closing-section' : ''
-  return <section className={`content-section ${tone}`} id={section.id}>
+  return <section className={`content-section ${tone}`} id={section.id} aria-labelledby={`${section.id}-heading`}>
     <div className="site-container">
-      <div className="section-heading"><span className="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h2><CopyText text={section.title} /></h2></div>
+      <div className="section-heading"><span className="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h2 id={`${section.id}-heading`}><CopyText text={section.title} /></h2></div>
       {section.kind === 'faq'
         ? <div className="faq-list">{section.items.map(item => <details key={item.question}><summary><span className="question-text"><CopyText text={item.question} /></span><span className="faq-toggle" aria-hidden="true">+</span></summary>{item.answer.map((node, index) => <ContentNodeView node={node} key={index} />)}</details>)}</div>
         : <div className={section.kind === 'cards' ? `card-grid ${section.columns === 2 ? 'two-columns' : ''}` : 'copy-flow'}>{section.nodes.map((node, index) => <ContentNodeView node={node} key={index} />)}</div>}
@@ -34,17 +36,18 @@ export function ContentSectionView({ section, index }: { section: ContentSection
   </section>
 }
 
-export function CopyPage({ pageKey, children }: { pageKey: PageKey; children?: React.ReactNode }) {
+export function CopyPage({ pageKey, children, heroAside }: { pageKey: PageKey; children?: React.ReactNode; heroAside?: React.ReactNode }) {
   const page = pages[pageKey]
   return <>
-    <section className={`page-hero ${page.heroDiagram ? 'home-hero' : ''}`}>
+    <section className={`page-hero ${page.heroVideo ? 'home-hero' : ''}`}>
       <div className="site-container hero-layout">
         <div className="hero-copy">
           {page.hero.filter(node => node.type === 'eyebrow').map((node, index) => <ContentNodeView node={node} key={index} />)}
           <h1><CopyText text={page.h1} /></h1>
           <div className="copy-flow">{page.hero.filter(node => node.type !== 'eyebrow').map((node, index) => <ContentNodeView node={node} key={index} />)}</div>
         </div>
-        {page.heroDiagram && <div className="problem-diagram" aria-hidden="true"><span className="diagram-index">Bottomline / 01</span><div className="diagram-scatter"><span>רעיון</span><span>תהליך</span><span>בעיה</span></div><div className="diagram-line" /><div className="diagram-core">קודם מבינים.</div><div className="diagram-line" /><div className="diagram-result">הפתרון שמתאים לכם <span>↙</span></div></div>}
+        {page.heroVideo && <IntroductionVideo media={introductionVideo} />}
+        {heroAside}
       </div>
     </section>
     {children}

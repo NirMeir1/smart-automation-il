@@ -1,4 +1,6 @@
 import source from './pages.json' with { type: 'json' }
 import { parseSiteContent } from './schema'
+import { withFounderProfile } from './about-profile'
 
-export const pages = parseSiteContent(source)
+const reviewedPages = parseSiteContent(source)
+export const pages = { ...reviewedPages, about: withFounderProfile(reviewedPages.about) }

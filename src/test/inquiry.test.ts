@@ -1,12 +1,25 @@
 import { describe, expect, it } from 'vitest'
 import { emptyInquiry, validateInquiry } from '@/lib/inquiry'
 
-const valid = { ...emptyInquiry, submissionId: '123e4567-e89b-42d3-a456-426614174000', name: 'ישראל ישראלי', contact: '050-1234567', callerType: 'עסק', message: 'תהליך שחוזר על עצמו', privacy: true }
+const valid = { ...emptyInquiry, submissionId: '123e4567-e89b-42d3-a456-426614174000', name: 'ישראל ישראלי', contact: '050-2345678', callerType: 'עסק', message: 'תהליך שחוזר על עצמו', privacy: true }
 describe('Shared inquiry validation', () => {
+  it.each([
+    { email: 'person@example.test', phone: '' },
+    { email: '', phone: '0502345678' },
+    { email: 'person@example.test', phone: '+972 50 2345678' },
+  ])('accepts separate email/phone fields: %j', methods => {
+    expect(validateInquiry({ ...valid, contact: '', ...methods }).errors).toEqual({})
+  })
+  it('rejects either invalid supplied contact method even if the other is valid', () => {
+    expect(validateInquiry({ ...valid, contact: '', email: 'bad', phone: '0502345678' }).errors.email).toBeTruthy()
+    expect(validateInquiry({ ...valid, contact: '', email: 'person@example.test', phone: '123' }).errors.phone).toBeTruthy()
+    expect(validateInquiry({ ...valid, contact: '', email: {}, phone: '' }).errors.email).toBeTruthy()
+    expect(validateInquiry({ ...valid, contact: '', email: 'person@example.test\r\nBcc:x@y.test' }).errors.email).toBeTruthy()
+  })
   it('accepts phone alone or email alone', () => {
     expect(validateInquiry(valid).errors).toEqual({})
     expect(validateInquiry({ ...valid, contact: 'person@example.test' }).errors).toEqual({})
-    expect(validateInquiry({ ...valid, contact: '+972 (52) 123-4567' }).errors).toEqual({})
+    expect(validateInquiry({ ...valid, contact: '+972 (52) 234-5678' }).errors).toEqual({})
   })
   it.each(['invalid', '123', '1+2+3+4+5+6+7+8+9', '1234567890123456', 'test@example.test\r\nBcc:x@y.test'])('rejects unusable reply contact %s', contact => {
     expect(validateInquiry({ ...valid, contact }).errors.contact).toBeTruthy()

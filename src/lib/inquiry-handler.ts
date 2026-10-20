@@ -2,10 +2,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { randomUUID } from 'node:crypto'
 import { Resend } from 'resend'
-import { contactAvailable } from './contact-config'
+import { contactAvailable, contactRecipient } from './contact-config'
 import { recordContactOutcome } from './contact-diagnostics'
 import { checkContactRateLimit } from './contact-rate-limit'
-import { validateInquiry, unavailableMessage, validEmail } from './inquiry'
+import { validateInquiry, unavailableMessage } from './inquiry'
+import { inquiryEmailText, inquiryReceivedAt } from './inquiry-email'
 import { siteOrigin } from './site-config'
 
 const MAX_BYTES = 20_000
@@ -34,7 +35,7 @@ export async function submitInquiry(request: NextRequest) {
   const json = (body: object, status = 200, headers: Record<string, string> = {}) => NextResponse.json(body, {
     status, headers: { 'Cache-Control': 'no-store', 'X-Request-ID': requestId, ...headers },
   })
-  const allowedOrigin = siteOrigin() || (process.env.NODE_ENV !== 'production' ? request.nextUrl.origin : undefined)
+  const allowedOrigin = process.env.NODE_ENV !== 'production' ? request.nextUrl.origin : siteOrigin()
   if (!allowedOrigin || request.headers.get('origin') !== allowedOrigin) return json({ error: 'לא ניתן לשלוח פנייה ממקור זה.' }, 403)
   if (request.headers.get('content-type')?.split(';')[0].trim() !== 'application/json') return json({ error: 'נדרש טופס בפורמט תקין.' }, 415)
   if (!contactAvailable()) {
@@ -60,19 +61,15 @@ export async function submitInquiry(request: NextRequest) {
 
   const deliveryTimeout = AbortSignal.timeout(15_000)
   try {
+    const receivedAt = await inquiryReceivedAt(data.submissionId)
     const resend = new Resend(process.env.RESEND_API_KEY!)
-    // The UUID remains stable on retries. No per-attempt dates enter the provider payload.
+    // Both the UUID and server receipt time remain stable on retries.
     const result = await resend.emails.send({
-      from: `Bottomline <${process.env.CONTACT_FROM_EMAIL!}>`,
-      to: [process.env.CONTACT_TO_EMAIL!],
-      subject: 'פנייה חדשה מאתר Bottomline',
-      text: [
-        `שם: ${data.name}`, `פרטי חזרה: ${data.contact}`, `אני פונה בתור: ${data.callerType}`,
-        `מה הייתם רוצים לפתור?\n${data.message}`, `מערכות קיימות: ${data.systems || 'לא צוין'}`,
-        `טווח השקעה: ${data.budget || 'לא צוין'}`, `העדפת פגישה: ${data.meeting || 'אין העדפה'}`,
-        `הקשר הפנייה: ${data.intent || 'כללי'}`, 'אושר שימוש בפרטים לצורך טיפול בפנייה. לא ניתנה הסכמה לשיווק.',
-      ].join('\n\n'),
-      ...(validEmail(data.contact) ? { replyTo: data.contact } : {}),
+      from: `BottomLine <${process.env.CONTACT_FROM_EMAIL!}>`,
+      to: [contactRecipient],
+      subject: 'פנייה חדשה מאתר BottomLine',
+      text: inquiryEmailText(data, receivedAt),
+      ...(data.email ? { replyTo: data.email } : {}),
     }, { idempotencyKey: `bottomline-inquiry/${data.submissionId}`, signal: AbortSignal.any([deliveryTimeout, request.signal]) })
     if (result.error || !result.data?.id) {
       // Resend normalizes fetch aborts into error results rather than throwing.

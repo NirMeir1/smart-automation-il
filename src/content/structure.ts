@@ -4,7 +4,7 @@ type SectionDefinition = { id: string; kind?: 'cards' | 'faq'; columns?: 2 | 3; 
 export const sectionDefinitions: Record<PageKey, Record<string, SectionDefinition>> = {
   home: {
     'נשמע מוכר?': { id: 'problems', kind: 'cards', columns: 3 },
-    'אז מה Bottomline עושה?': { id: 'capabilities', kind: 'cards', columns: 3 },
+    'אז מה BottomLine עושה?': { id: 'capabilities', kind: 'cards', columns: 3 },
     'לעסקים וגם לאנשים': { id: 'audiences', kind: 'cards', columns: 2, cardActions: true },
     'איך זה עובד': { id: 'process', kind: 'cards', columns: 3 },
     'לא כל דבר צריך AI': { id: 'principle', tone: 'principle' },
@@ -30,7 +30,10 @@ export const sectionDefinitions: Record<PageKey, Record<string, SectionDefinitio
     'פגישת ההיכרות': { id: 'discovery' }, 'מה לא צריך להכין': { id: 'preparation' },
     'אחרי הפגישה': { id: 'next-steps' }, 'בזמן הפרויקט': { id: 'delivery' }, 'בסוף': { id: 'handover' },
   },
-  about: { 'למה לעבוד ישירות?': { id: 'direct-ownership' }, 'במה אני מאמין': { id: 'principles' } },
+  about: {
+    'למה לעבוד ישירות?': { id: 'direct-ownership' }, 'במה אני מאמין': { id: 'principles' },
+    '[נדרש להשלמה ואימות לפני פרסום:]': { id: 'operator-facts' },
+  },
   contact: { 'לא יודעים אם זה בכלל משהו שאני יכול לעזור בו?': { id: 'reassurance' } },
 }
 
