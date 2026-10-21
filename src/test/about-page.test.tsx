@@ -7,17 +7,19 @@ import { parseSiteContent } from '@/content/schema'
 import original from '@/content/pages.json'
 
 describe('About founder profile', () => {
-  it('presents the supplied experience in Hebrew with explicit RTL and isolated company names', () => {
+  it('presents the supplied experience in Hebrew with explicit RTL and isolated English terms', () => {
     const { container } = render(<AboutPage />)
     expect(container.querySelector('article[dir="rtl"]')).toBeInTheDocument()
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(container.textContent).toContain('ניר מאיר')
     expect(container.textContent).toContain('כ־7 שנות ניסיון')
-    expect(container.textContent).toContain('במשך חמש שנים ב־eToro')
-    expect(container.textContent).toContain('כיום אני עובד ב־Encore/Insait')
+    expect(container.textContent).toContain('במשך חמש שנים עבדתי בחברה המפתחת פלטפורמת מסחר עולמית')
+    expect(container.textContent).toContain('בסטארטאפ ישראלי המתמחה בפתרונות בינה מלאכותית לארגונים גדולים')
+    expect(screen.getByRole('heading', { name: 'ניסיון שמחבר בין טכנולוגיה להבנה עסקית' })).toBeInTheDocument()
+    expect(container.querySelector('#professional-experience strong')).toHaveTextContent('את השילוב הזה אני מביא ל־Bottomline:')
     expect(container.textContent).toContain('ארכיטקטורת פתרונות')
     expect(container.textContent).toContain('ניתוח עסקי')
-    expect([...container.querySelectorAll('bdi[dir="ltr"]')].map(element => element.textContent)).toEqual(expect.arrayContaining(['eToro', 'Encore/Insait', 'FDE']))
+    expect([...container.querySelectorAll('bdi[dir="ltr"]')].map(element => element.textContent)).toEqual(expect.arrayContaining(['Forward Deployed Engineer', 'FDE']))
   })
   it('shows honest photo and LinkedIn placeholders with no broken media or social links', () => {
     const { container } = render(<AboutPage />)

@@ -32,7 +32,7 @@ for (const route of routes) test(`${route.href}: copy, metadata, links, layout a
     expect(portrait).not.toBeNull()
     expect(portrait!.width / portrait!.height).toBeCloseTo(4 / 5, 2)
     await expect(page.locator('main img, main a[href*="linkedin"], main a[href*="github"]')).toHaveCount(0)
-    await expect(page.locator('bdi[dir="ltr"]').filter({ hasText: 'Encore/Insait' })).toHaveCount(1)
+    await expect(page.locator('bdi[dir="ltr"]').filter({ hasText: 'FDE' })).toHaveCount(1)
     expect(mainText).not.toMatch(/נדרש להשלמה|שם מלא תמונה מקצועית/)
   }
   for (const node of pageTextNodes(pages[route.key])) expect(mainText).toContain(normalize(node.text))

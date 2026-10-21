@@ -2,7 +2,7 @@ export const pageKeys = ['home', 'solutions', 'business', 'individuals', 'proces
 export type PageKey = typeof pageKeys[number]
 export type PagePath = '/' | '/solutions' | '/business' | '/individuals' | '/process' | '/about' | '/contact'
 export type InternalHref = PagePath | '/contact#inquiry' | `/contact?intent=${'business' | 'idea' | 'problem'}` | `/contact?intent=${'business' | 'idea' | 'problem'}#inquiry`
-export type ParagraphNode = { type: 'p' | 'strong' | 'eyebrow'; text: string }
+export type ParagraphNode = { type: 'p' | 'strong' | 'eyebrow'; text: string; strongPrefix?: string }
 export type FlowNode = ParagraphNode | { type: 'h3'; text: string } | { type: 'cta'; text: string; href: InternalHref }
 export type CardNode = { type: 'card'; text: string; nodes: FlowNode[] }
 export type ContentNode = FlowNode | CardNode

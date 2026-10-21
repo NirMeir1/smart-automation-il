@@ -18,7 +18,9 @@ export function ContentNodeView({ node }: { node: ContentNode }) {
     case 'eyebrow': return <p className="eyebrow">{text}</p>
     case 'h3': return <h3>{text}</h3>
     case 'strong': return <p className="emphasis">{text}</p>
-    case 'p': return <p className="copy-paragraph">{text}</p>
+    case 'p': return <p className="copy-paragraph">{node.strongPrefix && node.text.startsWith(node.strongPrefix)
+      ? <><strong><CopyText text={node.strongPrefix} /></strong><CopyText text={node.text.slice(node.strongPrefix.length)} /></>
+      : text}</p>
     case 'card': return <article className="copy-card"><h3>{text}</h3>{node.nodes.map((child, index) => <ContentNodeView node={child} key={index} />)}</article>
     default: return unreachable(node)
   }
