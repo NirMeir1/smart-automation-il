@@ -8,14 +8,19 @@ const localSalt = randomBytes(32).toString('hex')
 const buckets = new Map<string, { count: number; expires: number }>()
 export type RateLimitDecision = { allowed: boolean; retryAfter: number }
 
-export function redisRateLimitConfig() {
+export function redisRateLimitEndpoint() {
   try {
     const url = new URL(process.env.UPSTASH_REDIS_REST_URL || '')
-    const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim()
-    const secret = process.env.CONTACT_RATE_LIMIT_SECRET || ''
-    if (url.protocol !== 'https:' || !url.hostname.endsWith('.upstash.io') || url.username || url.password || url.port || url.pathname !== '/' || url.search || url.hash || !token || secret.length < 32) return null
-    return { url: url.origin, token, secret }
+    if (url.protocol !== 'https:' || !url.hostname.endsWith('.upstash.io') || url.username || url.password || url.port || url.pathname !== '/' || url.search || url.hash) return null
+    return url.origin
   } catch { return null }
+}
+
+export function redisRateLimitConfig() {
+  const url = redisRateLimitEndpoint()
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim()
+  const secret = process.env.CONTACT_RATE_LIMIT_SECRET || ''
+  return url && token && secret.length >= 32 ? { url, token, secret } : null
 }
 
 export function productionRateLimitConfigured() {

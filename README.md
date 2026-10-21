@@ -74,6 +74,8 @@ Use Node **24.22.0** (`.node-version`) and npm **11.19.1**. Run `npm ci`, copy [
 
 Production requires the origin, trusted ingress, Redis and Resend settings. Development may use in-memory rate/receipt storage when Redis is absent. Local development accepts the local request origin even when the production URL is configured. The recipient is fixed server-side in `src/lib/contact-config.ts`; `CONTACT_TO_EMAIL` and `LEGAL_REVIEW_APPROVED` are obsolete.
 
+If the live form is disabled, open `/contact` and inspect Vercel runtime logs for `contact_configuration_unavailable`. Its `invalidSettings` list names missing/invalid variables without logging their values. Check the active deployment's settings; saved dashboard edits require a new deployment to take effect.
+
 Set production variables separately in Vercel; `.env.local` is not uploaded. Only the site URL uses a public prefix. API keys, tokens and the security secret must stay server-only and out of Git. Rebuild after changing the site origin or indexing configuration. Use `npm run build` followed by `npm start` for a local production server; use the configured HTTPS origin or an appropriate local HTTPS setup to test its protected submission endpoint.
 
 See [contact setup](docs/Contact_Form_Setup.md) for the free-service comparison and account/DNS steps. A direct live Redis/Resend test passed and the owner confirmed the Hebrew test email reached Gmail. Automated tests intercept delivery; production website-form delivery requires a separate live check after deployment.
