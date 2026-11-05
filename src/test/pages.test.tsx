@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/footer'
 import { pages } from '@/content/pages'
 import { pageTextNodes } from '@/content/schema'
 import { routes, pageMetadata } from '@/lib/site'
+import { publicRoutes } from '@/lib/routes'
 import { inquirySuccess } from '@/lib/inquiry'
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }))
@@ -42,7 +43,7 @@ describe('Part J pages', () => {
       }
     }
   })
-  for (const route of routes) it(`${route.href} renders its entire reviewed copy and exact metadata`, () => {
+  for (const route of publicRoutes) it(`${route.href} renders its entire reviewed copy and exact metadata`, () => {
     const { container } = render(<CopyPage pageKey={route.key} />)
     const page = pages[route.key]
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
@@ -59,7 +60,7 @@ describe('Part J pages', () => {
     expect(source).toContain(page.description)
     expect(rendered).not.toMatch(/Sogomatic|50%|90%|50\+/)
     for (const link of container.querySelectorAll('a')) {
-      expect(routes.some(r => r.href === link.getAttribute('href')?.split(/[?#]/)[0])).toBe(true)
+      expect(publicRoutes.some(r => r.href === link.getAttribute('href')?.split(/[?#]/)[0])).toBe(true)
     }
   })
   it('includes five problem cards, six capabilities, five stages and six native FAQ disclosures', () => {

@@ -21,11 +21,11 @@ describe('About founder profile', () => {
     expect(container.textContent).toContain('ניתוח עסקי')
     expect([...container.querySelectorAll('bdi[dir="ltr"]')].map(element => element.textContent)).toEqual(expect.arrayContaining(['Forward Deployed Engineer', 'FDE']))
   })
-  it('shows honest photo and LinkedIn placeholders with no broken media or social links', () => {
+  it('omits unavailable photo and LinkedIn without public pending notices or broken links', () => {
     const { container } = render(<AboutPage />)
     expect(founderProfile.photo).toBeNull()
     expect(founderProfile.linkedInUrl).toBeNull()
-    expect(screen.getByText('כאן תופיע תמונה מקצועית של ניר מאיר')).toBeInTheDocument()
+    expect(container.textContent).not.toMatch(/כאן תופיע|יתווסף בהמשך/)
     expect(container.querySelector('img')).not.toBeInTheDocument()
     expect(container.querySelector('a[href*="linkedin"], a[href*="github"], a[href="#"]')).not.toBeInTheDocument()
     expect(container.textContent).not.toContain('GitHub')

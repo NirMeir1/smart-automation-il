@@ -28,21 +28,41 @@ export const sectionDefinitions: Record<PageKey, Record<string, SectionDefinitio
   },
   process: {
     'פגישת ההיכרות': { id: 'discovery' }, 'מה לא צריך להכין': { id: 'preparation' },
-    'אחרי הפגישה': { id: 'next-steps' }, 'בזמן הפרויקט': { id: 'delivery' }, 'בסוף': { id: 'handover' },
+    'אחרי הפגישה': { id: 'next-steps' }, 'מה משפיע על ההצעה והעלות?': { id: 'scope-and-cost' },
+    'בזמן הפרויקט': { id: 'delivery' }, 'בסוף': { id: 'handover' },
   },
   about: {
     'למה לעבוד ישירות?': { id: 'direct-ownership' }, 'במה אני מאמין': { id: 'principles' },
     '[נדרש להשלמה ואימות לפני פרסום:]': { id: 'operator-facts' },
   },
   contact: { 'לא יודעים אם זה בכלל משהו שאני יכול לעזור בו?': { id: 'reassurance' } },
+  businessAutomation: {
+    'מתי כדאי לשקול אוטומציה?': { id: 'when-to-automate' },
+    'דוגמה אפשרית: מפנייה חדשה למעקב מסודר': { id: 'lead-workflow' },
+    'מתחילים בתהליך אחד': { id: 'scope' },
+    'מה צריך לבדוק לפני שמתחייבים?': { id: 'dependencies' },
+    'איך יודעים שהתהליך עובד?': { id: 'validation' },
+    'בואו נבדוק מה אפשר להוריד מהעבודה הידנית': { id: 'next-step', tone: 'closing' },
+  },
+  systemsIntegration: {
+    'כשהמידע מפוזר, גם העבודה מתפזרת': { id: 'disconnected-systems' },
+    'דוגמה אפשרית: טופס באתר, מערכת לקוחות והנהלת חשבונות': { id: 'integration-example' },
+    'לא כל מערכת מאפשרת כל חיבור': { id: 'api-constraints' },
+    'חיבור אמין צריך לטפל גם בחריגות': { id: 'reliability' },
+    'איך מתחיל פרויקט אינטגרציה?': { id: 'discovery' },
+    'אילו מערכות הייתם רוצים לחבר?': { id: 'next-step', tone: 'closing' },
+  },
 }
 
 // Links are editorial configuration, never inferred from visible wording during rendering.
 export const ctaLinks: Record<string, InternalHref> = {
-  'לקביעת פגישת היכרות': '/contact#inquiry', 'ספרו לי מה מעכב אתכם': '/contact?intent=problem#inquiry',
+  'לקביעת פגישת היכרות': '/contact#inquiry', 'גלו את הפתרונות': '/solutions',
   'בואו נדבר על מה שקורה אצלכם': '/contact#inquiry', 'פתרונות לעסקים': '/business',
   'פתרונות לפרטיים וליזמים': '/individuals', 'איך נראית פגישת ההיכרות?': '/process',
   'יש משימה שחוזרת על עצמה? דברו איתי': '/contact?intent=problem#inquiry',
   'ספרו לי מה מעכב את העסק': '/contact?intent=business', 'בואו נדבר על הרעיון': '/contact?intent=idea',
   'בואו נכיר': '/contact#inquiry',
+  'לכל הפתרונות': '/solutions',
+  'איך מתכננים אוטומציה עסקית': '/solutions/business-automation',
+  'איך מחברים בין מערכות': '/solutions/systems-integration',
 }

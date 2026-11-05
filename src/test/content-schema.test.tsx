@@ -15,6 +15,7 @@ describe('explicit content structures', () => {
     ['duplicate ID', (draft: typeof pages) => { draft.home.sections[1].id = draft.home.sections[0].id }],
     ['unknown kind', (draft: typeof pages) => { Object.assign(draft.home.sections[0], { kind: 'unknown' }) }],
     ['external CTA', (draft: typeof pages) => { draft.home.hero.push({ type: 'cta', text: 'Action', href: 'https://external.invalid' } as never) }],
+    ['unregistered service', (draft: typeof pages) => { draft.home.hero.push({ type: 'cta', text: 'Action', href: '/solutions/unapproved' } as never) }],
     ['missing CTA destination', (draft: typeof pages) => { draft.home.hero.push({ type: 'cta', text: 'Action' } as never) }],
     ['empty FAQ answer', (draft: typeof pages) => { const faq = draft.home.sections.find(section => section.kind === 'faq'); if (faq?.kind === 'faq') faq.items[0].answer = [] }],
   ])('rejects %s at the content boundary', (_name, mutate) => {

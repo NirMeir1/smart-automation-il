@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
+import { brand } from '@/lib/brand'
 
 const heebo = localFont({
   src: './fonts/Heebo-Variable.ttf',
@@ -12,7 +13,7 @@ const heebo = localFont({
   display: 'swap',
 })
 
-export const metadata: Metadata = { title: 'BottomLine', robots: { index: false, follow: false } }
+export const metadata: Metadata = { title: brand.name, robots: { index: false, follow: false } }
 
 export default function RootLayout({
   children,

@@ -8,6 +8,7 @@ import { checkContactRateLimit } from './contact-rate-limit'
 import { validateInquiry, unavailableMessage } from './inquiry'
 import { inquiryEmailText, inquiryReceivedAt } from './inquiry-email'
 import { siteOrigin } from './site-config'
+import { brand } from './brand'
 
 const MAX_BYTES = 20_000
 
@@ -65,9 +66,9 @@ export async function submitInquiry(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY!)
     // Both the UUID and server receipt time remain stable on retries.
     const result = await resend.emails.send({
-      from: `BottomLine <${process.env.CONTACT_FROM_EMAIL!}>`,
+      from: `${brand.name} <${process.env.CONTACT_FROM_EMAIL!}>`,
       to: [contactRecipient],
-      subject: 'פנייה חדשה מאתר BottomLine',
+      subject: `פנייה חדשה מאתר ${brand.name}`,
       text: inquiryEmailText(data, receivedAt),
       ...(data.email ? { replyTo: data.email } : {}),
     }, { idempotencyKey: `bottomline-inquiry/${data.submissionId}`, signal: AbortSignal.any([deliveryTimeout, request.signal]) })
@@ -81,7 +82,7 @@ export async function submitInquiry(request: NextRequest) {
       if (result.error?.name === 'invalid_idempotent_request') return json({ error: 'פרטי הפנייה השתנו. אפשר לנסות לשלוח שוב.', retryWithNewId: true }, 409)
       return json({ error: 'לא התקבל אישור לשליחת הפנייה. אפשר לנסות שוב בהמשך.' }, 502)
     }
-    recordContactOutcome('accepted', requestId, startedAt)
+    recordContactOutcome('accepted', requestId, startedAt, result.data.id)
     return json({ success: true })
   } catch {
     recordContactOutcome(deliveryTimeout.aborted ? 'delivery_timeout' : 'delivery_failed', requestId, startedAt)

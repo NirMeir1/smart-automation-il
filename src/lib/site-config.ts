@@ -1,4 +1,5 @@
 import 'server-only'
+import { brand } from './brand'
 
 export function siteOrigin(): string | undefined {
   try {
@@ -9,6 +10,7 @@ export function siteOrigin(): string | undefined {
 }
 
 export function indexingAllowed() {
-  return Boolean(siteOrigin() && process.env.SITE_INDEXING_ENABLED === 'true' &&
-    (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'))
+  const production = process.env.NODE_ENV === 'production' &&
+    (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production')
+  return production && siteOrigin() === brand.origin && process.env.SITE_INDEXING_ENABLED === 'true'
 }

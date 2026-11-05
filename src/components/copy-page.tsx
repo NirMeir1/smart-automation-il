@@ -26,11 +26,11 @@ export function ContentNodeView({ node }: { node: ContentNode }) {
   }
 }
 
-export function ContentSectionView({ section, index }: { section: ContentSection; index: number }) {
+export function ContentSectionView({ section }: { section: ContentSection; index: number }) {
   const tone = section.tone === 'principle' ? 'principle-section' : section.tone === 'closing' ? 'closing-section' : ''
   return <section className={`content-section ${tone}`} id={section.id} aria-labelledby={`${section.id}-heading`}>
     <div className="site-container">
-      <div className="section-heading"><span className="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h2 id={`${section.id}-heading`}><CopyText text={section.title} /></h2></div>
+      <div className="section-heading"><h2 id={`${section.id}-heading`}><CopyText text={section.title} /></h2></div>
       {section.kind === 'faq'
         ? <div className="faq-list">{section.items.map(item => <details key={item.question}><summary><span className="question-text"><CopyText text={item.question} /></span><span className="faq-toggle" aria-hidden="true">+</span></summary>{item.answer.map((node, index) => <ContentNodeView node={node} key={index} />)}</details>)}</div>
         : <div className={section.kind === 'cards' ? `card-grid ${section.columns === 2 ? 'two-columns' : ''}` : 'copy-flow'}>{section.nodes.map((node, index) => <ContentNodeView node={node} key={index} />)}</div>}

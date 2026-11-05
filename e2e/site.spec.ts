@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
-import { routes } from '../src/lib/routes'
+import { routes, publicRoutes } from '../src/lib/routes'
 import { pages } from '../src/content/pages'
 import { pageTextNodes } from '../src/content/schema'
 import { browserTestOrigin } from '../scripts/browser-test-env.mjs'
 
-for (const route of routes) test(`${route.href}: copy, metadata, links, layout and accessibility`, async ({ page }) => {
+for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, layout and accessibility`, async ({ page }) => {
   const issues: string[] = []
   page.on('pageerror', error => issues.push(error.message))
   page.on('console', message => { if (message.type() === 'error') issues.push(message.text()) })
@@ -26,11 +26,7 @@ for (const route of routes) test(`${route.href}: copy, metadata, links, layout a
   const mainText = normalize((await page.locator('main').textContent())!)
   if (route.key === 'about') {
     await expect(page.locator('main > article')).toHaveAttribute('dir', 'rtl')
-    const placeholder = page.getByText('כאן תופיע תמונה מקצועית של ניר מאיר', { exact: true })
-    await expect(placeholder).toBeVisible()
-    const portrait = await placeholder.locator('..').boundingBox()
-    expect(portrait).not.toBeNull()
-    expect(portrait!.width / portrait!.height).toBeCloseTo(4 / 5, 2)
+    await expect(page.getByText('כאן תופיע תמונה מקצועית של ניר מאיר', { exact: true })).toHaveCount(0)
     await expect(page.locator('main img, main a[href*="linkedin"], main a[href*="github"]')).toHaveCount(0)
     await expect(page.locator('bdi[dir="ltr"]').filter({ hasText: 'FDE' })).toHaveCount(1)
     expect(mainText).not.toMatch(/נדרש להשלמה|שם מלא תמונה מקצועית/)
@@ -40,7 +36,7 @@ for (const route of routes) test(`${route.href}: copy, metadata, links, layout a
   for (const href of await page.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')))) {
     expect(href).toMatch(/^(\/|#)/)
     const path = href!.split(/[?#]/)[0]
-    if (path) expect([...routes.map(r => r.href), '/legal/privacy', '/legal/terms', '/legal/accessibility']).toContain(path)
+    if (path) expect([...publicRoutes.map(r => r.href), '/legal/privacy', '/legal/terms', '/legal/accessibility']).toContain(path)
   }
   const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
   expect(accessibility.violations).toEqual([])

@@ -1,6 +1,6 @@
-export const pageKeys = ['home', 'solutions', 'business', 'individuals', 'process', 'about', 'contact'] as const
+export const pageKeys = ['home', 'solutions', 'business', 'individuals', 'process', 'about', 'contact', 'businessAutomation', 'systemsIntegration'] as const
 export type PageKey = typeof pageKeys[number]
-export type PagePath = '/' | '/solutions' | '/business' | '/individuals' | '/process' | '/about' | '/contact'
+export type PagePath = '/' | '/solutions' | '/business' | '/individuals' | '/process' | '/about' | '/contact' | '/solutions/business-automation' | '/solutions/systems-integration'
 export type InternalHref = PagePath | '/contact#inquiry' | `/contact?intent=${'business' | 'idea' | 'problem'}` | `/contact?intent=${'business' | 'idea' | 'problem'}#inquiry`
 export type ParagraphNode = { type: 'p' | 'strong' | 'eyebrow'; text: string; strongPrefix?: string }
 export type FlowNode = ParagraphNode | { type: 'h3'; text: string } | { type: 'cta'; text: string; href: InternalHref }
@@ -29,7 +29,7 @@ function list(value: unknown): unknown[] {
 }
 function href(value: unknown): InternalHref {
   const link = text(value)
-  if (!/^(?:\/|\/(?:solutions|business|individuals|process|about)|\/contact(?:\?intent=(?:business|idea|problem))?(?:#inquiry)?)$/.test(link)) throw new Error(`Unsupported content destination: ${link}`)
+  if (!/^(?:\/|\/(?:solutions(?:\/(?:business-automation|systems-integration))?|business|individuals|process|about)|\/contact(?:\?intent=(?:business|idea|problem))?(?:#inquiry)?)$/.test(link)) throw new Error(`Unsupported content destination: ${link}`)
   return link as InternalHref
 }
 function flowNode(value: unknown): FlowNode {
@@ -71,7 +71,7 @@ function section(value: unknown): ContentSection {
 
 export function parseSiteContent(value: unknown): SiteContent {
   const raw = object(value)
-  if (Object.keys(raw).length !== pageKeys.length || pageKeys.some(key => !(key in raw))) throw new Error('Content must provide exactly the seven public pages')
+  if (Object.keys(raw).length !== pageKeys.length || pageKeys.some(key => !(key in raw))) throw new Error('Content must provide exactly the registered public pages')
   return Object.fromEntries(pageKeys.map(key => {
     const page = object(raw[key])
     const sections = list(page.sections).map(section)

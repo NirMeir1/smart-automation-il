@@ -1,12 +1,13 @@
 // Run after an approved source-copy update; output is reviewed, static site data.
 import fs from 'node:fs';
-import { parseSiteContent } from '../src/content/schema.ts';
+import { pageKeys, parseSiteContent } from '../src/content/schema.ts';
 import { ctaLinks, sectionDefinitions } from '../src/content/structure.ts';
 // Approved brand casing update; preserve the original research document.
 const source = fs.readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8').replaceAll('Bottomline', 'BottomLine');
 const deck = source.split('### Home page — דף הבית')[1].split('## 8. Functional Requirements')[0];
 const chunks = ['### Home page — דף הבית' + deck].join('').split(/(?=^### .+ page — )/m).filter(Boolean);
-const keys = ['home', 'solutions', 'business', 'individuals', 'process', 'about', 'contact'];
+const keys = pageKeys;
+if (chunks.length !== keys.length) throw new Error('Source pages must match the public page registry');
 const translations = { 'Home FAQ': 'שאלות שעולות לפני שמתחילים', 'Technical capability block': 'הכלים שאפשר לעבוד איתם', 'Final reassurance': 'לא יודעים אם זה בכלל משהו שאני יכול לעזור בו?', 'The factual block to complete before publication': '[נדרש להשלמה ואימות לפני פרסום:]' };
 const clean = s => s.replace(/\*\*/g, '').replace(/\\\*/g, '*').trim();
 const pages = {};
@@ -124,5 +125,5 @@ if (process.argv.includes('--check')) {
   console.log('Reviewed content and regeneration agree.');
 } else {
   fs.writeFileSync('src/content/pages.json', output);
-  console.log('Generated and validated all seven pages.');
+  console.log(`Generated and validated all ${keys.length} public pages.`);
 }

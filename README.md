@@ -62,8 +62,8 @@ Use Node **24.22.0** (`.node-version`) and npm **11.19.1**. Run `npm ci`, copy [
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Public HTTPS website origin; current owner-provided URL is `https://bottomline-ai.vercel.app` |
-| `SITE_INDEXING_ENABLED` | Defaults to `false`; controls indexing, with Vercel previews kept noindex |
+| `NEXT_PUBLIC_SITE_URL` | Public HTTPS website origin; canonical production origin is `https://www.bottomline-ai.com` |
+| `SITE_INDEXING_ENABLED` | Defaults to `false`; set `true` only for the approved production release at the canonical origin; previews and development remain noindex |
 | `CONTACT_FORM_ENABLED` | Defaults to `false`; set to `true` when sending configuration is ready |
 | `RESEND_API_KEY` | Private Resend key with sending access |
 | `CONTACT_FROM_EMAIL` | Email address on the verified Resend sending domain |
