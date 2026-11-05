@@ -4,5 +4,8 @@ export type IntroductionVideoMedia = {
   captions?: { src: string; language: string; label: string }[]
 }
 
-// Configure only after the operator supplies approved footage and caption files.
-export const introductionVideo: IntroductionVideoMedia | undefined = undefined
+// Derived from the owner-supplied footage by scripts/prepare-founder-video.mjs.
+export const introductionVideo: IntroductionVideoMedia = {
+  src: '/videos/founder-introduction-blurred.mp4',
+  poster: '/videos/founder-introduction-poster-blurred.webp',
+}

@@ -12,10 +12,13 @@ describe('Introduction video', () => {
 
   it('supports native controls and captions without autoplay when real media is configured', () => {
     const { container } = render(<IntroductionVideo media={{ src: '/operator.mp4', captions: [{ src: '/operator.he.vtt', language: 'he', label: 'עברית' }] }} />)
-    const video = screen.getByLabelText('סרטון ההיכרות')
+    const video = screen.getByLabelText('סרטון ההיכרות עם מייסד BottomLine')
     expect(video).toHaveAttribute('controls')
     expect(video).toHaveAttribute('playsinline')
     expect(video).not.toHaveAttribute('autoplay')
+    expect(video).not.toHaveAttribute('loop')
+    expect(video).toHaveAttribute('preload', 'none')
+    expect(screen.getByRole('link', { name: 'לקביעת פגישת היכרות' })).toHaveAttribute('href', '/contact#inquiry')
     expect(container.querySelector('source')).toHaveAttribute('src', '/operator.mp4')
     expect(container.querySelector('track')).toHaveAttribute('kind', 'captions')
     expect(container.querySelector('track')).toHaveAttribute('srclang', 'he')

@@ -1,0 +1,245 @@
+- generic [active] [ref=f1e1]:
+  - link "דלג לתוכן הראשי" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "BottomLine — דף הבית" [ref=f1e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f1e6]: BottomLine_
+      - navigation "ניווט ראשי" [ref=f1e7]:
+        - link "דף הבית" [ref=f1e8] [cursor=pointer]:
+          - /url: /
+        - link "פתרונות" [ref=f1e9] [cursor=pointer]:
+          - /url: /solutions
+        - link "לעסקים" [ref=f1e10] [cursor=pointer]:
+          - /url: /business
+        - link "לפרטיים וליזמים" [ref=f1e11] [cursor=pointer]:
+          - /url: /individuals
+        - link "איך עובדים יחד" [ref=f1e12] [cursor=pointer]:
+          - /url: /process
+        - link "אודות" [ref=f1e13] [cursor=pointer]:
+          - /url: /about
+        - link "בואו נכיר" [ref=f1e14] [cursor=pointer]:
+          - /url: /contact
+        - link "לקביעת פגישת היכרות" [ref=f1e15] [cursor=pointer]:
+          - /url: /contact#inquiry
+          - text: לקביעת פגישת היכרות
+          - generic [aria-hidden] [ref=f1e16]: ↖
+  - main [ref=f1e17]:
+    - generic [ref=f1e19]:
+      - generic [ref=f1e20]:
+        - paragraph [ref=f1e21]: הבעיה קודם. הטכנולוגיה אחר כך.
+        - heading "לא צריך לדעת מה הפתרון - מספיק לספר מה הייתם רוצים לשנות." [level=1] [ref=f1e22]
+        - generic [ref=f1e23]:
+          - paragraph [ref=f1e24]: יש תהליך שלוקח יותר מדי זמן? עבודה ידנית שחוזרת על עצמה? מערכות שלא מתקשרות ביניהן? או אולי רעיון לאתר, לאפליקציה או למוצר דיגיטלי שאתם רוצים להפוך למציאות?
+          - paragraph [ref=f1e25]: ב־BottomLine מתחילים בהבנת הצורך. מדברים, שואלים שאלות, מבינים מה קורה היום, מה לא עובד כמו שצריך ומה אתם רוצים להשיג. רק אחר כך בוחרים את הדרך הנכונה להתקדם.
+          - paragraph [ref=f1e26]: זה יכול להיות אוטומציה, AI, אתר, אפליקציה, מערכת בהתאמה אישית או חיבור בין מערכות. ולפעמים, פתרון פשוט יותר הוא בדיוק מה שצריך.
+          - link "לקביעת פגישת היכרות" [ref=f1e27] [cursor=pointer]:
+            - /url: /contact#inquiry
+            - text: לקביעת פגישת היכרות
+            - generic [aria-hidden] [ref=f1e28]: ↖
+          - link "ספרו לי מה מעכב אתכם" [ref=f1e29] [cursor=pointer]:
+            - /url: /contact?intent=problem#inquiry
+            - text: ספרו לי מה מעכב אתכם
+            - generic [aria-hidden] [ref=f1e30]: ↖
+          - paragraph [ref=f1e31]: אפשר להיפגש אונליין או פנים אל פנים, בתיאום מראש. לא צריך להגיע עם אפיון ולא צריך לדעת מה הפתרון.
+      - region [ref=f1e32]:
+        - generic [ref=f1e33]:
+          - heading "בואו נכיר" [level=2] [ref=f1e34]
+          - paragraph [ref=f1e35]: אני מאמין שפתרון טכנולוגי טוב מתחיל בהבנה של הבעיה. בסרטון קצר אני מספר איך אני עובד ואיך אפשר להתקדם יחד.
+        - generic "סרטון ההיכרות עם מייסד BottomLine" [ref=f1e37]: הדפדפן אינו תומך בהפעלת וידאו.
+        - generic [ref=f1e38]:
+          - link "לקביעת פגישת היכרות" [ref=f1e39] [cursor=pointer]:
+            - /url: /contact#inquiry
+            - text: לקביעת פגישת היכרות
+            - generic [aria-hidden] [ref=f1e40]: ↖
+          - paragraph [ref=f1e41]: לא צריך להגיע עם אפיון או לדעת מראש מה הפתרון.
+    - region [ref=f1e42]:
+      - generic [ref=f1e43]:
+        - generic [ref=f1e44]:
+          - generic [aria-hidden] [ref=f1e45]: "01"
+          - heading "נשמע מוכר?" [level=2] [ref=f1e46]
+        - generic [ref=f1e47]:
+          - paragraph [ref=f1e48]: לפעמים הבעיה ברורה. הפתרון פחות.
+          - article [ref=f1e49]:
+            - heading "יותר מדי עבודה ידנית" [level=3] [ref=f1e50]
+            - paragraph [ref=f1e51]: מעתיקים מידע, מעדכנים טבלאות ושולחים שוב את אותן הודעות, כשאולי אפשר לבצע את הפעולות האלה אוטומטית.
+          - article [ref=f1e52]:
+            - heading "מערכות שלא מדברות" [level=3] [ref=f1e53]
+            - paragraph [ref=f1e54]: המידע מפוזר בין המייל, WhatsApp, CRM, Sheets וכלים נוספים שלא מחוברים זה לזה.
+          - article [ref=f1e55]:
+            - heading "דברים נופלים בין הכיסאות" [level=3] [ref=f1e56]
+            - paragraph [ref=f1e57]: ליד שלא חזרו אליו, משימה שנשכחה, מסמך שלא נשלח או לקוח שלא קיבל עדכון.
+          - article [ref=f1e58]:
+            - heading "כלי קיים שלא מתאים לעבודה" [level=3] [ref=f1e59]
+            - paragraph [ref=f1e60]: מערכת שאמורה לעזור, אבל בפועל גורמת לעוד עבודה, עוד מעקפים ועוד תסכול.
+          - article [ref=f1e61]:
+            - heading "רעיון שצריך להפוך למשהו אמיתי" [level=3] [ref=f1e62]
+            - paragraph [ref=f1e63]: אפליקציה, אתר, מערכת או כלי דיגיטלי שברור לכם למה הוא נחוץ, אבל לא בהכרח איך לבנות אותו.
+          - paragraph [ref=f1e64]: לא חייבים לדעת איך קוראים לפתרון. בשביל זה נפגשים.
+          - link "בואו נדבר על מה שקורה אצלכם" [ref=f1e65] [cursor=pointer]:
+            - /url: /contact#inquiry
+            - text: בואו נדבר על מה שקורה אצלכם
+            - generic [aria-hidden] [ref=f1e66]: ↖
+    - region [ref=f1e67]:
+      - generic [ref=f1e68]:
+        - generic [ref=f1e69]:
+          - generic [aria-hidden] [ref=f1e70]: "02"
+          - heading "אז מה BottomLine עושה?" [level=2] [ref=f1e71]
+        - generic [ref=f1e72]:
+          - paragraph [ref=f1e73]: פותרים את הבעיה עם הטכנולוגיה שמתאימה לה.
+          - paragraph [ref=f1e74]: הפתרון נבחר לפי הצורך שלכם. אחרי שמבינים את התהליך, המטרה והאילוצים, בוחרים את הדרך המתאימה ביותר.
+          - article [ref=f1e75]:
+            - heading "אוטומציה" [level=3] [ref=f1e76]
+            - paragraph [ref=f1e77]: להפוך פעולות ידניות וחוזרות לתהליכים אוטומטיים שאפשר להבין ולבקר.
+          - article [ref=f1e78]:
+            - heading "AI" [level=3] [ref=f1e79]
+            - paragraph [ref=f1e80]: "לשלב בינה מלאכותית במקומות שבהם היא באמת מוסיפה ערך: טיפול במידע, טקסט, שירות, תהליכים, ידע או קבלת החלטות."
+          - article [ref=f1e81]:
+            - heading "מערכות ותוכנה בהתאמה אישית" [level=3] [ref=f1e82]
+            - paragraph [ref=f1e83]: כשפתרונות מדף פשוט לא מתאימים לאופן שבו אתם עובדים.
+          - article [ref=f1e84]:
+            - heading "אפליקציות ו-MVP" [level=3] [ref=f1e85]
+            - paragraph [ref=f1e86]: להפוך רעיון למוצר שאפשר להשתמש בו, לבדוק אותו ולפתח ממנו הלאה.
+          - article [ref=f1e87]:
+            - heading "אתרים וכלים דיגיטליים" [level=3] [ref=f1e88]
+            - paragraph [ref=f1e89]: לבנות נוכחות דיגיטלית או כלי שנראים טוב ועוזרים לכם בעבודה.
+          - article [ref=f1e90]:
+            - heading "אינטגרציות ו-API" [level=3] [ref=f1e91]
+            - paragraph [ref=f1e92]: לגרום למערכות שכבר יש לכם לעבוד יחד במקום שאתם תעבירו מידע ביניהן.
+          - paragraph [ref=f1e93]: אפשר לברר יחד בשיחה איזה פתרון מתאים לכם.
+    - region [ref=f1e94]:
+      - generic [ref=f1e95]:
+        - generic [ref=f1e96]:
+          - generic [aria-hidden] [ref=f1e97]: "03"
+          - heading "לעסקים וגם לאנשים" [level=2] [ref=f1e98]
+        - generic [ref=f1e99]:
+          - article [ref=f1e100]:
+            - heading "לעסקים" [level=3] [ref=f1e101]
+            - paragraph [ref=f1e102]: אם העסק גדל אבל התהליכים לא גדלו איתו, אם יותר מדי דברים תלויים בכם אישית, או אם אתם מרגישים שהכלים הקיימים יוצרים יותר עבודה ממה שהם חוסכים — אפשר לעשות סדר.
+            - paragraph [ref=f1e103]: מתאים לעצמאים, עסקים קטנים ובינוניים וצוותים שרוצים לעבוד בצורה פשוטה, מחוברת ויעילה יותר.
+            - link "פתרונות לעסקים" [ref=f1e104] [cursor=pointer]:
+              - /url: /business
+              - text: פתרונות לעסקים
+              - generic [aria-hidden] [ref=f1e105]: ↖
+          - article [ref=f1e106]:
+            - heading "לפרטיים וליזמים" [level=3] [ref=f1e107]
+            - paragraph [ref=f1e108]: יש לכם רעיון לאפליקציה? כלי שהייתם רוצים שיתקיים? תהליך אישי שחוזר על עצמו? או בעיה שלא מצאתם לה פתרון מדף מתאים?
+            - paragraph [ref=f1e109]: אפשר להתחיל מהרעיון, להבין אם וכיצד נכון לבנות אותו, ולהתקדם בצורה מסודרת.
+            - link "פתרונות לפרטיים וליזמים" [ref=f1e110] [cursor=pointer]:
+              - /url: /individuals
+              - text: פתרונות לפרטיים וליזמים
+              - generic [aria-hidden] [ref=f1e111]: ↖
+    - region [ref=f1e112]:
+      - generic [ref=f1e113]:
+        - generic [ref=f1e114]:
+          - generic [aria-hidden] [ref=f1e115]: "04"
+          - heading "איך זה עובד" [level=2] [ref=f1e116]
+        - generic [ref=f1e117]:
+          - paragraph [ref=f1e118]: קודם מבינים. אחר כך בונים.
+          - article [ref=f1e119]:
+            - heading "מכירים" [level=3] [ref=f1e120]
+            - paragraph [ref=f1e121]: מתחילים בפגישת היכרות. אתם מספרים על העסק, הרעיון או התהליך ומה מפריע לכם היום.
+          - article [ref=f1e122]:
+            - heading "ממפים" [level=3] [ref=f1e123]
+            - paragraph [ref=f1e124]: מבינים מה באמת קורה, איפה הבעיה, מי מעורב, באילו מערכות משתמשים ומה התוצאה שרוצים להגיע אליה.
+          - article [ref=f1e125]:
+            - heading "בוחרים דרך" [level=3] [ref=f1e126]
+            - paragraph [ref=f1e127]: "רק עכשיו מחליטים מה נכון: אוטומציה, פיתוח, AI, אינטגרציה, אתר, אפליקציה — או פתרון פשוט יותר."
+          - article [ref=f1e128]:
+            - heading "בונים ובודקים" [level=3] [ref=f1e129]
+            - paragraph [ref=f1e130]: מפתחים, מחברים ובודקים את הפתרון מול התהליך האמיתי.
+          - article [ref=f1e131]:
+            - heading "משיקים ומשפרים" [level=3] [ref=f1e132]
+            - paragraph [ref=f1e133]: מעבירים לשימוש, בודקים שהפתרון עושה את מה שהוא אמור לעשות ומחליטים אם צריך תמיכה או שיפור נוסף.
+          - link "איך נראית פגישת ההיכרות?" [ref=f1e134] [cursor=pointer]:
+            - /url: /process
+            - text: איך נראית פגישת ההיכרות?
+            - generic [aria-hidden] [ref=f1e135]: ↖
+    - region [ref=f1e136]:
+      - generic [ref=f1e137]:
+        - generic [ref=f1e138]:
+          - generic [aria-hidden] [ref=f1e139]: "05"
+          - heading "לא כל דבר צריך AI" [level=2] [ref=f1e140]
+        - generic [ref=f1e141]:
+          - paragraph [ref=f1e142]: טכנולוגיה היא אמצעי, לא המטרה.
+          - paragraph [ref=f1e143]: AI יכול להיות מצוין. אוטומציה יכולה לחסוך המון עבודה. מערכת מותאמת יכולה לפתור משהו שאף כלי מדף לא פותר.
+          - paragraph [ref=f1e144]: אבל לא כל בעיה צריכה אותם.
+          - paragraph [ref=f1e145]: אם אפשר לפתור משהו בצורה פשוטה, יציבה וזולה יותר — זה פתרון טוב יותר.
+          - paragraph [ref=f1e146]: המטרה היא לא לבנות את הדבר הכי מתוחכם. המטרה היא לפתור את הבעיה בצורה הנכונה.
+    - region [ref=f1e147]:
+      - generic [ref=f1e148]:
+        - generic [ref=f1e149]:
+          - generic [aria-hidden] [ref=f1e150]: "06"
+          - heading "שאלות שעולות לפני שמתחילים" [level=2] [ref=f1e151]
+        - generic [ref=f1e152]:
+          - group [ref=f1e153]:
+            - generic "אני צריך לדעת מראש מה אני צריך?" [ref=f1e154] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e156]: +
+          - group [ref=f1e157]:
+            - generic "אתם עושים רק אוטומציות ו-AI?" [ref=f1e158] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e160]: +
+          - group [ref=f1e161]:
+            - generic "אפשר להגיע גם עם רעיון ולא עם בעיה בעסק?" [ref=f1e162] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e164]: +
+          - group [ref=f1e165]:
+            - generic "פגישת ההיכרות עולה כסף?" [ref=f1e166] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e168]: +
+          - group [ref=f1e169]:
+            - generic "אפשר להיפגש פנים אל פנים?" [ref=f1e170] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e172]: +
+          - group [ref=f1e173]:
+            - generic "כמה פרויקט כזה עולה?" [ref=f1e174] [cursor=pointer]:
+              - generic [aria-hidden] [ref=f1e176]: +
+    - region [ref=f1e177]:
+      - generic [ref=f1e178]:
+        - generic [ref=f1e179]:
+          - generic [aria-hidden] [ref=f1e180]: "07"
+          - heading "יש משהו שיושב לכם בראש כבר יותר מדי זמן?" [level=2] [ref=f1e181]
+        - generic [ref=f1e182]:
+          - paragraph [ref=f1e183]: לא צריך להכין מצגת, מסמך אפיון או רשימת טכנולוגיות. פשוט תספרו לי מה קורה.
+          - link "לקביעת פגישת היכרות" [ref=f1e184] [cursor=pointer]:
+            - /url: /contact#inquiry
+            - text: לקביעת פגישת היכרות
+            - generic [aria-hidden] [ref=f1e185]: ↖
+  - contentinfo [ref=f1e186]:
+    - generic [ref=f1e187]:
+      - generic [ref=f1e188]:
+        - generic [ref=f1e189]:
+          - link "BottomLine_" [ref=f1e190] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f1e192]: פתרונות טכנולוגיים שמתחילים בבעיה האמיתית — לא בכלי.
+          - paragraph [ref=f1e193]: אוטומציה | AI | מערכות מותאמות | אפליקציות | אתרים | אינטגרציות
+        - generic [ref=f1e194]:
+          - heading "רוצים לדבר על משהו שמעכב אתכם?" [level=2] [ref=f1e195]
+          - paragraph [ref=f1e196]: ספרו לי מה קורה היום, ונבדוק יחד מה הדרך הנכונה לשפר אותו.
+          - link "לקביעת פגישה" [ref=f1e197] [cursor=pointer]:
+            - /url: /contact
+            - text: לקביעת פגישה
+            - generic [aria-hidden] [ref=f1e198]: ↖
+      - navigation "ניווט תחתון" [ref=f1e199]:
+        - link "דף הבית" [ref=f1e200] [cursor=pointer]:
+          - /url: /
+        - link "פתרונות" [ref=f1e201] [cursor=pointer]:
+          - /url: /solutions
+        - link "לעסקים" [ref=f1e202] [cursor=pointer]:
+          - /url: /business
+        - link "לפרטיים וליזמים" [ref=f1e203] [cursor=pointer]:
+          - /url: /individuals
+        - link "איך עובדים יחד" [ref=f1e204] [cursor=pointer]:
+          - /url: /process
+        - link "אודות" [ref=f1e205] [cursor=pointer]:
+          - /url: /about
+        - link "בואו נכיר" [ref=f1e206] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=f1e207]:
+        - navigation "מידע משפטי" [ref=f1e208]:
+          - link "מדיניות פרטיות" [ref=f1e209] [cursor=pointer]:
+            - /url: /legal/privacy
+          - link "תנאי שימוש" [ref=f1e210] [cursor=pointer]:
+            - /url: /legal/terms
+          - link "הצהרת נגישות" [ref=f1e211] [cursor=pointer]:
+            - /url: /legal/accessibility
+        - paragraph [ref=f1e212]: © BottomLine. כל הזכויות שמורות.
+  - button "Open Next.js Dev Tools" [ref=f1e218] [cursor=pointer]
+  - alert [ref=f1e222]

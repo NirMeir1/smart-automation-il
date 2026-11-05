@@ -154,9 +154,15 @@ button:disabled { cursor: not-allowed; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 
-/* Responsive introduction video. */
-.introduction-video { min-width: 0; width: 100%; margin: 0; }
-.video-surface { width: 100%; aspect-ratio: 16 / 9; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+/* Founder introduction follows the value proposition in reading order. */
+.introduction-video { min-width: 0; width: 100%; max-width: 380px; margin: 0; justify-self: center; display: grid; justify-items: center; gap: 24px; }
+.introduction-copy { width: 100%; }
+.introduction-copy h2 { font-size: clamp(26px, 2.5vw, 32px); margin-bottom: 12px; }
+.introduction-copy p { font-size: 16px; font-weight: 700; color: var(--muted-ink); line-height: 1.8; text-wrap: pretty; }
+.video-surface { width: min(100%, 260px); aspect-ratio: 9 / 16; background: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow); }
 .video-surface video { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--ink); }
-.introduction-video figcaption { margin-top: 12px; color: var(--muted-ink); font-size: 14px; text-align: center; }
-@media (max-width: 900px) { .introduction-video { max-width: 540px; justify-self: center; } }
+.video-surface > p { color: var(--paper); padding: 24px; }
+.introduction-next-step { display: grid; justify-items: center; gap: 12px; width: 100%; text-align: center; }
+.introduction-next-step .action { min-height: 52px; }
+.introduction-next-step p { color: var(--muted-ink); font-size: 14px; font-weight: 700; }
+@media (max-width: 900px) { .introduction-video { border-top: 1px solid var(--line); padding-top: 32px; } }

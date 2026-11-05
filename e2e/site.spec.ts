@@ -65,7 +65,7 @@ test('navigation and every page CTA reach their real internal destinations', asy
   }
 })
 
-test('restored design tokens, responsive hero and honest 16:9 video area', async ({ page }) => {
+test('brand tokens and responsive portrait founder introduction', async ({ page }) => {
   for (const width of [320, 390, 768, 820, 1024, 1440, 1536, 1920]) {
     await page.setViewportSize({ width, height: 1000 })
     await page.goto('/')
@@ -87,11 +87,16 @@ test('restored design tokens, responsive hero and honest 16:9 video area', async
     expect(layout.navy).toBe('rgb(24, 45, 44)')
     expect(layout.accent).toBe('rgb(35, 92, 72)')
     expect(layout.font.toLowerCase()).toContain('heebo')
-    expect(layout.video.width / layout.video.height).toBeCloseTo(16 / 9, 1)
+    expect(layout.video.width / layout.video.height).toBeCloseTo(9 / 16, 2)
+    expect(layout.video.width).toBeLessThanOrEqual(260)
     if (width <= 900) expect(layout.video.y).toBeGreaterThanOrEqual(layout.copy.bottom)
     else expect(layout.video.x + layout.video.width).toBeLessThan(layout.copy.x)
-    await expect(page.locator('.introduction-video')).toContainText('כאן יופיע סרטון ההיכרות')
-    await expect(page.locator('.introduction-video button, .introduction-video video, .problem-diagram, .headline-accent')).toHaveCount(0)
+    await expect(page.locator('.introduction-video')).toHaveAttribute('dir', 'rtl')
+    await expect(page.locator('.introduction-video h2')).toHaveText('בואו נכיר')
+    await expect(page.locator('.introduction-video video')).toHaveAttribute('preload', 'none')
+    const cta = page.locator('.introduction-next-step a')
+    await expect(cta).toHaveAttribute('href', '/contact#inquiry')
+    expect((await cta.boundingBox())!.y).toBeGreaterThanOrEqual(layout.video.y + layout.video.height)
   }
 })
 
