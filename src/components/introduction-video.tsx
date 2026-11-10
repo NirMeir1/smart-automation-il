@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { brand } from '@/lib/brand'
 import type { IntroductionVideoMedia } from '@/content/introduction-video'
 
 export function IntroductionVideo({ media }: { media?: IntroductionVideoMedia }) {
@@ -8,7 +9,7 @@ export function IntroductionVideo({ media }: { media?: IntroductionVideoMedia })
       <p id="founder-introduction-description">אני מאמין שפתרון טכנולוגי טוב מתחיל בהבנה של הבעיה. בסרטון קצר אני מספר איך אני עובד ואיך אפשר להתקדם יחד.</p>
     </div>
     <div className="video-surface">
-      {media ? <video controls playsInline preload="none" width={720} height={1280} poster={media.poster} aria-label="סרטון ההיכרות עם מייסד BottomLine" aria-describedby="founder-introduction-description">
+      {media ? <video controls playsInline preload="none" width={720} height={1280} poster={media.poster} aria-label={`סרטון ההיכרות עם מייסד ${brand.name}`} aria-describedby="founder-introduction-description">
         <source src={media.src} type="video/mp4" />
         {media.captions?.map((track, index) => <track key={`${track.language}-${track.src}`} kind="captions" src={track.src} srcLang={track.language} label={track.label} default={index === 0} />)}
         הדפדפן אינו תומך בהפעלת וידאו.

@@ -14,7 +14,9 @@ describe('Inquiry email and server receipt', () => {
     ['2026-07-15T10:30:00Z', '13:30:00'],
   ])('formats Israel time including winter/summer offset for %s', async (instant, expected) => {
     const { inquiryEmailText } = await import('@/lib/inquiry-email')
-    expect(inquiryEmailText(emptyInquiry, Date.parse(instant))).toContain(expected)
+    const text = inquiryEmailText(emptyInquiry, Date.parse(instant))
+    expect(text).toContain(expected)
+    expect(text).toContain('פנייה חדשה דרך אתר Posiblo')
   })
   it('keeps receipt time unchanged on retries rather than generating a new email payload', async () => {
     const clock = vi.spyOn(Date, 'now').mockReturnValue(1_790_000_000_000)

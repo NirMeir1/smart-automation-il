@@ -50,6 +50,13 @@ try {
     assert.equal(document.querySelector('meta[name="robots"]').content, 'index, follow', route.href);
     assert.equal(document.querySelector('link[rel="canonical"]').href, brand.origin + route.href);
     assert.ok(document.querySelector('meta[name="description"]').content.length > 20);
+    assert.ok(document.title.includes('Posiblo'));
+    assert.equal(document.querySelector('meta[property="og:site_name"]').content, 'Posiblo');
+    assert.equal(document.querySelector('meta[property="og:url"]').content, 'https://posiblo.com' + route.href);
+    // Check rendered copy separately from Next.js hydration payloads.
+    const visibleBody = document.body.cloneNode(true);
+    visibleBody.querySelectorAll('script, style').forEach(node => node.remove());
+    assert.doesNotMatch(visibleBody.textContent, /bottomline/i);
     html.set(route.href, document);
   }
   assert.equal(new Set([...html.values()].map(document => document.title)).size, publicRoutes.length);
@@ -57,7 +64,7 @@ try {
   const locations = [...xml.window.document.querySelectorAll('loc')].map(node => node.textContent);
   assert.deepEqual(locations, publicRoutes.map(route => brand.origin + route.href));
   const robots = await (await fetch(base + '/robots.txt')).text();
-  assert.match(robots, /Sitemap: https:\/\/www\.bottomline-ai\.com\/sitemap\.xml/);
+  assert.ok(robots.includes('Sitemap: https://posiblo.com/sitemap.xml'));
   const searchRules = robots.split(/User-Agent: GPTBot/i)[0];
   assert.match(searchRules, /User-Agent: \*\s+Allow: \//i);
   for (const path of ['/admin', '/api/', '/thanks']) assert.ok(searchRules.includes(`Disallow: ${path}`));

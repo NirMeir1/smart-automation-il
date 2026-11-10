@@ -2,8 +2,8 @@
 import fs from 'node:fs';
 import { pageKeys, parseSiteContent } from '../src/content/schema.ts';
 import { ctaLinks, sectionDefinitions } from '../src/content/structure.ts';
-// Approved brand casing update; preserve the original research document.
-const source = fs.readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8').replaceAll('Bottomline', 'BottomLine');
+// The authoritative brief contains the approved public brand verbatim.
+const source = fs.readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8');
 const deck = source.split('### Home page — דף הבית')[1].split('## 8. Functional Requirements')[0];
 const chunks = ['### Home page — דף הבית' + deck].join('').split(/(?=^### .+ page — )/m).filter(Boolean);
 const keys = pageKeys;

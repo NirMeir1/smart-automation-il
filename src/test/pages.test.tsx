@@ -16,7 +16,7 @@ const normalize = (s: string) => s.replace(/\s+/g, ' ').trim()
 
 describe('Part J pages', () => {
   for (const [index, route] of routes.entries()) it(`${route.href} preserves every customer quote from the authoritative brief`, () => {
-    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8').replaceAll('Bottomline', 'BottomLine')
+    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8')
     const deck = source.slice(source.indexOf('### Home page —')).split('## 8. Functional Requirements')[0]
     const originalChunk = deck.split(/(?=^### .+ page — )/m).filter(Boolean)[index]
     // The owner supplied the founder facts, replacing only the About placeholders.
@@ -55,7 +55,7 @@ describe('Part J pages', () => {
     const metadata = pageMetadata(route.key)
     expect(metadata.title).toBe(page.title)
     expect(metadata.description).toBe(page.description)
-    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8').replaceAll('Bottomline', 'BottomLine')
+    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8')
     expect(source).toContain(page.title)
     expect(source).toContain(page.description)
     expect(rendered).not.toMatch(/Sogomatic|50%|90%|50\+/)
@@ -85,7 +85,7 @@ describe('Part J pages', () => {
     expect(button).toHaveFocus()
   })
   it('preserves every shared navigation/footer quote and legal destination', () => {
-    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8').replaceAll('Bottomline', 'BottomLine')
+    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8')
     const shell = source.split('### Global navigation and footer')[1].split('### Home page —')[0]
     const { container } = render(<><Navigation /><Footer /></>)
     const text = normalize(container.textContent!)

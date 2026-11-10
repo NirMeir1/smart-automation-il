@@ -12,7 +12,7 @@ describe('Introduction video', () => {
 
   it('supports native controls and captions without autoplay when real media is configured', () => {
     const { container } = render(<IntroductionVideo media={{ src: '/operator.mp4', captions: [{ src: '/operator.he.vtt', language: 'he', label: 'עברית' }] }} />)
-    const video = screen.getByLabelText('סרטון ההיכרות עם מייסד BottomLine')
+    const video = screen.getByLabelText('סרטון ההיכרות עם מייסד Posiblo')
     expect(video).toHaveAttribute('controls')
     expect(video).toHaveAttribute('playsinline')
     expect(video).not.toHaveAttribute('autoplay')

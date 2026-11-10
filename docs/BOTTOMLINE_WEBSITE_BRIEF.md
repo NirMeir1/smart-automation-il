@@ -1,4 +1,6 @@
-# BOTTOMLINE_WEBSITE_BRIEF
+# Posiblo — authoritative website brief
+
+Approved owner decision (2026-11-10, superseding the earlier old-origin preservation requirement): public brand **Posiblo**, canonical production origin **https://posiblo.com**. Both bottomline-ai.com variants and www.posiblo.com are permanent redirect aliases only. Preserve all nine existing public routes. Business contact/recipient: **posiblo.contact@gmail.com**; automated sender: **website@posiblo.com** via Resend. Google Workspace was cancelled and is not used. This supersedes earlier provisional-name/domain/email instructions. Historical research below remains evidence, not current launch guidance. This implementation does not establish legal or trademark clearance. The P favicon is provisional, not an approved final logo.
 
 > **Document role:** Primary implementation brief for `frontend-app-builder`.
 > **Source:** `deep-research-report (6).md`, especially Part J (verbatim customer-facing copy), plus implementation-relevant findings in Parts A, D–F, H–K and M.
@@ -7,11 +9,11 @@
 
 ## 1. Project Overview
 
-- **Mandatory:** Build a Hebrew-first, RTL website for Bottomline, a proposed independent technology problem-solving studio serving **both businesses (B2B) and individuals/entrepreneurs (B2C)**.
+- **Mandatory:** Build a Hebrew-first, RTL website for Posiblo, a proposed independent technology problem-solving studio serving **both businesses (B2B) and individuals/entrepreneurs (B2C)**.
 - **Positioning:** **Problem first. Technology second.** Lead with customer situations, then explain possible technical capabilities.
 - **Core site promise:** Understand the problem → choose the right approach → build and test when appropriate. Sometimes a smaller change or no new software is the right recommendation.
 - **Main conversion:** A first **פגישת היכרות ומיפוי** / discovery/fit meeting. Research recommends 20–30 minutes, free, online by default; in-person by prior arrangement. Treat the operational availability and meeting rules as requiring business confirmation (`TBD`).
-- **Brand warning:** “Bottomline” is **provisional** pending trademark/name/domain clearance; do not silently treat the name as legally cleared.
+- **Brand decision:** Use **Posiblo** as instructed by the owner; preserve the existing domain. Legal clearance is not established by this implementation.
 - **Delivery model represented by the research:** Direct relationship with an individual operator, with specialist collaborators only when needed. Verify operator facts before publication.
 - **Scope:** Shared site shell, seven publication-copy pages, conversion/contact workflow, trust and legal links. The research does **not** establish the application framework, deployment architecture, exact routes (except existing `/contact` observed in the audit), vendor services, or brand visual system.
 
@@ -72,7 +74,7 @@
 - **Navigation:** Persistent, accessible desktop navigation; mobile equivalent. Highlight a distinct CTA **לקביעת פגישת היכרות** as the primary navigation action.
 - **Internal links:** Home B2B/B2C cards → their dedicated pages; Home process CTA → Process; solution/context CTAs → an appropriate functioning contact/discovery entry; About and final CTAs → contact/discovery; all footer legal links → actual reviewed legal pages or visibly `TBD` until provided.
 - **Scheduling destination ambiguity:** Source wants a booked meeting as the main conversion **but Part J specifies a contact form, not a verified booking tool/URL**. Do not invent a calendar. Until confirmed, route meeting CTAs to the functioning contact entry and make no promise of instantaneous booking. Any booking integration remains proposed and `TBD`.
-- **Footer:** Bottomline identifier, tagline, capability list, enquiry prompt, booking CTA, privacy / terms / accessibility links, copyright. Exact copy is preserved verbatim in Section 7. Legal-page *content* is not supplied/approved by the source; do not invent it.
+- **Footer:** Posiblo identifier, tagline, capability list, enquiry prompt, booking CTA, privacy / terms / accessibility links, copyright. Exact copy is preserved verbatim in Section 7. Legal-page *content* is not supplied/approved by the source; do not invent it.
 
 ## 6. Global UX and Design Requirements
 
@@ -95,7 +97,7 @@
 | Page | Audience; purpose | Sections in source order | Important interactions/restrictions |
 |---|---|---|---|
 | Global shell | Both; navigation, trust, outbound paths | Navigation → nav button → footer | Valid internal links; legal link destinations `TBD`; name clearance pending |
-| Home | Both; recognition, credibility, routing, conversion | Hero → נשמע מוכר? → אז מה Bottomline עושה? → לעסקים וגם לאנשים → איך זה עובד → לא כל דבר צריך AI → FAQ → final CTA | Problem/meeting CTAs; audience cards; FAQ accessible disclosure if collapsed; no quantitative claims |
+| Home | Both; recognition, credibility, routing, conversion | Hero → נשמע מוכר? → אז מה Posiblo עושה? → לעסקים וגם לאנשים → איך זה עובד → לא כל דבר צריך AI → FAQ → final CTA | Problem/meeting CTAs; audience cards; FAQ accessible disclosure if collapsed; no quantitative claims |
 | Solutions | Both; problem-to-capability explanations | Hero → לעבוד פחות ידנית → לחבר מערכות → לבנות כלי → להפוך רעיון → לשפר חוויית לקוחות → AI → capabilities → CTA | Service examples are possibilities, not promises or portfolio proof |
 | Business | B2B; qualify process problems | Hero → מתי כדאי לדבר? → מה אפשר לשפר? → לא מחליפים מערכת → איך מתחילים? → CTA | Leads to enquiry; avoid assuming all projects require new tools |
 | Individuals/entrepreneurs | B2C; legitimize product/personal needs | Hero → רעיון לאפליקציה → MVP → כלי אישי → אוטומציה אישית → לא כל רעיון צריך אפליקציה → CTA | No general device/IT support implication |
@@ -125,7 +127,7 @@ Button:
 
 **Footer copy**
 
-> **Bottomline**  
+> **Posiblo**
 > פתרונות טכנולוגיים שמתחילים בבעיה האמיתית — לא בכלי.
 >
 > אוטומציה | AI | מערכות מותאמות | אפליקציות | אתרים | אינטגרציות
@@ -137,13 +139,13 @@ Button:
 >
 > מדיניות פרטיות | תנאי שימוש | הצהרת נגישות
 >
-> © Bottomline. כל הזכויות שמורות.
+> © Posiblo. כל הזכויות שמורות.
 
 ### Home page — דף הבית
 
 **Meta title**
 
-> Bottomline | פתרונות טכנולוגיים לעסקים ולאנשים — מהבעיה לפתרון
+> Posiblo | פתרונות טכנולוגיים לעסקים ולאנשים — מהבעיה לפתרון
 
 **Meta description**
 
@@ -162,7 +164,7 @@ Button:
 
 > יש תהליך שלוקח יותר מדי זמן? עבודה ידנית שחוזרת על עצמה? מערכות שלא מתקשרות ביניהן? או אולי רעיון לאתר, לאפליקציה או למוצר דיגיטלי שאתם רוצים להפוך למציאות?
 >
-> ב־BottomLine מתחילים בהבנת הצורך. מדברים, שואלים שאלות, מבינים מה קורה היום, מה לא עובד כמו שצריך ומה אתם רוצים להשיג. רק אחר כך בוחרים את הדרך הנכונה להתקדם.
+> ב־Posiblo מתחילים בהבנת הצורך. מדברים, שואלים שאלות, מבינים מה קורה היום, מה לא עובד כמו שצריך ומה אתם רוצים להשיג. רק אחר כך בוחרים את הדרך הנכונה להתקדם.
 >
 > זה יכול להיות אוטומציה, AI, אתר, אפליקציה, מערכת בהתאמה אישית או חיבור בין מערכות. ולפעמים, פתרון פשוט יותר הוא בדיוק מה שצריך.
 >
@@ -218,7 +220,7 @@ CTA:
 
 > **בואו נדבר על מה שקורה אצלכם**
 
-#### Section: אז מה Bottomline עושה?
+#### Section: אז מה Posiblo עושה?
 
 > **פותרים את הבעיה עם הטכנולוגיה שמתאימה לה.**
 
@@ -363,7 +365,7 @@ CTA:
 
 **Meta title**
 
-> פתרונות טכנולוגיים בהתאמה אישית | Bottomline
+> פתרונות טכנולוגיים בהתאמה אישית | Posiblo
 
 **Meta description**
 
@@ -377,7 +379,7 @@ Intro:
 
 > הפתרון יכול להיות אוטומציה של שעה, בניית מערכת או חיבור בין שני כלים שכבר קיימים. גם רעיון שנראה בתחילה שדורש AI עשוי לעבוד בלעדיו.
 >
-> הנה סוגי הבעיות שבהן Bottomline יכולה לעזור.
+> הנה סוגי הבעיות שבהן Posiblo יכולה לעזור.
 
 #### לעבוד פחות ידנית
 
@@ -443,7 +445,7 @@ CTA:
 
 **Meta title**
 
-> פתרונות טכנולוגיים לעסקים קטנים ובינוניים | Bottomline
+> פתרונות טכנולוגיים לעסקים קטנים ובינוניים | Posiblo
 
 **Meta description**
 
@@ -459,7 +461,7 @@ Intro:
 >
 > בעל העסק הופך למערכת התזכורות. העובדים מעבירים מידע ידנית. לידים נמצאים בכמה מקומות. פעולה שאמורה לקחת דקה הופכת לעשר.
 >
-> Bottomline עוזרת לזהות איפה התהליך נתקע ולבנות פתרון שמתאים לעסק, בלי להתחייב מראש לטכנולוגיה מסוימת.
+> Posiblo עוזרת לזהות איפה התהליך נתקע ולבנות פתרון שמתאים לעסק, בלי להתחייב מראש לטכנולוגיה מסוימת.
 
 #### מתי כדאי לדבר?
 
@@ -522,7 +524,7 @@ CTA:
 
 **Meta title**
 
-> פיתוח פתרונות, אפליקציות ו-MVP לפרטיים וליזמים | Bottomline
+> פיתוח פתרונות, אפליקציות ו-MVP לפרטיים וליזמים | Posiblo
 
 **Meta description**
 
@@ -582,7 +584,7 @@ CTA:
 
 **Meta title**
 
-> איך עובדים יחד | פגישת היכרות, אפיון ופיתוח | Bottomline
+> איך עובדים יחד | פגישת היכרות, אפיון ופיתוח | Posiblo
 
 **Meta description**
 
@@ -598,7 +600,7 @@ Intro:
 >
 > החלק החשוב יותר הוא להבין למה צריך אותה בכלל.
 >
-> לכן מתחילים ב-Bottomline בהיכרות איתכם, עם העסק, עם הרעיון ועם התהליך.
+> לכן מתחילים ב-Posiblo בהיכרות איתכם, עם העסק, עם הרעיון ועם התהליך.
 
 #### פגישת ההיכרות
 
@@ -665,11 +667,11 @@ CTA:
 
 **Meta title**
 
-> אודות Bottomline | קודם מבינים את הבעיה
+> אודות Posiblo | קודם מבינים את הבעיה
 
 **Meta description**
 
-> Bottomline היא סטודיו טכנולוגי עצמאי שמתחיל מהבעיה ורק אחר כך בוחר את הפתרון — אוטומציה, AI, תוכנה, אתר, אפליקציה או אינטגרציה.
+> Posiblo היא סטודיו טכנולוגי עצמאי שמתחיל מהבעיה ורק אחר כך בוחר את הפתרון — אוטומציה, AI, תוכנה, אתר, אפליקציה או אינטגרציה.
 
 **H1**
 
@@ -677,9 +679,9 @@ CTA:
 
 Body:
 
-> מאחורי Bottomline עומד **[שם מלא — נדרש להשלמה]**, מפתח תוכנה שעובד ישירות עם עסקים, יזמים ואנשים שרוצים לפתור בעיה אמיתית בעזרת טכנולוגיה.
+> מאחורי Posiblo עומד **[שם מלא — נדרש להשלמה]**, מפתח תוכנה שעובד ישירות עם עסקים, יזמים ואנשים שרוצים לפתור בעיה אמיתית בעזרת טכנולוגיה.
 >
-> הרעיון מאחורי Bottomline פשוט:
+> הרעיון מאחורי Posiblo פשוט:
 >
 > יותר מדי פרויקטים מתחילים במשפט כמו "אנחנו צריכים AI", "אנחנו צריכים אפליקציה" או "אנחנו צריכים אוטומציה".
 >
@@ -729,7 +731,7 @@ CTA:
 
 **Meta title**
 
-> קביעת פגישת היכרות | Bottomline
+> בקשה לתיאום פגישת היכרות | Posiblo
 
 **Meta description**
 
@@ -746,6 +748,8 @@ Intro:
 > ספרו לי מה קורה היום, מה לא עובד כמו שהייתם רוצים ומה הייתם שמחים לשנות.
 >
 > משם נתחיל.
+>
+> שליחת הטופס היא בקשה לחזרה ולתיאום פגישה; היא אינה קובעת מועד ביומן.
 
 #### Form
 
@@ -815,7 +819,7 @@ Do not promise a specific response time until you know you can consistently meet
 
 **Meta title**
 
-> אוטומציה עסקית לצמצום עבודה ידנית | Bottomline
+> אוטומציה עסקית לצמצום עבודה ידנית | Posiblo
 
 **Meta description**
 
@@ -885,7 +889,7 @@ CTA:
 
 **Meta title**
 
-> חיבור בין מערכות ואינטגרציות API לעסקים | Bottomline
+> חיבור בין מערכות ואינטגרציות API לעסקים | Posiblo
 
 **Meta description**
 

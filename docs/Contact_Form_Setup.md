@@ -1,6 +1,8 @@
 # Contact form: setup and verification
 
-Implemented on 20 October 2026. Updated after the owner configured Resend and Upstash and confirmed receipt of a live test email. No deployment was performed by the coding agent.
+Implemented on 20 October 2026; migration configuration updated on 10 November 2026. Earlier live delivery evidence applies to the former configuration, not the new sender/recipient. No deployment or live email was performed during this migration fix.
+
+Current approved setup: website `https://posiblo.com`, automated sender `website@posiblo.com` via Resend, recipient/business contact `posiblo.contact@gmail.com` (free personal Gmail). Google Workspace was cancelled and is not used. Do not configure Google Workspace MX records or a `posiblo@posiblo.com` mailbox. Verify Resend sending-domain records independently.
 
 ## What is implemented
 
@@ -8,7 +10,7 @@ Implemented on 20 October 2026. Updated after the owner configured Resend and Up
 - Existing caller type, tools/systems, budget, meeting preference, audience intent, and privacy acknowledgement are preserved. Caller type and privacy acknowledgement retain their existing required status.
 - Shared frontend/backend validation, bounded request size, strict origin checks, a honeypot, minimum completion time, and five attempts per client per ten minutes.
 - Both existing endpoints (`/api/lead`, `/api/send-email`) remain supported, including the previous combined `contact` API field.
-- Server-side Resend delivery only to **meirnir89@gmail.com**, fixed in server configuration. No recipient override is accepted from visitors. The old `CONTACT_TO_EMAIL` variable is no longer used.
+- Server-side Resend delivery only to **posiblo.contact@gmail.com**, fixed in server configuration. No recipient override is accepted from visitors. The old `CONTACT_TO_EMAIL` variable is no longer used.
 - Plain-text Hebrew email includes all customer fields, consent acknowledgement, inquiry ID, and server receipt date/time using `Asia/Jerusalem`, including daylight saving time. Plain text avoids interpreting customer input as HTML. Reply-To uses the validated customer email when supplied.
 - The existing Upstash database stores expiring rate counters and random inquiry IDs with timestamps, never message contents or raw IP addresses. Receipt timestamps expire after 25 hours; a stable timestamp preserves identical email payloads on retries across server instances. Resend idempotency protects retries for 24 hours.
 - Loading state, immediate duplicate-submit guard, accessible errors, preserved values after failures, and success only after the provider returns an acceptance ID. An acceptance ID is not proof of Gmail inbox delivery.
@@ -30,31 +32,31 @@ The existing shared spam protection uses [Upstash Redis Free](https://upstash.co
 
 ## Exact setup steps
 
-1. Create a free [Resend account](https://resend.com/signup) and verify your account email. Choose the transactional Free plan without a card or paid subscription.
-2. Under Domains, add a domain or subdomain **you already own**. Follow [Resend's domain instructions](https://resend.com/docs/add-a-domain) and copy its exact DNS records into your DNS provider. Wait for verification. Do not change existing unrelated mail records. The email service is free; ownership of a sending domain is a separate prerequisite. Gmail is the recipient, not the sending domain.
-3. Create a [Resend API key](https://resend.com/docs/dashboard/api-keys/introduction) with **Sending access**, scoped to the verified domain where available. Store it privately. Set the sender to an address at that verified domain. A separate paid mailbox is not required just to send through Resend; use a sender address you control. The application intentionally disallows `@resend.dev` test senders.
-4. Create an Upstash account and one persistent Redis database on the **Free** plan. From the database console, copy its HTTPS REST URL and read/write REST token. Required Redis operations are `EVAL`, `INCR`, `EXPIRE`, `TTL`, `GET`, and `SET`. No temporary three-day database is used.
+1. Use the existing Resend account and verify its sending access. Keep its transactional Free plan without paid upgrades; no new account or subscription is required for the migration.
+2. Under Domains, verify the existing owned domain **posiblo.com** for the approved `website@posiblo.com` sender. Follow [Resend's domain instructions](https://resend.com/docs/add-a-domain) and copy its exact DNS records into your DNS provider. Wait for verification. Do not change existing unrelated mail records. The email service is free; ownership of a sending domain is a separate prerequisite. Gmail is the recipient, not the sending domain.
+3. Verify the existing private [Resend API key](https://resend.com/docs/dashboard/api-keys/introduction) has **Sending access** to the approved domain. Preserve it; do not expose or replace it merely for the migration. Set the sender to an address at that verified domain. A separate paid mailbox is not required just to send through Resend; use a sender address you control. The application intentionally disallows `@resend.dev` test senders.
+4. Reuse the existing persistent Upstash Redis database and its private HTTPS REST URL and read/write REST token. Keep the existing Free plan; no new database is required. Required Redis operations are `EVAL`, `INCR`, `EXPIRE`, `TTL`, `GET`, and `SET`. No temporary three-day database is used.
 5. Generate a private random rate-limit secret of at least 32 characters. For example, using the project's Node installation: `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Store the result only in private environment settings.
-6. Copy `.env.example` to ignored `.env.local` for local work. For an authorized future deployment, use the hosting provider's private server environment settings with the same variables. Never put secrets in `NEXT_PUBLIC_*` variables or commit `.env.local`.
+6. For first-time local setup only, copy `.env.example` to ignored `.env.local` if no private file exists. Preserve an existing `.env.local` and its secrets. For an authorized future deployment, use the hosting provider's private server environment settings with the same variables. Never put secrets in `NEXT_PUBLIC_*` variables or commit `.env.local`.
 
 | Variable | Value |
 |---|---|
 | `RESEND_API_KEY` | Your private sending API key |
-| `CONTACT_FROM_EMAIL` | Sender email at the verified domain; email address only, without a display name |
-| `NEXT_PUBLIC_SITE_URL` | Actual HTTPS website origin, e.g. `https://your-owned-domain`; no path, query, or fragment |
+| `CONTACT_FROM_EMAIL` | `website@posiblo.com`; email address only, without a display name; verify the domain in Resend |
+| `NEXT_PUBLIC_SITE_URL` | `https://posiblo.com`; no path, query, or fragment |
 | `UPSTASH_REDIS_REST_URL` | Database's HTTPS `*.upstash.io` REST origin |
 | `UPSTASH_REDIS_REST_TOKEN` | Private read/write REST token |
 | `CONTACT_RATE_LIMIT_SECRET` | Generated random secret; same value across server instances |
 | `CONTACT_TRUST_PROXY` | `true` only after verifying the hosting ingress overwrites `x-forwarded-for` with the real client IP |
 | `CONTACT_FORM_ENABLED` | `true` when the sending configuration is ready |
 | `LEGAL_REVIEW_APPROVED` | Obsolete and ignored by the contact handler. Legal pages remain drafts; enabling submissions does not certify a legal review. |
-| `SITE_INDEXING_ENABLED` | Keep existing setting; this feature does not require search indexing |
+| `SITE_INDEXING_ENABLED` | `true` only for the approved production release on the canonical origin; keep previews/development blocked |
 
-There is no recipient setting to configure: every accepted inquiry targets **meirnir89@gmail.com**. Old recipient variables can be removed from private configuration.
+There is no recipient setting to configure: every accepted inquiry targets **posiblo.contact@gmail.com**. Old recipient variables can be removed from private configuration.
 
-7. The host must run the existing Next.js Node server/API routes; a static-only export cannot send mail. No deployment adapter/configuration identifying the final hosting service was found. Verify the trusted proxy behavior before enabling production; do not assume that an appended client-supplied forwarded header is safe. No hosting service has been selected or changed by this task.
+7. The host must run the existing Next.js Node server/API routes; a static-only export cannot send mail. Vercel is the confirmed host. Preserve the existing project and verify its production branch, environment scopes, and trusted proxy behavior; do not assume that an appended client-supplied forwarded header is safe. No hosting settings were changed by this task.
 8. Restart the development server after changing server variables. Rebuild before an authorized production rollout because the public site origin is also used in site metadata. Set `CONTACT_FORM_ENABLED=true` to enable configured submissions. At the owner's request, form availability is independent of the legal pages' draft status; no approval is asserted or fabricated.
-9. With private configuration ready, submit a real inquiry from the actual configured origin. Verify the Resend acceptance record and then personally check **meirnir89@gmail.com**, including spam. Check both contact methods, full multiline message, optional fields, date/time, and Reply-To. Repeat with a failed connection to verify safe retries. Do not report inbox delivery until that mailbox check is complete.
+9. Only after explicit authorization and deployment with approved configuration, submit a real inquiry from the actual configured origin. Verify the Resend acceptance record and then personally check **posiblo.contact@gmail.com**, including spam. Check both contact methods, full multiline message, optional fields, date/time, and Reply-To. Repeat with a failed connection to verify safe retries. Do not report inbox delivery until that mailbox check is complete.
 
 ## Verification completed
 

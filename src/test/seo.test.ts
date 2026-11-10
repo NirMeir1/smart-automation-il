@@ -21,10 +21,14 @@ describe('SEO configuration', () => {
   it('uses distinct public canonicals, index/follow and nine sitemap URLs after indexing is authorized', () => {
     // Configuration fixture only; no request to or assumption about this hostname.
     const origin = brand.origin
+    expect(origin).toBe('https://posiblo.com')
     vi.stubEnv('NEXT_PUBLIC_SITE_URL', origin); vi.stubEnv('SITE_INDEXING_ENABLED', 'true'); vi.stubEnv('VERCEL_ENV', 'production'); vi.stubEnv('NODE_ENV', 'production')
     expect(sitemap().map(entry => entry.url)).toEqual(routes.map(route => origin + route.href))
     expect(new Set(routes.map(route => pageMetadata(route.key).title)).size).toBe(9)
     for (const route of routes) {
+      expect(pageMetadata(route.key).title).toContain('Posiblo')
+      expect(pageMetadata(route.key).openGraph?.siteName).toBe('Posiblo')
+      expect(pageMetadata(route.key).openGraph?.url).toBe(origin + route.href)
       expect(pageMetadata(route.key).alternates?.canonical).toBe(origin + route.href)
       expect(pageMetadata(route.key).robots).toEqual({ index: true, follow: true })
     }
@@ -42,6 +46,10 @@ describe('SEO configuration', () => {
     ['', 'development', brand.origin, 'true', false],
     ['', 'production', brand.origin, 'true', true],
     ['production', 'production', 'https://preview.vercel.app', 'true', false],
+    ['production', 'production', 'https://bottomline-ai.com', 'true', false],
+    ['production', 'production', 'https://www.bottomline-ai.com', 'true', false],
+    ['production', 'production', 'https://www.posiblo.com', 'true', false],
+    ['production', 'production', brand.origin, '', false],
     ['production', 'production', brand.origin, 'false', false],
   ])('gates %s / %s / %s / %s coherently', (vercel, node, origin, enabled, allowed) => {
     vi.stubEnv('VERCEL_ENV', vercel); vi.stubEnv('NODE_ENV', node)

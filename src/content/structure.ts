@@ -4,7 +4,7 @@ type SectionDefinition = { id: string; kind?: 'cards' | 'faq'; columns?: 2 | 3; 
 export const sectionDefinitions: Record<PageKey, Record<string, SectionDefinition>> = {
   home: {
     'נשמע מוכר?': { id: 'problems', kind: 'cards', columns: 3 },
-    'אז מה BottomLine עושה?': { id: 'capabilities', kind: 'cards', columns: 3 },
+    'אז מה Posiblo עושה?': { id: 'capabilities', kind: 'cards', columns: 3 },
     'לעסקים וגם לאנשים': { id: 'audiences', kind: 'cards', columns: 2, cardActions: true },
     'איך זה עובד': { id: 'process', kind: 'cards', columns: 3 },
     'לא כל דבר צריך AI': { id: 'principle', tone: 'principle' },

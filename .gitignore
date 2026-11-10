@@ -19,6 +19,8 @@
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+# Local browser-tool snapshots and evidence (already tracked history is unaffected).
+/.playwright-mcp/
 
 # lint cache
 .eslintcache

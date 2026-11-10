@@ -1,2 +1,2 @@
-// Public identity only. A future name change must not change the permanent origin.
-export const brand = { name: 'BottomLine', origin: 'https://www.bottomline-ai.com' } as const
+// Canonical production identity. Former domains are redirect-only aliases in Vercel.
+export const brand = { name: 'Posiblo', origin: 'https://posiblo.com' } as const

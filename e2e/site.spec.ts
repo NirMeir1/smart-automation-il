@@ -21,7 +21,7 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', browserTestOrigin + route.href)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
   const body = await page.locator('body').innerText()
-  expect(body).not.toMatch(/Sogomatic|אוטומציה חכמה|smart-automation\.co\.il|50%|90%|50\+|050-1234567|24 שעות/)
+  expect(body).not.toMatch(/Bottomline|BottomLine|Sogomatic|אוטומציה חכמה|smart-automation\.co\.il|50%|90%|50\+|050-1234567|24 שעות/)
   const normalize = (value: string) => value.replace(/\s+/g, ' ').trim()
   const mainText = normalize((await page.locator('main').textContent())!)
   if (route.key === 'about') {

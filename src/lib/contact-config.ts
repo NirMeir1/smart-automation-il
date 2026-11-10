@@ -4,7 +4,7 @@ import { siteOrigin } from './site-config'
 import { redisRateLimitEndpoint } from './contact-rate-limit'
 
 // Server-only configuration: never pass credentials or destinations to the browser.
-export const contactRecipient = 'meirnir89@gmail.com'
+export const contactRecipient = 'posiblo.contact@gmail.com'
 
 export function contactConfigurationIssues(): string[] {
   const production = process.env.NODE_ENV === 'production'

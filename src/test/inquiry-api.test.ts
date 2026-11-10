@@ -20,6 +20,42 @@ beforeEach(() => {
 })
 afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers() })
 describe('Inquiry endpoint', () => {
+  it.each(['lead', 'send-email'])('accepts the canonical production origin through /api/%s with approved email routing', async endpoint => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://posiblo.com')
+    vi.stubEnv('CONTACT_FROM_EMAIL', 'website@posiblo.com')
+    vi.stubEnv('CONTACT_TRUST_PROXY', 'true')
+    vi.stubEnv('UPSTASH_REDIS_REST_URL', 'https://unit-test.upstash.io')
+    vi.stubEnv('UPSTASH_REDIS_REST_TOKEN', 'fake-token')
+    vi.stubEnv('CONTACT_RATE_LIMIT_SECRET', 's'.repeat(32))
+    const redis = vi.fn().mockImplementation(async (_url, options) => {
+      const command = JSON.parse(options.body)
+      return Response.json({ result: command[3].includes(':rate:') ? [1, 600] : String(Date.now()) })
+    })
+    vi.stubGlobal('fetch', redis)
+    const { POST } = endpoint === 'lead' ? await import('@/app/api/lead/route') : await import('@/app/api/send-email/route')
+    const response = await POST(new NextRequest(`https://posiblo.com/api/${endpoint}`, {
+      method: 'POST', headers: { origin: 'https://posiblo.com', 'content-type': 'application/json', 'x-forwarded-for': '203.0.113.7' },
+      body: JSON.stringify({ ...payload(), contact: '', email: 'visitor@example.test' }),
+    }))
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({ success: true })
+    expect(redis).toHaveBeenCalledTimes(2)
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({
+      from: 'Posiblo <website@posiblo.com>', to: ['posiblo.contact@gmail.com'], replyTo: 'visitor@example.test',
+      subject: 'פנייה חדשה מאתר Posiblo',
+    }), expect.objectContaining({ idempotencyKey: `bottomline-inquiry/${payload().submissionId}` }))
+  })
+  it.each(['https://bottomline-ai.com', 'https://www.bottomline-ai.com', 'https://www.posiblo.com', 'https://posiblo.com.evil.test', ''])('rejects noncanonical or missing production request origin: %s', async origin => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://posiblo.com')
+    const remote = vi.fn()
+    vi.stubGlobal('fetch', remote)
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(request(payload(), { origin }))).status).toBe(403)
+    expect(send).not.toHaveBeenCalled()
+    expect(remote).not.toHaveBeenCalled()
+  })
   it.each([
     { email: 'person@example.test', phone: '' },
     { email: '', phone: '0502345678' },
@@ -29,7 +65,7 @@ describe('Inquiry endpoint', () => {
     const body = { ...payload(), contact: '', ...methods, systems: 'Gmail ו-Sheets', budget: 'עדיין לא יודע/ת', meeting: 'אונליין', intent: 'idea' }
     expect((await POST(request(body))).status).toBe(200)
     const email = send.mock.calls[0][0]
-    expect(email.to).toEqual(['meirnir89@gmail.com'])
+    expect(email.to).toEqual(['posiblo.contact@gmail.com'])
     for (const value of [body.name, methods.email || 'לא צוין', methods.phone || 'לא צוין', body.message, body.systems, body.budget, body.meeting, 'רעיון או יזמות', 'שעון ישראל', body.submissionId]) expect(email.text).toContain(value)
     expect(email.replyTo).toBe(methods.email || undefined)
   })
@@ -52,7 +88,7 @@ describe('Inquiry endpoint', () => {
     const { POST } = await import('@/app/api/lead/route')
     const response = await POST(request())
     expect(response.status).toBe(200); expect(await response.json()).toEqual({ success: true })
-    expect(send).toHaveBeenCalledWith(expect.objectContaining({ text: expect.stringContaining('<img onerror='), subject: 'פנייה חדשה מאתר BottomLine' }), expect.objectContaining({ idempotencyKey: 'bottomline-inquiry/123e4567-e89b-42d3-a456-426614174000', signal: expect.any(AbortSignal) }))
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({ text: expect.stringContaining('<img onerror='), subject: 'פנייה חדשה מאתר Posiblo' }), expect.objectContaining({ idempotencyKey: 'bottomline-inquiry/123e4567-e89b-42d3-a456-426614174000', signal: expect.any(AbortSignal) }))
     expect(send.mock.calls[0][0]).not.toHaveProperty('html')
     expect(send.mock.calls[0][0]).not.toHaveProperty('replyTo')
     expect(response.headers.get('Cache-Control')).toBe('no-store')

@@ -16,7 +16,7 @@ describe('About founder profile', () => {
     expect(container.textContent).toContain('במשך חמש שנים עבדתי בחברה המפתחת פלטפורמת מסחר עולמית')
     expect(container.textContent).toContain('בסטארטאפ ישראלי המתמחה בפתרונות בינה מלאכותית לארגונים גדולים')
     expect(screen.getByRole('heading', { name: 'ניסיון שמחבר בין טכנולוגיה להבנה עסקית' })).toBeInTheDocument()
-    expect(container.querySelector('#professional-experience strong')).toHaveTextContent('את השילוב הזה אני מביא ל־Bottomline:')
+    expect(container.querySelector('#professional-experience strong')).toHaveTextContent('את השילוב הזה אני מביא ל־Posiblo:')
     expect(container.textContent).toContain('ארכיטקטורת פתרונות')
     expect(container.textContent).toContain('ניתוח עסקי')
     expect([...container.querySelectorAll('bdi[dir="ltr"]')].map(element => element.textContent)).toEqual(expect.arrayContaining(['Forward Deployed Engineer', 'FDE']))

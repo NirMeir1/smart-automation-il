@@ -1,4 +1,5 @@
 import 'server-only'
+import { brand } from './brand'
 import { redisRateLimitConfig } from './contact-rate-limit'
 import type { Inquiry } from './inquiry'
 
@@ -45,7 +46,7 @@ export function inquiryEmailText(data: Inquiry, receivedAt: number): string {
   }).format(new Date(receivedAt))
   const intent = { business: 'עסק', idea: 'רעיון או יזמות', problem: 'בעיה לפתרון' }[data.intent] || 'כללי'
   return [
-    'פנייה חדשה דרך אתר BottomLine', `מועד קבלת הפנייה (שעון ישראל): ${date}`,
+    `פנייה חדשה דרך אתר ${brand.name}`, `מועד קבלת הפנייה (שעון ישראל): ${date}`,
     `שם מלא: ${data.name}`, `אימייל: ${data.email || 'לא צוין'}`, `טלפון: ${data.phone || 'לא צוין'}`,
     ...(data.contact ? [`פרטי חזרה (טופס קודם): ${data.contact}`] : []),
     `אני פונה בתור: ${data.callerType}`, `מה הייתם רוצים לפתור?\n${data.message}`,
