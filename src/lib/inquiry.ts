@@ -7,7 +7,7 @@ export type Inquiry = { name: string; contact: string; email: string; phone: str
 export type InquiryErrors = Partial<Record<keyof Inquiry, string>>
 export const emptyInquiry: Inquiry = { name: '', contact: '', email: '', phone: '', callerType: '', message: '', systems: '', budget: '', meeting: 'אין העדפה', privacy: false, website: '', startedAt: 0, intent: '', submissionId: '' }
 export const privacyAcknowledgement = 'אני מאשר/ת שימוש בפרטים שמסרתי לצורך טיפול בפנייה וחזרה אליי, בהתאם למדיניות הפרטיות.'
-export const inquirySuccess = { title: 'תודה. קיבלתי את הפנייה.', body: 'אעבור על מה שכתבתם ונוכל להבין יחד מה הצעד הבא המתאים.' }
+export const inquirySuccess = { title: 'תודה. הפנייה התקבלה לשליחה.', body: 'ספק הדיוור אישר את קליטת הפנייה לשליחה. זה אינו אישור למסירה לתיבה, לקריאת הפנייה או לקביעת פגישה.' }
 export const unavailableMessage = 'שליחת פניות דרך האתר אינה זמינה כרגע. הפנייה לא נשלחה ולא נשמרה. אפשר לחזור ולנסות בהמשך.'
 export function validEmail(value: string): boolean {
   if (value.length > inquiryLimits.email) return false

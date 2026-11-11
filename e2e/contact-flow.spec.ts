@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test'
+import type { Page } from '@playwright/test'
+import { expect, test } from './test'
 import AxeBuilder from '@axe-core/playwright'
 import { callerTypes, inquirySuccess, meetingFormats } from '../src/lib/inquiry'
 
@@ -91,6 +92,11 @@ test('consent controls the gray disabled button and blocks Enter submission', as
   page.on('request', request => { if (request.url().includes('/api/')) requests++ })
   await page.goto('/contact')
   const button = page.locator('button[type=submit]')
+  await expect(page.locator('#privacy')).not.toBeChecked()
+  await expect(page.locator('#privacy')).toHaveAttribute('required', '')
+  await expect(page.getByRole('region', { name: 'פרטיות המידע בטופס' })).toContainText('אין הרשמה לדיוור שיווקי.')
+  await expect(page.getByRole('link', { name: 'למדיניות הפרטיות המלאה' })).toHaveAttribute('href', '/legal/privacy')
+  await expect(page.locator('#privacy')).toHaveAccessibleName('אני מאשר/ת שימוש בפרטים שמסרתי לצורך טיפול בפנייה וחזרה אליי, בהתאם למדיניות הפרטיות.')
   await expect(button).toBeDisabled()
   await expect(button).toHaveCSS('background-color', 'rgb(224, 227, 225)')
   await fill(page)

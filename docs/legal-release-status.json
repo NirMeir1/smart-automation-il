@@ -1,0 +1,12 @@
+{
+  "status": "draft",
+  "reviewedAt": null,
+  "approvalReference": null,
+  "blockers": [
+    "Verify production vendor settings, access, agreements and international transfers; the local Resend domain check returned HTTP 401",
+    "Activate the documented manual retention review and confirm provider log/backup retention; no production deletion is authorized",
+    "Complete full video/audio and assistive-technology verification; embedded Hebrew subtitles are confirmed",
+    "Resolve applicable outstanding business disclosures and accessibility scope without publishing an unapproved address or registration number",
+    "Resolve remaining legal requirements and record valid final publication approval; documents remain drafts"
+  ]
+}

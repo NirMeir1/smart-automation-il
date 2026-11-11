@@ -36,7 +36,12 @@ export async function submitInquiry(request: NextRequest) {
   const json = (body: object, status = 200, headers: Record<string, string> = {}) => NextResponse.json(body, {
     status, headers: { 'Cache-Control': 'no-store', 'X-Request-ID': requestId, ...headers },
   })
-  const allowedOrigin = process.env.NODE_ENV !== 'production' ? request.nextUrl.origin : siteOrigin()
+  // Explicitly opt in for local `next start`; never apply this exception on Vercel.
+  // NextURL normalizes loopback hosts to localhost. The exact origin comparison
+  // below still requires the localhost scheme and port to match.
+  const localProduction = process.env.CONTACT_ALLOW_LOCAL_ORIGIN === 'true' &&
+    !process.env.VERCEL && !process.env.VERCEL_ENV && request.nextUrl.hostname === 'localhost'
+  const allowedOrigin = process.env.NODE_ENV !== 'production' || localProduction ? request.nextUrl.origin : siteOrigin()
   if (!allowedOrigin || request.headers.get('origin') !== allowedOrigin) return json({ error: 'לא ניתן לשלוח פנייה ממקור זה.' }, 403)
   if (request.headers.get('content-type')?.split(';')[0].trim() !== 'application/json') return json({ error: 'נדרש טופס בפורמט תקין.' }, 415)
   if (!contactAvailable()) {

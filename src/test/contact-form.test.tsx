@@ -47,6 +47,8 @@ describe('Contact form', () => {
   })
   it('keeps submission disabled without consent, including programmatic form submission', () => {
     render(<ContactForm enabled />)
+    expect(screen.getByRole('checkbox', { name: privacyAcknowledgement })).not.toBeChecked()
+    expect(screen.getByRole('checkbox', { name: privacyAcknowledgement })).toBeRequired()
     const button = screen.getByRole('button', { name: /שליחת הפנייה/ })
     expect(button).toBeDisabled()
     fireEvent.submit(button.closest('form')!)
@@ -138,5 +140,14 @@ describe('Contact form', () => {
     expect(screen.getByRole('radio', { name: 'אין העדפה' })).toBeChecked()
     expect(screen.getByRole('link', { name: 'מדיניות הפרטיות' })).toHaveAttribute('href', '/legal/privacy')
     expect(screen.getByLabelText('יש טווח השקעה משוער שחשוב לדעת?')).not.toBeRequired()
+  })
+  it('presents the final privacy notice with the processing route and rights contact', () => {
+    render(<ContactForm enabled />)
+    expect(screen.getByRole('region', { name: 'פרטיות המידע בטופס' })).toHaveTextContent('בעל השליטה במידע הוא ניר מאיר, בעל אתר Posiblo.')
+    expect(screen.getByText('מסירת המידע היא רצונית, אך ללא שם מלא, סוג פונה, תיאור הפנייה וכתובת אימייל או מספר טלפון לא ניתן לשלוח את הטופס.')).toBeInTheDocument()
+    expect(screen.getByText('הפרטים ישמשו לטיפול בפנייה ולחזרה אליכם. לצורך כך, המידע מעובד באמצעות Vercel (אירוח האתר), מועבר באמצעות Resend (שירות דיוור) ומתקבל בתיבת Posiblo בשירות Gmail של Google. אין הרשמה לדיוור שיווקי.')).toBeInTheDocument()
+    expect(screen.getByText(/לבקשות עיון, תיקון או מחיקה ולשאלות בנושא פרטיות:/)).toHaveTextContent('posiblo.contact@gmail.com')
+    expect(screen.getByText('אין לשלוח סיסמאות, מפתחות גישה או מידע אישי רגיש.')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'למדיניות הפרטיות המלאה' })).toHaveAttribute('href', '/legal/privacy')
   })
 })

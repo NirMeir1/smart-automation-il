@@ -16,7 +16,7 @@ export function Navigation() {
       <button ref={toggle} className="menu-toggle" aria-expanded={open} aria-controls="primary-navigation" aria-label={open ? 'סגירת תפריט' : 'פתיחת תפריט'} onClick={() => setOpen(!open)}>{open ? 'סגירה ×' : 'תפריט ☰'}</button>
       <nav id="primary-navigation" aria-label="ניווט ראשי" className={open ? 'primary-nav is-open' : 'primary-nav'}>
         {routes.map(route => <Link href={route.href} key={route.key} aria-current={pathname === route.href ? 'page' : undefined} onClick={() => setOpen(false)}>{route.label}</Link>)}
-        <Link href="/contact#inquiry" className="action header-action" onClick={() => setOpen(false)}>לקביעת פגישת היכרות <span aria-hidden="true">↖</span></Link>
+        <a href="/contact#inquiry" className="action header-action" onClick={() => setOpen(false)}>לקביעת פגישת היכרות <span aria-hidden="true">↖</span></a>
       </nav>
     </div>
   </header>

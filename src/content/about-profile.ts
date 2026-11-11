@@ -1,4 +1,5 @@
 import type { PageContent } from './schema'
+import { operator } from '@/lib/brand'
 
 // Founder facts supplied by the owner; keep separate from the original research copy.
 export const founderProfile: {
@@ -6,7 +7,7 @@ export const founderProfile: {
   photo: { src: string; width: number; height: number } | null
   linkedInUrl: string | null
 } = {
-  name: 'ניר מאיר',
+  name: operator.name,
   photo: null,
   linkedInUrl: null,
 }

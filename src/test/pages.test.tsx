@@ -32,7 +32,11 @@ describe('Part J pages', () => {
       if (!line.startsWith('>')) continue
       const quote = normalize(line.replace(/^> ?/, '').replace(/\*\*/g, ''))
       if (!quote) continue
-      expect(text, `Missing source quote: ${quote}`).toContain(quote)
+      // Provider acceptance cannot truthfully claim inbox delivery or personal receipt.
+      const expected = route.key === 'contact'
+        ? quote.replace('תודה. קיבלתי את הפנייה.', inquirySuccess.title).replace('אעבור על מה שכתבתם ונוכל להבין יחד מה הצעד הבא המתאים.', inquirySuccess.body)
+        : quote
+      expect(text, `Missing source quote: ${expected}`).toContain(expected)
     }
     for (const line of chunk.split(/\r?\n/)) {
       if (line.startsWith('#### ') && /[\u0590-\u05ff]/.test(line)) {
@@ -60,7 +64,8 @@ describe('Part J pages', () => {
     expect(source).toContain(page.description)
     expect(rendered).not.toMatch(/Sogomatic|50%|90%|50\+/)
     for (const link of container.querySelectorAll('a')) {
-      expect(publicRoutes.some(r => r.href === link.getAttribute('href')?.split(/[?#]/)[0])).toBe(true)
+      const path = link.getAttribute('href')?.split(/[?#]/)[0]
+      expect(publicRoutes.some(r => r.href === path) || path === '/legal/accessibility').toBe(true)
     }
   })
   it('includes five problem cards, six capabilities, five stages and six native FAQ disclosures', () => {

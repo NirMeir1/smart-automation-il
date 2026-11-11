@@ -14,7 +14,11 @@ function unreachable(value: never): never { throw new Error(`Unrecognized conten
 export function ContentNodeView({ node }: { node: ContentNode }) {
   const text = <CopyText text={node.text} />
   switch (node.type) {
-    case 'cta': return <Link className="action" href={node.href}>{text}<span aria-hidden="true">↖</span></Link>
+    case 'cta': {
+      // Native fragment navigation avoids duplicated hashes in the app router.
+      const CtaLink = node.href.includes('#') ? 'a' : Link
+      return <CtaLink className="action" href={node.href}>{text}<span aria-hidden="true">↖</span></CtaLink>
+    }
     case 'eyebrow': return <p className="eyebrow">{text}</p>
     case 'h3': return <h3>{text}</h3>
     case 'strong': return <p className="emphasis">{text}</p>

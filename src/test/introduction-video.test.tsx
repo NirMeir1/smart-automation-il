@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 import { IntroductionVideo } from '@/components/introduction-video'
 
 describe('Introduction video', () => {
+  it('describes the configured burned-in subtitles without pretending a separate track exists', () => {
+    const { container } = render(<IntroductionVideo media={{ src: '/operator.mp4', embeddedCaptions: true }} />)
+    expect(screen.getByText(/בסרטון משולבות כתוביות בעברית/)).toBeInTheDocument()
+    expect(container.querySelector('track')).toBeNull()
+    expect(screen.queryByText(/לסרטון עדיין אין קובץ כתוביות/)).not.toBeInTheDocument()
+  })
   it('reserves the media area honestly without fake playback when footage is absent', () => {
     const { container } = render(<IntroductionVideo />)
     expect(screen.getByText('כאן יופיע סרטון ההיכרות')).toBeInTheDocument()

@@ -1,5 +1,6 @@
 // Local release verification. Builds with public production SEO settings and NO delivery credentials.
 // Never deploy this contact-disabled test artifact; rebuild with approved production configuration.
+import './check-legal-release.mjs';
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdtempSync } from 'node:fs';
@@ -9,8 +10,10 @@ import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { chromium, expect } from '@playwright/test';
 import { publicRoutes, serviceRoutes } from '../src/lib/routes.ts';
-import { brand } from '../src/lib/brand.ts';
+import { brand, operator } from '../src/lib/brand.ts';
 import { browserTestEnvironment } from './browser-test-env.mjs';
+
+if (process.exitCode) process.exit(process.exitCode);
 
 const env = { ...process.env, ...browserTestEnvironment, NEXT_PUBLIC_SITE_URL: brand.origin,
   SITE_INDEXING_ENABLED: 'true', VERCEL_ENV: 'production', NODE_ENV: 'production' };
@@ -86,6 +89,10 @@ try {
   const checked = new Set();
   for (const document of html.values()) for (const link of document.querySelectorAll('a[href]')) {
     const href = link.getAttribute('href');
+    if (href.startsWith('mailto:')) {
+      assert.equal(href.split('?')[0], `mailto:${operator.email}`);
+      continue;
+    }
     assert.ok(href.startsWith('/') || href.startsWith('#'), `Internal destination: ${href}`);
     const url = new URL(href, base + [...html].find(([, value]) => value === document)[0]);
     if (checked.has(url.href)) continue;

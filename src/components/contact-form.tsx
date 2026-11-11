@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { operator } from '@/lib/brand'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { callerTypes, emptyInquiry, Inquiry, InquiryErrors, inquiryLimits, inquirySuccess, meetingFormats, privacyAcknowledgement, unavailableMessage, validateInquiry } from '@/lib/inquiry'
 
@@ -81,7 +82,16 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
   return <section className="inquiry-section" id="inquiry" aria-label="טופס פנייה"><div className="site-container form-container">
     {!enabled && <p className="availability-notice" role="status">{unavailableMessage}</p>}
     {success ? <div ref={confirmation} tabIndex={-1} className="form-success" role="status"><h2>{inquirySuccess.title}</h2><p>{inquirySuccess.body}</p></div> :
-      <form onSubmit={submit} noValidate aria-busy={pending}>
+      <form onSubmit={submit} noValidate aria-busy={pending} aria-describedby="inquiry-privacy-notice">
+        <section id="inquiry-privacy-notice" className="field-help privacy-notice" aria-labelledby="inquiry-privacy-heading">
+          <h2 id="inquiry-privacy-heading">פרטיות המידע בטופס</h2>
+          <p>בעל השליטה במידע הוא {operator.name}, בעל אתר Posiblo.</p>
+          <p>מסירת המידע היא רצונית, אך ללא שם מלא, סוג פונה, תיאור הפנייה וכתובת אימייל או מספר טלפון לא ניתן לשלוח את הטופס.</p>
+          <p>הפרטים ישמשו לטיפול בפנייה ולחזרה אליכם. לצורך כך, המידע מעובד באמצעות Vercel (אירוח האתר), מועבר באמצעות Resend (שירות דיוור) ומתקבל בתיבת Posiblo בשירות Gmail של Google. אין הרשמה לדיוור שיווקי.</p>
+          <p>לבקשות עיון, תיקון או מחיקה ולשאלות בנושא פרטיות: <a href={`mailto:${operator.email}`}><bdi dir="ltr">{operator.email}</bdi></a>.</p>
+          <p>אין לשלוח סיסמאות, מפתחות גישה או מידע אישי רגיש.</p>
+          <p><Link href="/legal/privacy">למדיניות הפרטיות המלאה</Link></p>
+        </section>
         {(failure || Object.values(errors).some(Boolean)) && <div ref={summary} tabIndex={-1} className="error-summary" role="alert"><h2>לא ניתן להשלים את השליחה</h2>{failure && <p>{failure}</p>}<ul>{Object.entries(errors).filter(([, message]) => message).map(([key, message]) => <li key={key}>{['name', 'contact', 'email', 'phone', 'callerType', 'message', 'systems', 'budget', 'meeting', 'privacy'].includes(key) ? <a href={`#${key === 'contact' ? 'email' : key}`}>{message}</a> : message}</li>)}</ul></div>}
         <fieldset disabled={!enabled || !hydrated || pending} className="form-fields">
           <legend className="sr-only">ספרו לי מה אתם מנסים לפתור.</legend>
@@ -90,8 +100,8 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
             <legend>טלפון או אימייל *</legend>
             <p className="field-help" id="contact-help">איפה הכי נוח לחזור אליכם? מספיק למלא אחד מהשדות. אפשר גם את שניהם.</p>
             <div className="form-grid">
-              <div className="field"><label htmlFor="email">אימייל</label><input {...attrs('email')} type="email" autoComplete="email" dir="ltr" placeholder="כתובת האימייל שלכם" />{errorFor('email')}</div>
-              <div className="field"><label htmlFor="phone">טלפון</label><input {...attrs('phone')} type="tel" inputMode="tel" autoComplete="tel" dir="ltr" placeholder="מספר הטלפון שלכם" aria-describedby={errors.phone ? 'phone-help phone-error' : 'phone-help'} /><p className="field-help" id="phone-help">מספר ישראלי כולל קידומת, או מספר מחו״ל עם + וקוד מדינה.</p>{errorFor('phone')}</div>
+              <div className="field"><label htmlFor="email">אימייל</label><input {...attrs('email')} type="email" autoComplete="email" dir="ltr" placeholder="כתובת האימייל שלכם" aria-invalid={!!(errors.email || errors.contact)} aria-describedby={`contact-help contact-error${errors.email ? ' email-error' : ''}`} />{errorFor('email')}</div>
+              <div className="field"><label htmlFor="phone">טלפון</label><input {...attrs('phone')} type="tel" inputMode="tel" autoComplete="tel" dir="ltr" placeholder="מספר הטלפון שלכם" aria-invalid={!!(errors.phone || errors.contact)} aria-describedby={`phone-help contact-help contact-error${errors.phone ? ' phone-error' : ''}`} /><p className="field-help" id="phone-help">מספר ישראלי כולל קידומת, או מספר מחו״ל עם + וקוד מדינה.</p>{errorFor('phone')}</div>
             </div>
             <p className="field-error" id="contact-error">{errors.contact}</p>
           </fieldset>

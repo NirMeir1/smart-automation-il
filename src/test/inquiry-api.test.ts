@@ -10,6 +10,7 @@ beforeEach(() => {
   vi.resetModules(); vi.unstubAllEnvs(); send.mockReset()
   vi.spyOn(console, 'info').mockImplementation(() => {})
   vi.stubEnv('CONTACT_TRUST_PROXY', 'false')
+  vi.stubEnv('CONTACT_ALLOW_LOCAL_ORIGIN', 'false')
   vi.stubEnv('UPSTASH_REDIS_REST_URL', '')
   vi.stubEnv('UPSTASH_REDIS_REST_TOKEN', '')
   vi.stubEnv('CONTACT_RATE_LIMIT_SECRET', '')
@@ -20,6 +21,50 @@ beforeEach(() => {
 })
 afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers() })
 describe('Inquiry endpoint', () => {
+  it('accepts explicitly enabled local production submissions with mocked providers', async () => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('CONTACT_ALLOW_LOCAL_ORIGIN', 'true')
+    vi.stubEnv('VERCEL', '')
+    vi.stubEnv('VERCEL_ENV', '')
+    vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://posiblo.com')
+    vi.stubEnv('CONTACT_TRUST_PROXY', 'true')
+    vi.stubEnv('UPSTASH_REDIS_REST_URL', 'https://unit-test.upstash.io')
+    vi.stubEnv('UPSTASH_REDIS_REST_TOKEN', 'fake-token')
+    vi.stubEnv('CONTACT_RATE_LIMIT_SECRET', 's'.repeat(32))
+    vi.stubGlobal('fetch', vi.fn().mockImplementation(async (_url, options) => {
+      const command = JSON.parse(options.body)
+      return Response.json({ result: command[3].includes(':rate:') ? [1, 600] : String(Date.now()) })
+    }))
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(request(payload(), { 'x-forwarded-for': '127.0.0.1' }))).status).toBe(200)
+    expect(send).toHaveBeenCalledTimes(1)
+  })
+  it.each([
+    ['false', '', '', 'http://localhost:3000', 'http://localhost:3000'],
+    ['true', '1', '', 'http://localhost:3000', 'http://localhost:3000'],
+    ['true', '', 'production', 'http://localhost:3000', 'http://localhost:3000'],
+    ['true', '', 'preview', 'http://localhost:3000', 'http://localhost:3000'],
+    ['true', '', '', 'http://localhost:3000', 'http://localhost:3001'],
+    ['true', '', '', 'http://localhost:3000', 'https://localhost:3000'],
+    ['true', '', '', 'http://localhost:3000', 'https://untrusted.invalid'],
+    ['true', '', '', 'http://localhost:3000', ''],
+    ['true', '', '', 'https://posiblo.com', 'http://localhost:3000'],
+    ['true', '', '', 'https://localhost.evil.test', 'https://localhost.evil.test'],
+  ])('keeps local production opt-in scoped: %s / %s / %s / %s / %s', async (enabled, vercel, deployment, url, origin) => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('CONTACT_ALLOW_LOCAL_ORIGIN', enabled)
+    vi.stubEnv('VERCEL', vercel)
+    vi.stubEnv('VERCEL_ENV', deployment)
+    vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://posiblo.com')
+    const remote = vi.fn()
+    vi.stubGlobal('fetch', remote)
+    const { POST } = await import('@/app/api/lead/route')
+    expect((await POST(new NextRequest(url + '/api/lead', {
+      method: 'POST', headers: { origin, 'content-type': 'application/json' }, body: JSON.stringify(payload()),
+    }))).status).toBe(403)
+    expect(send).not.toHaveBeenCalled()
+    expect(remote).not.toHaveBeenCalled()
+  })
   it.each(['lead', 'send-email'])('accepts the canonical production origin through /api/%s with approved email routing', async endpoint => {
     vi.stubEnv('NODE_ENV', 'production')
     vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://posiblo.com')

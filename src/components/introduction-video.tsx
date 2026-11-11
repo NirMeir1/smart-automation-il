@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { brand } from '@/lib/brand'
 import type { IntroductionVideoMedia } from '@/content/introduction-video'
 
@@ -16,7 +15,8 @@ export function IntroductionVideo({ media }: { media?: IntroductionVideoMedia })
       </video> : <p>כאן יופיע סרטון ההיכרות</p>}
     </div>
     <div className="introduction-next-step">
-      <Link className="action" href="/contact#inquiry">לקביעת פגישת היכרות<span aria-hidden="true">↖</span></Link>
+      {media && !media.captions?.length && <p>{media.embeddedCaptions ? 'בסרטון משולבות כתוביות בעברית. טרם פורסם תמליל מלא.' : 'לסרטון עדיין אין קובץ כתוביות או תמליל מלא מאומת.'} <a href="/legal/accessibility">למידע על נגישות הסרטון ולבקשת חלופה נגישה</a>.</p>}
+      <a className="action" href="/contact#inquiry">לקביעת פגישת היכרות<span aria-hidden="true">↖</span></a>
       <p>לא צריך להגיע עם אפיון או לדעת מראש מה הפתרון.</p>
     </div>
   </section>
