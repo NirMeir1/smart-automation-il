@@ -1,8 +1,8 @@
-import { LegalDraft, legalDraftMetadata } from '@/components/legal-draft'
+import { LegalDocument, legalDocumentMetadata } from '@/components/legal-document'
 import { operator } from '@/lib/brand'
-export const metadata = legalDraftMetadata('תנאי שימוש')
+export const metadata = legalDocumentMetadata('תנאי שימוש')
 export default function TermsPage() {
-  return <LegalDraft title="תנאי שימוש">
+  return <LegalDocument title="תנאי שימוש">
     <h2>האתר והמפעיל</h2>
     <p>אתר <bdi dir="ltr">posiblo.com</bdi> מציג את Posiblo, פעילות טכנולוגית עצמאית בישראל המספקת לעסקים ולאנשים פרטיים תוכנה מותאמת, אתרים, אפליקציות, אוטומציה, פתרונות AI ואינטגרציות. בעל האתר, מפעילו והאחראי עליו הוא {operator.name}. ניתן ליצור עמו קשר בדואר <a href={`mailto:${operator.email}`}><bdi dir="ltr">{operator.email}</bdi></a>.</p>
     <h2>מידע ופניות באתר</h2>
@@ -21,5 +21,5 @@ export default function TermsPage() {
     <p>הטיפול במידע שנמסר באתר מתואר ב<a href="/legal/privacy">מדיניות הפרטיות</a>. אין בתנאים אלה כדי לגרוע מזכויות מחייבות לפי הדין הישראלי, לרבות דיני הגנת הצרכן, פרטיות ונגישות. כאשר תתבצע התקשרות צרכנית, חובות הגילוי וזכויות הביטול ייבחנו לפי אופי העסקה ונסיבותיה ויוסדרו במסמכי ההתקשרות, בלי לגרוע מהדין.</p>
     <h2>קשר ושינוי התנאים</h2>
     <p>לבירורים בנוגע לאתר אפשר לפנות אל {operator.name} בדואר שלעיל. שינוי מהותי בתנאי האתר ילווה בעדכון המסמך והתאריך; אין בעדכון האתר כדי לשנות הסכם פרויקט קיים ללא הבסיס הנדרש לכך.</p>
-  </LegalDraft>
+  </LegalDocument>
 }

@@ -1,8 +1,8 @@
-import { LegalDraft, legalDraftMetadata } from '@/components/legal-draft'
+import { LegalDocument, legalDocumentMetadata } from '@/components/legal-document'
 import { operator } from '@/lib/brand'
-export const metadata = legalDraftMetadata('מדיניות פרטיות')
+export const metadata = legalDocumentMetadata('מדיניות פרטיות')
 export default function PrivacyPage() {
-  return <LegalDraft title="מדיניות פרטיות">
+  return <LegalDocument title="מדיניות פרטיות">
     <h2>על המדיניות ועל בעל השליטה במאגר המידע</h2>
     <p>מדיניות זו מתארת את הטיפול במידע באתר <bdi dir="ltr">posiblo.com</bdi> של Posiblo, עסק טכנולוגי עצמאי בישראל. בעל האתר ומפעילו הוא {operator.name}, בעל השליטה במאגר המידע, הקובע את מטרות עיבוד המידע בפניות האתר. לפניות כלליות, לשאלות פרטיות ולבקשות בנוגע למידע שלכם ניתן לפנות אליו בדואר <a href={`mailto:${operator.email}?subject=Privacy`}><bdi dir="ltr">{operator.email}</bdi></a>.</p>
     <h2>אילו פרטים מבקשים ומדוע</h2>
@@ -29,5 +29,5 @@ export default function PrivacyPage() {
     <p>שלחו בקשה אל {operator.name} לכתובת הפרטיות שלעיל וציינו את סוג הבקשה ופרטים מינימליים לאיתור הפנייה, כגון מועד משוער והכתובת שממנה פניתם. אין לשלוח צילום תעודה או מידע רגיש ביוזמתכם. לפני מסירת מידע או שינויו ייבדקו זהות הפונה והבקשה באופן מידתי, והטיפול ייעשה בהתאם למועדים ולתנאים שבדין. אפשר לפנות גם לרשות להגנת הפרטיות.</p>
     <h2>מידע במסגרת פרויקטים ועדכונים</h2>
     <p>מדיניות זו עוסקת בגלישה ובפניות באתר. גישה למערכות לקוח, נתוני משתמשים או מידע אישי במסגרת פרויקט מחייבת הסדרה נפרדת של מטרות, תפקידים, הרשאות, ספקים, אבטחה ושמירה בהסכם ובנספח עיבוד מידע לפי הצורך. הטופס אינו ערוץ להעברת מאגרי לקוחות. שינויים מהותיים בטיפול במידע יחייבו עדכון המדיניות והיידוע או ההסכמה לפי הצורך והדין.</p>
-  </LegalDraft>
+  </LegalDocument>
 }

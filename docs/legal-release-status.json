@@ -1,12 +1,6 @@
 {
-  "status": "draft",
-  "reviewedAt": null,
-  "approvalReference": null,
-  "blockers": [
-    "Verify production vendor settings, access, agreements and international transfers; the local Resend domain check returned HTTP 401",
-    "Activate the documented manual retention review and confirm provider log/backup retention; no production deletion is authorized",
-    "Complete full video/audio and assistive-technology verification; embedded Hebrew subtitles are confirmed",
-    "Resolve applicable outstanding business disclosures and accessibility scope without publishing an unapproved address or registration number",
-    "Resolve remaining legal requirements and record valid final publication approval; documents remain drafts"
-  ]
+  "status": "approved",
+  "reviewedAt": "2026-11-12",
+  "approvalReference": "Owner publication approval in the Codex conversation on 2026-11-12: 'I confirm' and 'so its all been done'. Completion of the previously listed requirements is owner-confirmed, not independently verified by Codex; this is not external legal certification.",
+  "blockers": []
 }

@@ -1,8 +1,8 @@
-import { LegalDraft, legalDraftMetadata } from '@/components/legal-draft'
+import { LegalDocument, legalDocumentMetadata } from '@/components/legal-document'
 import { operator } from '@/lib/brand'
-export const metadata = legalDraftMetadata('הצהרת נגישות')
+export const metadata = legalDocumentMetadata('הצהרת נגישות')
 export default function AccessibilityPage() {
-  return <LegalDraft title="הצהרת נגישות">
+  return <LegalDocument title="הצהרת נגישות">
     <h2>מטרת ההצהרה</h2>
     <p>Posiblo פועלת לאפשר שימוש נוח באתר <bdi dir="ltr">posiblo.com</bdi> גם לאנשים עם מוגבלות. בעל האתר והאחראי לפניות בנוגע אליו, לרבות נגישות, הוא {operator.name}. מסמך זה מתאר את ההתאמות ואת גבולות הבדיקה שנערכה.</p>
     <h2>התאמות באתר</h2>
@@ -17,5 +17,5 @@ export default function AccessibilityPage() {
     <h2>דיווח על קושי ובקשת התאמה</h2>
     <p>אפשר לפנות אל {operator.name}, האחראי לפניות נגישות באתר, בדואר <a href={`mailto:${operator.email}?subject=Accessibility`}><bdi dir="ltr">{operator.email}</bdi></a>, גם בלי להשתמש בטופס. ציינו את כתובת העמוד, הקושי ומה ניסיתם לעשות. אם נוח לכם, הוסיפו דפדפן או טכנולוגיה מסייעת; אין צורך למסור פרטים רפואיים. הפנייה תיבדק כדי לאתר את הקושי ולבחון תיקון או דרך חלופית לקבלת המידע. ציון איש הקשר אינו טענה למינוי רכז נגישות מוסמך.</p>
     <p>ההצהרה תעודכן בעקבות תיקון ליקויים ושינויים, לרבות מגבלות זמניות מהותיות.</p>
-  </LegalDraft>
+  </LegalDocument>
 }

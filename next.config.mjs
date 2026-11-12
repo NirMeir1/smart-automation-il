@@ -3,7 +3,7 @@ import { legalReleaseBlockers } from './scripts/legal-release-state.mjs';
 // Local review builds remain possible. A production Vercel build must not
 // accidentally publish documents whose operator details and review are missing.
 if (process.env.VERCEL_ENV === 'production' && legalReleaseBlockers().length) {
-  throw new Error('RELEASE BLOCKED: legal documents are drafts. See docs/Legal_Launch_Audit.md.');
+  throw new Error('RELEASE BLOCKED: legal documents are drafts. See docs/legal-release-status.json.');
 }
 
 const isDev = process.env.NODE_ENV === 'development';
