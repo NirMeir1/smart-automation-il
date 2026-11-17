@@ -1,5 +1,7 @@
 # Posiblo website changes — 17 November 2026
 
+Follow-up: contact methods now have matching local SVG phone, WhatsApp and envelope icons, preserving visible labels and accessible names. Customer confirmations now include HTML with explicit Hebrew RTL/right alignment, an isolated LTR phone and the approved PNG logo embedded through a CID attachment. This supersedes the original plain-text-only confirmation requirement at the owner's request; a plain-text fallback remains and ends with Nir's name, without a final text wordmark. No visitor content enters either version. Both API build traces include the PNG. Browser previews confirmed mobile/desktop contact layout and the RTL email layout; these are previews, not live inbox delivery. Follow-up checks passed: lint, typecheck, content check, build, **291 unit tests**, and **158 browser tests with 5 existing skips**. New email presentation tests and the intercepted SDK transport test check direction, signature and PNG attachment encoding. Nothing was sent or deployed.
+
 Implemented locally on `feature/marketing-website-updates`. No push, merge, deployment, hosting changes, external API calls or real email delivery were performed. Existing untracked `marketing-ops/` files were left outside the commits. Approved assets were copied into the application unchanged.
 
 | Scope | Result and files |

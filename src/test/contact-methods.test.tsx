@@ -20,6 +20,11 @@ describe('Public contact methods', () => {
     expect(phone.querySelector('bdi')).toHaveAttribute('dir', 'ltr')
     expect(screen.getByRole('link', { name: /שליחת אימייל/ })).toHaveAttribute('href', 'mailto:posiblo.contact@gmail.com')
     expect(screen.getByText('אני עונה לכל פנייה בתוך יום עסקים אחד.')).toBeInTheDocument()
+    for (const [link, channel] of [[whatsapp, 'whatsapp'], [phone, 'phone'], [screen.getByRole('link', { name: /שליחת אימייל/ }), 'email']] as const) {
+      expect(link.querySelector('svg')).toHaveAttribute('data-contact-icon', channel)
+      expect(link.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
+      expect(link.querySelector('svg')).toHaveAttribute('focusable', 'false')
+    }
   })
   it('keeps the footer logo home link, legal navigation, phone and WhatsApp accessible', () => {
     render(<Footer />)

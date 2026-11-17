@@ -45,6 +45,13 @@ describe('Real Resend SDK transport with intercepted HTTP (no external delivery)
       expect(new Headers(confirmationOptions.headers).get('Idempotency-Key')).toBe('bottomline-inquiry-autoreply/123e4567-e89b-42d3-a456-426614174000')
       expect(JSON.parse(confirmationOptions.body)).toMatchObject({ to: ['visitor@example.test'], reply_to: 'posiblo.contact@gmail.com', subject: 'קיבלתי את הפנייה שלך — Posiblo' })
       expect(JSON.parse(confirmationOptions.body).text).not.toMatch(/ישראל ישראלי|שיפור תהליך|פרטים נוספים/)
+      const message = JSON.parse(confirmationOptions.body)
+      expect(message.html).toContain('<html lang="he" dir="rtl">')
+      expect(message.html).toContain('text-align:right')
+      expect(message.html).not.toMatch(/ישראל ישראלי|שיפור תהליך|פרטים נוספים/)
+      expect(message.text.trim()).toMatch(/ניר מאיר$/)
+      expect(message.attachments).toEqual([expect.objectContaining({ filename: 'posiblo-logo.png', content_id: 'posiblo-logo', content_type: 'image/png', content: expect.any(String) })])
+      expect(Buffer.from(message.attachments[0].content, 'base64').subarray(0, 8)).toEqual(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
     }
   })
 

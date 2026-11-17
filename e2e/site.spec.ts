@@ -13,6 +13,8 @@ test('contact links, logo assets and social metadata match the approved identity
   for (const [name, href] of [[/שיחת טלפון/, publicContact.telHref], [/שליחת אימייל/, `mailto:${publicContact.email}`], [/שליחת הודעה בוואטסאפ/, publicContact.whatsappHref]] as const) {
     const link = contact.getByRole('link', { name })
     await expect(link).toHaveAttribute('href', href)
+    await expect(link.locator('svg.contact-icon')).toBeVisible()
+    await expect(link.locator('svg.contact-icon')).toHaveAttribute('aria-hidden', 'true')
     expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44)
   }
   const footer = page.getByRole('contentinfo')

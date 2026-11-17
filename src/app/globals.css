@@ -177,7 +177,8 @@ button:disabled { cursor: not-allowed; }
 .direct-contact { padding-block: 32px; }
 .direct-contact h2 { font-size: 24px; }
 .direct-contact-links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-block: 16px; }
-.direct-contact-links a { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; color: var(--ink); }
+.direct-contact-links a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; overflow-wrap: anywhere; color: var(--ink); }
+.contact-icon { flex: 0 0 22px; }
 .direct-contact-links bdi { overflow-wrap: anywhere; }
 
 /* Blue on the pale secondary button retains AA contrast on hover. */

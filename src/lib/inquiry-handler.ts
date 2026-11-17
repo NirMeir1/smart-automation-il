@@ -9,7 +9,7 @@ import { validateInquiry, unavailableMessage } from './inquiry'
 import { inquiryEmailText, inquiryReceivedAt } from './inquiry-email'
 import { siteOrigin } from './site-config'
 import { brand } from './brand'
-import { claimAutoReply, inquiryAutoReply } from './inquiry-autoreply'
+import { claimAutoReply, inquiryAutoReplyWithLogo } from './inquiry-autoreply'
 import { publicContact } from './contact-public'
 
 const MAX_BYTES = 20_000
@@ -98,7 +98,7 @@ export async function submitInquiry(request: NextRequest) {
             if (!await claimAutoReply(data.submissionId)) return
             const confirmation = await resend.emails.send({
               from: `${brand.name} <${process.env.CONTACT_FROM_EMAIL!}>`,
-              to: [data.email], replyTo: publicContact.email, ...inquiryAutoReply,
+              to: [data.email], replyTo: publicContact.email, ...await inquiryAutoReplyWithLogo(),
             }, { idempotencyKey: `bottomline-inquiry-autoreply/${data.submissionId}`, signal: AbortSignal.timeout(5000) })
             recordContactOutcome(confirmation.error || !confirmation.data?.id ? 'autoreply_failed' : 'autoreply_accepted', requestId, startedAt)
           } catch { recordContactOutcome('autoreply_failed', requestId, startedAt) }
