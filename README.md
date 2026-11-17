@@ -1,10 +1,10 @@
 # Posiblo
 
-**Launch status: blocked for legal/accessibility review.** See [the launch audit and owner questions](docs/Legal_Launch_Audit.md). The three Hebrew legal pages remain dated, unindexed drafts. `npm run legal:check` and `npm run verify:release` intentionally fail until real approval is recorded and draft placeholders are resolved. Production Vercel builds are blocked while the approval record remains a draft; local review builds use `npm run build:e2e`. This is not a legal compliance certification. Internal agreement and data-processing templates in `docs/` are not published site routes.
+Legal release status is controlled by [docs/legal-release-status.json](docs/legal-release-status.json). See [the launch audit](docs/Legal_Launch_Audit.md) for the review process; local review builds use `npm run build:e2e`.
 
 The owner has confirmed **ניר מאיר** and **posiblo.contact@gmail.com** for public identity and general/privacy/accessibility contact. No address or registration number is published. The [retention procedure](docs/Retention_Operations.md) sets a 12-month target for unconverted enquiries and a quarterly manual review; `npm run retention:review -- --input <private-metadata.json>` is offline and dry-run only. `npm run audit:services` performs explicitly requested read-only checks using local credentials and prints allowlisted status fields only; see [account findings and the manual checklist](docs/Service_Configuration_Checklist.md). It never sends email, reads message content, changes settings or writes Redis keys.
 
-Hebrew-first, responsive RTL website with nine public pages and a server-side contact form. The header/footer wordmark is **Posiblo_**.
+Hebrew-first, responsive RTL website with nine public pages and a server-side contact form. The header and footer use the approved Posiblo SVG logo.
 
 ## Stack and structure
 

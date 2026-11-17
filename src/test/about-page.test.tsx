@@ -12,7 +12,7 @@ describe('About founder profile', () => {
     expect(container.querySelector('article[dir="rtl"]')).toBeInTheDocument()
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(container.textContent).toContain('ניר מאיר')
-    expect(container.textContent).toContain('כ־7 שנות ניסיון')
+    expect(container.textContent).toContain('כ־8 שנות ניסיון')
     expect(container.textContent).toContain('במשך חמש שנים עבדתי בחברה המפתחת פלטפורמת מסחר עולמית')
     expect(container.textContent).toContain('בסטארטאפ ישראלי המתמחה בפתרונות בינה מלאכותית לארגונים גדולים')
     expect(screen.getByRole('heading', { name: 'ניסיון שמחבר בין טכנולוגיה להבנה עסקית' })).toBeInTheDocument()

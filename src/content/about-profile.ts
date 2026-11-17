@@ -17,7 +17,7 @@ export function withFounderProfile(original: PageContent): PageContent {
     ...original,
     hero: original.hero.flatMap((node, index) => index === 0 ? [
       { ...node, text: node.text.replace('[שם מלא — נדרש להשלמה]', founderProfile.name) },
-      { type: 'p' as const, text: 'יש לי כ־7 שנות ניסיון בפיתוח תוכנה ובטכנולוגיה. אני משלב הבנה עסקית עם תכנון ופיתוח מעשי כדי לבנות פתרון שאפשר לעבוד איתו.' },
+      { type: 'p' as const, text: 'יש לי כ־8 שנות ניסיון בפיתוח תוכנה ובטכנולוגיה. אני משלב הבנה עסקית עם תכנון ופיתוח מעשי כדי לבנות פתרון שאפשר לעבוד איתו.' },
     ] : [node]),
     sections: [
       {
