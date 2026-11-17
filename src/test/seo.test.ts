@@ -10,6 +10,7 @@ describe('SEO configuration', () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_URL', '')
     expect(siteOrigin()).toBeUndefined()
     expect(pageMetadata('home').alternates).toBeUndefined()
+    expect(pageMetadata('home').metadataBase).toBeUndefined()
     expect(indexingAllowed()).toBe(false)
     expect(robots()).toEqual({ rules: { userAgent: '*', disallow: '/' } })
     expect(sitemap()).toEqual([])
@@ -31,10 +32,14 @@ describe('SEO configuration', () => {
       expect(pageMetadata(route.key).openGraph?.url).toBe(origin + route.href)
       expect(pageMetadata(route.key).alternates?.canonical).toBe(origin + route.href)
       expect(pageMetadata(route.key).robots).toEqual({ index: true, follow: true })
+      expect(pageMetadata(route.key).metadataBase?.toString()).toBe(origin + '/')
+      expect(pageMetadata(route.key).openGraph?.images).toEqual([{ url: '/brand/og-image-1200x630.png', width: 1200, height: 630, alt: 'Posiblo — פתרונות טכנולוגיים לעסקים' }])
+      expect(pageMetadata(route.key).twitter).toMatchObject({ card: 'summary_large_image', images: [{ url: '/brand/og-image-1200x630.png', alt: 'Posiblo — פתרונות טכנולוגיים לעסקים' }] })
     }
     expect(robots()).toHaveProperty('sitemap', origin + '/sitemap.xml')
     expect(robots().rules).toEqual([
       { userAgent: '*', allow: '/', disallow: ['/admin', '/api/', '/thanks'] },
+      { userAgent: ['OAI-SearchBot', 'PerplexityBot', 'Claude-SearchBot'], allow: '/', disallow: ['/admin', '/api/', '/thanks'] },
       { userAgent: ['GPTBot', 'Google-Extended', 'ClaudeBot', 'CCBot'], disallow: '/' },
     ])
     expect(sitemap().map(entry => entry.url)).not.toEqual(expect.arrayContaining([origin + '/legal/privacy', origin + '/thanks', origin + '/api/lead']))

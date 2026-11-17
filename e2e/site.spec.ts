@@ -5,6 +5,50 @@ import { pages } from '../src/content/pages'
 import { pageTextNodes } from '../src/content/schema'
 import { browserTestOrigin } from '../scripts/browser-test-env.mjs'
 import { operator } from '../src/lib/brand'
+import { publicContact } from '../src/lib/contact-public'
+
+test('contact links, logo assets and social metadata match the approved identity', async ({ page, request }) => {
+  await page.goto('/contact')
+  const contact = page.getByRole('region', { name: 'אפשר גם ליצור קשר ישירות' })
+  for (const [name, href] of [[/שיחת טלפון/, publicContact.telHref], [/שליחת אימייל/, `mailto:${publicContact.email}`], [/שליחת הודעה בוואטסאפ/, publicContact.whatsappHref]] as const) {
+    const link = contact.getByRole('link', { name })
+    await expect(link).toHaveAttribute('href', href)
+    expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44)
+  }
+  const footer = page.getByRole('contentinfo')
+  await expect(footer.getByRole('link', { name: /שיחת טלפון/ })).toHaveAttribute('href', publicContact.telHref)
+  await expect(footer.getByRole('link', { name: /שליחת הודעה בוואטסאפ/ })).toHaveAttribute('href', publicContact.whatsappHref)
+  await expect.poll(() => page.locator('header img.brand-logo').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0)
+  await footer.scrollIntoViewIfNeeded()
+  await expect.poll(() => page.locator('footer img.brand-logo').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0)
+  const icon = page.locator('link[rel="icon"][type="image/svg+xml"]')
+  const iconHref = await icon.getAttribute('href')
+  expect(iconHref).toMatch(/^\/icon.svg/)
+  expect((await request.get(iconHref!)).headers()['content-type']).toContain('image/svg+xml')
+  // Decode the exact favicon resource in each browser, including its SVG mask.
+  expect(await page.evaluate(async src => {
+    const image = new Image(); image.src = src!; await image.decode()
+    const canvas = document.createElement('canvas'); canvas.width = 32; canvas.height = 32
+    const ctx = canvas.getContext('2d')!; ctx.drawImage(image, 0, 0, 32, 32)
+    return Array.from(ctx.getImageData(0, 0, 32, 32).data).some((value, index) => index % 4 === 3 && value > 0)
+  }, iconHref)).toBe(true)
+  await page.goto('/')
+  await expect(page.locator('head meta[property="og:image"]')).toHaveAttribute('content', browserTestOrigin + '/brand/og-image-1200x630.png')
+  await expect(page.locator('head meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image')
+  const types = () => page.locator('head script[type="application/ld+json"]').evaluateAll(scripts => scripts.map(script => JSON.parse(script.textContent!)))
+  const home = await types()
+  expect(home.map(data => data['@type']).sort()).toEqual(['FAQPage', 'ProfessionalService'])
+  expect(home.find(data => data['@type'] === 'FAQPage').mainEntity).toHaveLength(await page.locator('details').count())
+  const menu = page.getByRole('button', { name: 'פתיחת תפריט' })
+  if (await menu.isVisible()) await menu.click()
+  await page.getByRole('navigation', { name: 'ניווט ראשי', exact: true }).getByRole('link', { name: 'אודות', exact: true }).click()
+  await expect(page).toHaveURL('/about')
+  expect((await types()).map(data => data['@type'])).toEqual(['ProfessionalService'])
+  await expect(page.getByText(/כ־8 שנות ניסיון/)).toBeVisible()
+  await page.goto('/legal/privacy')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+  expect((await types()).map(data => data['@type'])).toEqual(['ProfessionalService'])
+})
 
 test('legal copy reflows at 320 CSS pixels with doubled text', async ({ page }) => {
   // 1280px / 4 = 320 CSS px: zoom-equivalent reflow, not a claim that browser UI zoom was operated.
@@ -78,7 +122,8 @@ for (const [path, title] of [
   await expect(page.locator('main time')).toHaveAttribute('datetime', '2026-11-11')
   expect(await page.locator('main').innerText()).not.toMatch(/טיוטה|טרם אושרה|להשלמה|localhost:3000|\[.*?\]/)
   for (const href of await page.locator('main a').evaluateAll(links => links.map(link => link.getAttribute('href')!))) {
-    if (href.startsWith('mailto:')) expect(href.split('?')[0]).toBe(`mailto:${operator.email}`)
+    if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
+      if (href.startsWith('mailto:')) expect(href.split('?')[0]).toBe(`mailto:${operator.email}`)
     else {
       expect(href).toMatch(/^\//)
       expect((await page.request.get(href)).status()).toBe(200)
@@ -108,7 +153,8 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
   await expect(page).toHaveTitle(pages[route.key].title)
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', pages[route.key].description)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', browserTestOrigin + route.href)
+  // With metadataBase, Next normalizes the origin-only canonical without a slash.
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', browserTestOrigin + (route.href === '/' ? '' : route.href))
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
   const body = await page.locator('body').innerText()
   expect(body).not.toMatch(/Bottomline|BottomLine|Sogomatic|אוטומציה חכמה|smart-automation\.co\.il|50%|90%|50\+|050-1234567|24 שעות/)
@@ -124,6 +170,7 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
   for (const node of pageTextNodes(pages[route.key])) expect(mainText).toContain(normalize(node.text))
   for (const section of pages[route.key].sections) await expect(page.locator(`#${section.id}-heading`)).toHaveText(section.title)
   for (const href of await page.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')))) {
+    if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
     if (href?.startsWith('mailto:')) { expect(href.split('?')[0]).toBe(`mailto:${operator.email}`); continue }
     expect(href).toMatch(/^(\/|#)/)
     const path = href!.split(/[?#]/)[0]
@@ -139,6 +186,7 @@ test('navigation and every page CTA reach their real internal destinations', asy
   for (const route of routes) {
     await page.goto(route.href)
     for (const href of await page.locator('main a, footer a').evaluateAll(links => links.map(link => link.getAttribute('href')!))) {
+      if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
       if (href.startsWith('mailto:')) { expect(href.split('?')[0]).toBe(`mailto:${operator.email}`); continue }
       if (checked.has(href)) continue
       checked.add(href)
@@ -169,7 +217,7 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
     await page.setViewportSize({ width, height: 1000 })
     await page.goto('/')
     await page.evaluate(() => document.fonts.ready)
-    await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(35, 92, 72)')
+    await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(0, 96, 252)')
     const layout = await page.evaluate(() => {
       const video = document.querySelector('.video-surface')!.getBoundingClientRect()
       const copy = document.querySelector('.hero-copy')!.getBoundingClientRect()
@@ -183,8 +231,8 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
       }
     })
     expect(layout.overflow, `width ${width}`).toBe(false)
-    expect(layout.white).toBe('rgb(248, 247, 242)')
-    expect(layout.navy).toBe('rgb(24, 45, 44)')
+    expect(layout.white).toBe('rgb(255, 255, 255)')
+    expect(layout.navy).toBe('rgb(3, 39, 86)')
     expect(layout.font.toLowerCase()).toContain('heebo')
     expect(layout.video.width / layout.video.height).toBeCloseTo(9 / 16, 2)
     expect(layout.video.width).toBeLessThanOrEqual(260)
