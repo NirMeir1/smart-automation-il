@@ -4,6 +4,17 @@ import { emptyInquiry, inquiryLimits, validEmail, validPhone, validateInquiry } 
 const inquiry = { ...emptyInquiry, name: 'ישראל ישראלי', email: 'person@example.com', callerType: 'עסק', message: 'רוצה לשפר תהליך קיים', privacy: true, submissionId: '123e4567-e89b-42d3-a456-426614174000' }
 
 describe('Contact validation regression cases', () => {
+  it('accepts bounded, trimmed attribution without changing required-field validation', () => {
+    const result = validateInquiry({ ...inquiry, source: ' Google ', medium: 'paid-search', campaign: 'חורף_2026.v2', referrer: 'search.example.com' })
+    expect(result.errors).toEqual({})
+    expect(result.data).toMatchObject({ source: 'Google', medium: 'paid-search', campaign: 'חורף_2026.v2', referrer: 'search.example.com' })
+    expect(validateInquiry({ ...inquiry, source: 'a'.repeat(100) }).data.source).toHaveLength(100)
+  })
+  it.each([123, null, {}, [], 'a'.repeat(101), 'two words', 'https://example.com/path?secret=yes', '<script>', 'bad\n', '\tbad', 'bad\u0000', ''])('silently drops unsafe attribution: %j', value => {
+    const result = validateInquiry({ ...inquiry, source: value, medium: value, campaign: value, referrer: value })
+    expect(result.errors).toEqual({})
+    for (const key of ['source', 'medium', 'campaign', 'referrer']) expect(result.data).not.toHaveProperty(key)
+  })
   it.each(['0522345678', '052-234-5678', '052 234 5678', '(052) 234-5678', '03-6123456', '02-6234567', '072-2345678', '+972522345678', '+972 (52) 234-5678', '+1 415 555 2671', '+44 20 7946 0958'])('accepts a valid national/international phone format: %s', phone => {
     expect(validPhone(phone)).toBe(true)
     expect(validateInquiry({ ...inquiry, phone }).errors).toEqual({})

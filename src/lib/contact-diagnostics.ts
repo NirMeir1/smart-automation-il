@@ -1,7 +1,7 @@
 import 'server-only'
 import { createHash } from 'node:crypto'
 
-type ContactOutcome = 'accepted' | 'delivery_failed' | 'delivery_timeout' | 'rate_limited' | 'rate_limit_unavailable' | 'unavailable'
+type ContactOutcome = 'accepted' | 'delivery_failed' | 'delivery_timeout' | 'rate_limited' | 'rate_limit_unavailable' | 'unavailable' | 'autoreply_accepted' | 'autoreply_failed'
 
 // Count DISTINCT conversionId for accepted enquiries, never raw request counts.
 // Provider receipts are stable on idempotent retries. No form data enters telemetry.

@@ -1,5 +1,5 @@
 ﻿import 'server-only'
-import { NextRequest, NextResponse } from 'next/server'
+import { after, NextRequest, NextResponse } from 'next/server'
 import { randomUUID } from 'node:crypto'
 import { Resend } from 'resend'
 import { contactAvailable, contactRecipient } from './contact-config'
@@ -9,6 +9,8 @@ import { validateInquiry, unavailableMessage } from './inquiry'
 import { inquiryEmailText, inquiryReceivedAt } from './inquiry-email'
 import { siteOrigin } from './site-config'
 import { brand } from './brand'
+import { claimAutoReply, inquiryAutoReply } from './inquiry-autoreply'
+import { publicContact } from './contact-public'
 
 const MAX_BYTES = 20_000
 
@@ -88,6 +90,21 @@ export async function submitInquiry(request: NextRequest) {
       return json({ error: 'לא התקבל אישור לשליחת הפנייה. אפשר לנסות שוב בהמשך.' }, 502)
     }
     recordContactOutcome('accepted', requestId, startedAt, result.data.id)
+    if (data.email) {
+      // Scheduling and delivery are best effort; neither changes the owner receipt.
+      try {
+        after(async () => {
+          try {
+            if (!await claimAutoReply(data.submissionId)) return
+            const confirmation = await resend.emails.send({
+              from: `${brand.name} <${process.env.CONTACT_FROM_EMAIL!}>`,
+              to: [data.email], replyTo: publicContact.email, ...inquiryAutoReply,
+            }, { idempotencyKey: `bottomline-inquiry-autoreply/${data.submissionId}`, signal: AbortSignal.timeout(5000) })
+            recordContactOutcome(confirmation.error || !confirmation.data?.id ? 'autoreply_failed' : 'autoreply_accepted', requestId, startedAt)
+          } catch { recordContactOutcome('autoreply_failed', requestId, startedAt) }
+        })
+      } catch { recordContactOutcome('autoreply_failed', requestId, startedAt) }
+    }
     return json({ success: true })
   } catch {
     recordContactOutcome(deliveryTimeout.aborted ? 'delivery_timeout' : 'delivery_failed', requestId, startedAt)

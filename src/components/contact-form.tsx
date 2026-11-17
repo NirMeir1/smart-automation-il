@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { operator } from '@/lib/brand'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { callerTypes, emptyInquiry, Inquiry, InquiryErrors, inquiryLimits, inquirySuccess, meetingFormats, privacyAcknowledgement, unavailableMessage, validateInquiry } from '@/lib/inquiry'
+import { inquiryTracking, type InquiryTracking } from '@/lib/inquiry'
 
 const subscribeToHydration = () => () => undefined
 const clientSnapshot = () => true
@@ -21,10 +22,15 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
   const summary = useRef<HTMLDivElement>(null)
   const confirmation = useRef<HTMLDivElement>(null)
   const openedAt = useRef(0)
+  const tracking = useRef<InquiryTracking>({})
   const submitting = useRef(false)
   const [submissionId, setSubmissionId] = useState<string | null>(null)
   useEffect(() => {
     openedAt.current = Date.now()
+    const params = new URLSearchParams(window.location.search)
+    let referrer = ''
+    try { referrer = document.referrer ? new URL(document.referrer).hostname : '' } catch { /* Ignore invalid referrers. */ }
+    tracking.current = inquiryTracking({ source: params.get('utm_source'), medium: params.get('utm_medium'), campaign: params.get('utm_campaign'), referrer })
   }, [])
   useEffect(() => { if (success) confirmation.current?.focus() }, [success])
   useEffect(() => { summary.current?.focus() }, [failure, attempt])
@@ -55,7 +61,7 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
     setAttempt(n => n + 1)
     const retryId = submissionId || crypto.randomUUID()
     setSubmissionId(retryId)
-    const payload = { ...values, startedAt: openedAt.current, submissionId: retryId }
+    const payload = { ...values, ...tracking.current, startedAt: openedAt.current, submissionId: retryId }
     const validation = validateInquiry(payload)
     setErrors(validation.errors)
     if (Object.keys(validation.errors).length) return
@@ -90,6 +96,7 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
           <p>הפרטים ישמשו לטיפול בפנייה ולחזרה אליכם. לצורך כך, המידע מעובד באמצעות Vercel (אירוח האתר), מועבר באמצעות Resend (שירות דיוור) ומתקבל בתיבת Posiblo בשירות Gmail של Google. אין הרשמה לדיוור שיווקי.</p>
           <p>לבקשות עיון, תיקון או מחיקה ולשאלות בנושא פרטיות: <a href={`mailto:${operator.email}`}><bdi dir="ltr">{operator.email}</bdi></a>.</p>
           <p>אין לשלוח סיסמאות, מפתחות גישה או מידע אישי רגיש.</p>
+          <p>אם מסרתם כתובת אימייל, נשלחת אליה הודעת אישור על קבלת הפנייה.</p>
           <p><Link href="/legal/privacy">למדיניות הפרטיות המלאה</Link></p>
         </section>
         {(failure || Object.values(errors).some(Boolean)) && <div ref={summary} tabIndex={-1} className="error-summary" role="alert"><h2>לא ניתן להשלים את השליחה</h2>{failure && <p>{failure}</p>}<ul>{Object.entries(errors).filter(([, message]) => message).map(([key, message]) => <li key={key}>{['name', 'contact', 'email', 'phone', 'callerType', 'message', 'systems', 'budget', 'meeting', 'privacy'].includes(key) ? <a href={`#${key === 'contact' ? 'email' : key}`}>{message}</a> : message}</li>)}</ul></div>}

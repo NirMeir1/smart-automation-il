@@ -2,8 +2,23 @@ import { parsePhoneNumberWithError } from 'libphonenumber-js/max'
 
 export const callerTypes = ['עסק', 'עצמאי/ת', 'יזם/ת', 'אדם פרטי', 'אחר'] as const
 export const meetingFormats = ['אונליין', 'פנים אל פנים', 'אין העדפה'] as const
-export const inquiryLimits = { name: 100, contact: 254, email: 254, phone: 40, callerType: 30, message: 5000, systems: 1000, budget: 200, meeting: 30, website: 200 } as const
-export type Inquiry = { name: string; contact: string; email: string; phone: string; callerType: string; message: string; systems: string; budget: string; meeting: string; privacy: boolean; website: string; startedAt: number; intent: string; submissionId: string }
+const fieldLimits = { name: 100, contact: 254, email: 254, phone: 40, callerType: 30, message: 5000, systems: 1000, budget: 200, meeting: 30, website: 200 } as const
+export const trackingKeys = ['source', 'medium', 'campaign', 'referrer'] as const
+export type InquiryTracking = Partial<Record<typeof trackingKeys[number], string>>
+export const inquiryLimits = { ...fieldLimits, source: 100, medium: 100, campaign: 100, referrer: 100 } as const
+export type Inquiry = InquiryTracking & { name: string; contact: string; email: string; phone: string; callerType: string; message: string; systems: string; budget: string; meeting: string; privacy: boolean; website: string; startedAt: number; intent: string; submissionId: string }
+
+export function inquiryTracking(raw: Record<string, unknown>): InquiryTracking {
+  const tracking: InquiryTracking = {}
+  for (const key of trackingKeys) {
+    const value = raw[key]
+    // Validate before trimming so whitespace control characters cannot be hidden.
+    if (typeof value !== 'string' || /\p{Cc}/u.test(value)) continue
+    const trimmed = value.trim()
+    if (trimmed.length <= inquiryLimits[key] && /^[\p{L}\p{N}_.-]+$/u.test(trimmed)) tracking[key] = trimmed
+  }
+  return tracking
+}
 export type InquiryErrors = Partial<Record<keyof Inquiry, string>>
 export const emptyInquiry: Inquiry = { name: '', contact: '', email: '', phone: '', callerType: '', message: '', systems: '', budget: '', meeting: 'אין העדפה', privacy: false, website: '', startedAt: 0, intent: '', submissionId: '' }
 export const privacyAcknowledgement = 'אני מאשר/ת שימוש בפרטים שמסרתי לצורך טיפול בפנייה וחזרה אליי, בהתאם למדיניות הפרטיות.'
@@ -39,9 +54,9 @@ export function validPhone(value: string): boolean {
 
 export function validateInquiry(input: unknown): { data: Inquiry; errors: InquiryErrors } {
   const raw = input && typeof input === 'object' && !Array.isArray(input) ? input as Record<string, unknown> : {}
-  const data = { ...emptyInquiry }
+  const data = { ...emptyInquiry, ...inquiryTracking(raw) }
   const errors: InquiryErrors = {}
-  for (const key of Object.keys(inquiryLimits) as (keyof typeof inquiryLimits)[]) {
+  for (const key of Object.keys(fieldLimits) as (keyof typeof fieldLimits)[]) {
     if (typeof raw[key] === 'string') data[key] = raw[key].trim()
     else if (raw[key] !== undefined) errors[key] = 'יש להזין טקסט תקין.'
     if (data[key].length > inquiryLimits[key]) errors[key] = `אפשר להזין עד ${inquiryLimits[key]} תווים.`

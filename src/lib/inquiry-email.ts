@@ -2,6 +2,7 @@ import 'server-only'
 import { brand } from './brand'
 import { redisRateLimitConfig } from './contact-rate-limit'
 import type { Inquiry } from './inquiry'
+import { trackingKeys } from './inquiry'
 
 // Keep the server receipt time stable across retries and serverless instances.
 // Redis stores only a random submission ID and timestamp, never form contents.
@@ -54,5 +55,9 @@ export function inquiryEmailText(data: Inquiry, receivedAt: number): string {
     `העדפת פגישה: ${data.meeting || 'אין העדפה'}`, `הקשר הפנייה: ${intent}`,
     'אושר שימוש בפרטים לצורך טיפול בפנייה. לא ניתנה הסכמה לשיווק.',
     `מזהה פנייה: ${data.submissionId}`,
+    ...(() => {
+      const values = trackingKeys.filter(key => data[key]).map(key => `${key}: ${data[key]}`)
+      return values.length ? [`מקור הפנייה: ${values.join(' | ')}`] : []
+    })(),
   ].join('\n\n')
 }

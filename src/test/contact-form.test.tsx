@@ -4,7 +4,7 @@ import { ContactForm } from '@/components/contact-form'
 import { inquirySuccess, privacyAcknowledgement, unavailableMessage } from '@/lib/inquiry'
 
 const fetchMock = vi.fn()
-beforeEach(() => { fetchMock.mockReset(); vi.stubGlobal('fetch', fetchMock) })
+beforeEach(() => { fetchMock.mockReset(); vi.stubGlobal('fetch', fetchMock); window.history.replaceState({}, '', '/contact'); Object.defineProperty(document, 'referrer', { value: '', configurable: true }) })
 function fill(contact = '0502345678') {
   fireEvent.change(screen.getByLabelText('שם מלא *'), { target: { value: 'ישראל' } })
   fireEvent.change(screen.getByLabelText(contact.includes('@') ? 'אימייל' : 'טלפון'), { target: { value: contact } })
@@ -13,6 +13,22 @@ function fill(contact = '0502345678') {
   fireEvent.click(screen.getByRole('checkbox', { name: privacyAcknowledgement }))
 }
 describe('Contact form', () => {
+  it.each([true, false])('sends only valid mount-time attribution, when present: %s', async attributed => {
+    if (attributed) {
+      window.history.replaceState({}, '', '/contact?utm_source=google&utm_medium=cpc&utm_campaign=winter_2026')
+      Object.defineProperty(document, 'referrer', { value: 'https://search.example.com/private/path?secret=hidden', configurable: true })
+    }
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ success: true }) })
+    render(<ContactForm enabled />); fill()
+    fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
+    await screen.findByRole('heading', { name: inquirySuccess.title })
+    const sent = JSON.parse(fetchMock.mock.calls[0][1].body)
+    if (attributed) expect(sent).toMatchObject({ source: 'google', medium: 'cpc', campaign: 'winter_2026', referrer: 'search.example.com' })
+    else for (const key of ['source', 'medium', 'campaign', 'referrer']) expect(sent).not.toHaveProperty(key)
+    expect(JSON.stringify(sent)).not.toContain('private/path')
+    expect(localStorage.setItem).not.toHaveBeenCalled()
+    expect(sessionStorage.setItem).not.toHaveBeenCalled()
+  })
   it('submits both contact methods and preserves optional fields', async () => {
     fetchMock.mockResolvedValue({ ok: true, json: async () => ({ success: true }) })
     render(<ContactForm enabled />); fill()

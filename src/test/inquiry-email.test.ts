@@ -9,6 +9,11 @@ beforeEach(() => {
 })
 
 describe('Inquiry email and server receipt', () => {
+  it('includes attribution only when present', async () => {
+    const { inquiryEmailText } = await import('@/lib/inquiry-email')
+    expect(inquiryEmailText(emptyInquiry, Date.now())).not.toContain('מקור הפנייה:')
+    expect(inquiryEmailText({ ...emptyInquiry, source: 'google', campaign: 'winter', referrer: 'search.example.com' }, Date.now())).toContain('מקור הפנייה: source: google | campaign: winter | referrer: search.example.com')
+  })
   it.each([
     ['2026-01-15T10:30:00Z', '12:30:00'],
     ['2026-07-15T10:30:00Z', '13:30:00'],

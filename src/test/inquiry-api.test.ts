@@ -21,6 +21,12 @@ beforeEach(() => {
 })
 afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers() })
 describe('Inquiry endpoint', () => {
+  it.each(['lead', 'send-email'])('accepts safe tracking and drops unsafe tracking through %s', async endpoint => {
+    const { POST } = endpoint === 'lead' ? await import('@/app/api/lead/route') : await import('@/app/api/send-email/route')
+    expect((await POST(request({ ...payload(), source: 'google', campaign: 'winter', referrer: 'https://private.example/path' }))).status).toBe(200)
+    expect(send.mock.calls[0][0].text).toContain('מקור הפנייה: source: google | campaign: winter')
+    expect(send.mock.calls[0][0].text).not.toContain('private.example')
+  })
   it('accepts explicitly enabled local production submissions with mocked providers', async () => {
     vi.stubEnv('NODE_ENV', 'production')
     vi.stubEnv('CONTACT_ALLOW_LOCAL_ORIGIN', 'true')
