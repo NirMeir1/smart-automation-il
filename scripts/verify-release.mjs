@@ -87,6 +87,12 @@ try {
   for (const [path, status] of [['/testimonials', 308], ['/thanks', 307]]) {
     assert.equal((await fetch(base + path, { redirect: 'manual' })).status, status);
   }
+  // The only external destinations the site publishes: the direct contact methods in src/lib/contact-public.ts
+  // (not importable here: its extensionless import does not resolve under plain Node). Keep in sync.
+  const publishedContactLinks = new Set([
+    'tel:+972522518189',
+    `https://wa.me/972522518189?text=${encodeURIComponent('שלום, הגעתי מהאתר של Posiblo ואשמח לשוחח.')}`,
+  ]);
   const checked = new Set();
   for (const document of html.values()) for (const link of document.querySelectorAll('a[href]')) {
     const href = link.getAttribute('href');
@@ -94,6 +100,7 @@ try {
       assert.equal(href.split('?')[0], `mailto:${operator.email}`);
       continue;
     }
+    if (publishedContactLinks.has(href)) continue;
     assert.ok(href.startsWith('/') || href.startsWith('#'), `Internal destination: ${href}`);
     const url = new URL(href, base + [...html].find(([, value]) => value === document)[0]);
     if (checked.has(url.href)) continue;
