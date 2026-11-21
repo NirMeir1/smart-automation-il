@@ -27,6 +27,9 @@ const contentSecurityPolicy = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    agentUpgrade: 'security',
+  },
   async headers() {
     return [{
       source: '/:path*',
