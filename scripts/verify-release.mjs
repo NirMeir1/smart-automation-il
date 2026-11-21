@@ -110,7 +110,7 @@ try {
     }
     assert.ok(html.get(route.href).querySelector('a[href="/solutions"]'));
   }
-  const evidence = mkdtempSync(join(tmpdir(), 'bottomline-release-qa-'));
+  const evidence = mkdtempSync(join(tmpdir(), 'posiblo-release-qa-'));
   browser = await chromium.launch({ channel: 'msedge', headless: true });
   const issues = [];
   const page = await browser.newPage();

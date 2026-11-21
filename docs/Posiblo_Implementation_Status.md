@@ -1,6 +1,6 @@
-# Bottomline implementation and release record
+# Posiblo implementation and release record
 
-The authoritative [specification](Bottomline_Codex_Implementation_Prompt.md) was read in full. The seven-page implementation and subsequent technology upgrades are complete locally. Production launch still requires the owner checks below.
+The authoritative [specification](Posiblo_Codex_Implementation_Prompt.md) was read in full. The seven-page implementation and subsequent technology upgrades are complete locally. Production launch still requires the owner checks below.
 
 Current stack, milestone evidence, official references and remaining dependency findings: [Technology upgrade record](Technology_Upgrade_Status.md). That record supersedes earlier Next.js 15 / React 18 verification results.
 

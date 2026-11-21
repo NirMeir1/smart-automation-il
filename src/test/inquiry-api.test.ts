@@ -95,7 +95,7 @@ describe('Inquiry endpoint', () => {
     expect(send).toHaveBeenCalledWith(expect.objectContaining({
       from: 'Posiblo <website@posiblo.com>', to: ['posiblo.contact@gmail.com'], replyTo: 'visitor@example.test',
       subject: 'פנייה חדשה מאתר Posiblo',
-    }), expect.objectContaining({ idempotencyKey: `bottomline-inquiry/${payload().submissionId}` }))
+    }), expect.objectContaining({ idempotencyKey: `posiblo-inquiry/${payload().submissionId}` }))
   })
   it.each(['https://bottomline-ai.com', 'https://www.bottomline-ai.com', 'https://www.posiblo.com', 'https://posiblo.com.evil.test', ''])('rejects noncanonical or missing production request origin: %s', async origin => {
     vi.stubEnv('NODE_ENV', 'production')
@@ -139,7 +139,7 @@ describe('Inquiry endpoint', () => {
     const { POST } = await import('@/app/api/lead/route')
     const response = await POST(request())
     expect(response.status).toBe(200); expect(await response.json()).toEqual({ success: true })
-    expect(send).toHaveBeenCalledWith(expect.objectContaining({ text: expect.stringContaining('<img onerror='), subject: 'פנייה חדשה מאתר Posiblo' }), expect.objectContaining({ idempotencyKey: 'bottomline-inquiry/123e4567-e89b-42d3-a456-426614174000', signal: expect.any(AbortSignal) }))
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({ text: expect.stringContaining('<img onerror='), subject: 'פנייה חדשה מאתר Posiblo' }), expect.objectContaining({ idempotencyKey: 'posiblo-inquiry/123e4567-e89b-42d3-a456-426614174000', signal: expect.any(AbortSignal) }))
     expect(send.mock.calls[0][0]).not.toHaveProperty('html')
     expect(send.mock.calls[0][0]).not.toHaveProperty('replyTo')
     expect(response.headers.get('Cache-Control')).toBe('no-store')

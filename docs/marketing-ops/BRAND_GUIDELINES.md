@@ -46,7 +46,7 @@ Descriptive, not prescriptive: this records the identity that **exists**, plus g
 
 ## 5. Voice and tone (as practised in the copy)
 
-Derived from `pages.json`; consistent with the brief's rules in `docs/BOTTOMLINE_WEBSITE_BRIEF.md` §2 ("clear, practical, human Hebrew; professional, direct, restrained, non-hype").
+Derived from `pages.json`; consistent with the brief's rules in `docs/POSIBLO_WEBSITE_BRIEF.md` §2 ("clear, practical, human Hebrew; professional, direct, restrained, non-hype").
 
 **What the voice does**
 - Starts with the reader's situation, in short sentences and questions ("יש תהליך שלוקח יותר מדי זמן?").
@@ -112,3 +112,26 @@ Nir supplied the logo: a rounded, flowing "P" mark in a blue-to-cyan gradient ab
 - The logo has no Hebrew version. Use the Latin wordmark in Hebrew text, as the site does.
 
 **Files:** transparent, white-wordmark and avatar versions were generated from the supplied image and saved in `brand-assets/` (see its README). The original vector file does not exist (Nir has no source file), so SVG versions were **redrawn from the image** (see the README in `brand-assets/`): `posiblo-logo.svg`, `posiblo-logo-white-wordmark.svg`, `posiblo-mark.svg`. They are close approximations pending Nir's approval, not designer-made originals.
+
+---
+
+## 9. DECISION (21 Nov 2026): the brand colour is light green
+Nir changed the brand colour from blue to light green. **This supersedes the blue palette in section 8.** The logo shape is unchanged; only its colours changed. The website, the logo files, the favicon, the confirmation-email logo, the share image and the files in `brand-assets/` all use the green palette.
+
+| Role | Hex | Website token |
+|---|---|---|
+| Ink (text, wordmark, dark sections) | `#12301f` | `--ink-900` |
+| Secondary text | `#3d5246` | `--sage-700` |
+| Light green (buttons and badges, dark ink text on top) | `#8ddc92` | `--green-400` |
+| Light green, hover | `#74cf7b` | `--green-450` |
+| Deep green (links, icons, accent text on white) | `#1d7a3e` | `--green-700` |
+| Deep green, hover | `#17652f` | `--green-800` |
+| Light green on dark backgrounds | `#9fe6a5` | `--green-300` |
+| Pale green surfaces | `#f6fbf6` / `#edf8ee` | `--green-25` / `--green-50` |
+| Logo gradient | `#1d7a3e` → `#a8ec9a` | in the SVG files |
+
+**Usage rules:**
+- **Never put white text on light green;** the contrast is too low. Use the ink colour on light green buttons (about 8.7:1).
+- **Never use light green for text on white.** Use the deep green for links and accent text (about 5.4:1) and the ink colour for body text (about 14:1).
+- On dark (ink) backgrounds, use white or the light green `#9fe6a5` for text.
+- Contrast figures were calculated with the WCAG formula; all text pairs listed pass WCAG AA.

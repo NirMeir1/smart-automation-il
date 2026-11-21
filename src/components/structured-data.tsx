@@ -1,4 +1,5 @@
 import { pages } from '@/content/pages'
+import { visiblePage } from '@/content/presentation'
 import { brand, operator } from '@/lib/brand'
 import { publicContact } from '@/lib/contact-public'
 
@@ -16,8 +17,10 @@ export function ProfessionalServiceData() {
   }} />
 }
 
+// FAQ rich results must match questions visitors can see, so a hidden FAQ emits nothing.
 export function HomeFaqData() {
-  const items = pages.home.sections.flatMap(section => section.kind === 'faq' ? section.items : [])
+  const items = visiblePage('home').sections.flatMap(section => section.kind === 'faq' ? section.items : [])
+  if (!items.length) return null
   return <JsonLd data={{
     '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: items.map(item => ({ '@type': 'Question', name: item.question,

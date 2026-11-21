@@ -30,7 +30,8 @@ describe('Public contact methods', () => {
     render(<Footer />)
     const footer = within(screen.getByRole('contentinfo'))
     expect(footer.getByRole('link', { name: 'Posiblo — דף הבית' })).toHaveAttribute('href', '/')
-    expect(footer.getByRole('img', { name: 'Posiblo' })).toHaveAttribute('src', '/brand/posiblo-logo.svg')
+    // The footer sits on navy, so it uses the approved white-wordmark logo.
+    expect(footer.getByRole('img', { name: 'Posiblo' })).toHaveAttribute('src', '/brand/posiblo-logo-white-wordmark.svg')
     expect(footer.getByRole('link', { name: /שיחת טלפון/ })).toHaveAttribute('href', publicContact.telHref)
     expect(footer.getByRole('link', { name: 'שליחת הודעה בוואטסאפ' })).toHaveAttribute('href', publicContact.whatsappHref)
     expect(footer.getByRole('link', { name: 'מדיניות פרטיות' })).toHaveAttribute('href', '/legal/privacy')

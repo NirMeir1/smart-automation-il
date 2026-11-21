@@ -107,7 +107,7 @@ See the [domain migration implementation report](docs/Posiblo_Domain_Migration_I
 
 ## Content and future media
 
-Run `npm run content:generate` after an approved edit to [the authoritative brief](docs/BOTTOMLINE_WEBSITE_BRIEF.md), then review `src/content/pages.json` and run `npm run content:check`. The brief contains **Posiblo** verbatim; regeneration performs no legacy-name substitution. The brief filename is retained for pipeline compatibility. The canonical origin is `https://posiblo.com`. The P favicon is provisional, not approved final artwork. Historical reports remain unchanged. `src/content/about-profile.ts` adds the subsequently supplied founder facts at runtime and replaces the original About placeholders; update that file for profile/photo/LinkedIn changes.
+Run `npm run content:generate` after an approved edit to [the authoritative brief](docs/POSIBLO_WEBSITE_BRIEF.md), then review `src/content/pages.json` and run `npm run content:check`. The brief contains **Posiblo** verbatim; regeneration performs no legacy-name substitution. The brief filename is retained for pipeline compatibility. The canonical origin is `https://posiblo.com`. The P favicon is provisional, not approved final artwork. Historical reports remain unchanged. `src/content/about-profile.ts` adds the subsequently supplied founder facts at runtime and replaces the original About placeholders; update that file for profile/photo/LinkedIn changes.
 
 The founder introduction reuses the homepage hero's video area, after the main value proposition in reading order. Its Hebrew introduction, native portrait player and permanent meeting CTA live in `src/components/introduction-video.tsx`, styled in `src/app/globals.css`. The CTA uses the existing `/contact#inquiry` flow.
 

@@ -11,14 +11,10 @@ describe('Structured data', () => {
     expect(json).toEqual({ '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Posiblo', alternateName: 'פוסיבלו', url: 'https://posiblo.com', description: pages.home.description, email: 'posiblo.contact@gmail.com', telephone: '+972-52-251-8189', areaServed: { '@type': 'Country', name: 'Israel' }, inLanguage: 'he', founder: { '@type': 'Person', name: 'ניר מאיר' } })
     for (const key of ['address', 'aggregateRating', 'review', 'priceRange', 'openingHours', 'geo']) expect(json).not.toHaveProperty(key)
   })
-  it('derives every FAQ question and plain answer from the visible content', () => {
+  it('emits no FAQ rich result while the home FAQ is hidden from visitors', () => {
     const { container } = render(<><HomeFaqData /><CopyPage pageKey="home" /></>)
-    const json = JSON.parse(container.querySelector('script')!.textContent!)
-    expect(json['@type']).toBe('FAQPage')
-    expect(json.mainEntity).toHaveLength(container.querySelectorAll('details').length)
-    const items = pages.home.sections.flatMap(section => section.kind === 'faq' ? section.items : [])
-    expect(json.mainEntity.map((item: { name: string }) => item.name)).toEqual(items.map(item => item.question))
-    expect(json.mainEntity.map((item: { acceptedAnswer: { text: string } }) => item.acceptedAnswer.text)).toEqual(items.map(item => item.answer.map(node => node.text).join('\n\n')))
+    expect(container.querySelector('script[type="application/ld+json"]')).toBeNull()
+    expect(container.querySelectorAll('details')).toHaveLength(0)
   })
   it('escapes script boundaries without changing the parsed data', () => {
     const value = '</script><script>alert(1)</script>'

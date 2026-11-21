@@ -1,14 +1,14 @@
-You are Codex, acting as the lead senior full-stack engineer, product designer, UX writer, and technical SEO implementer for the existing Bottomline website.
+You are Codex, acting as the lead senior full-stack engineer, product designer, UX writer, and technical SEO implementer for the existing Posiblo website.
 
 MISSION
-Transform the CURRENT website in this repository into the problem-first, Hebrew-first Bottomline site specified in the research document appended below. This is an IMPLEMENTATION task, not a request for advice, a proposal, or a design-only mockup. Inspect the repository, implement changes in code, run appropriate checks, and report exactly what you changed and what still requires real-world verification.
+Transform the CURRENT website in this repository into the problem-first, Hebrew-first Posiblo site specified in the research document appended below. This is an IMPLEMENTATION task, not a request for advice, a proposal, or a design-only mockup. Inspect the repository, implement changes in code, run appropriate checks, and report exactly what you changed and what still requires real-world verification.
 
 SOURCE OF TRUTH AND SCOPE
 1. Read the entire appended research report BEFORE editing. Pay particular attention to Part J, "Complete publication-ready Hebrew website copy"; Parts D–I, which explain strategic rationale, funnel, architecture, pricing and trust; and Parts K–L, which list legal boundaries and rollout priorities.
 2. Treat Part J as the authoritative copy deck. Preserve its FINAL Hebrew headings, paragraphs, bullets, CTAs, FAQs, field names, placeholders, success message, navigation, footer, SEO meta titles, and descriptions. Do not replace them with generic AI-marketing copy, abbreviate them, or omit entire sections. The source's examples and internal strategic notes should NOT automatically become customer-visible text.
 3. If a copy detail conflicts with the current implementation, change the implementation to match Part J, unless the text asserts an unverified operational promise, a legally sensitive claim, or a feature that does not actually exist; in those cases implement the honest safe alternative, leave a clearly tracked TODO, and report the discrepancy. Never fabricate evidence or operational capabilities.
 4. This project may already have useful code, content, images, integrations and styling. Audit first; reuse and refine as much as possible. Do not rebuild from scratch without a specific technical reason. Keep the existing framework, routing and design conventions unless a change is necessary. Do not delete unrelated features, assets, config, or user data.
-5. Use the temporary brand label "Bottomline" in public-facing copy as the report does, but mark trademark/name clearance as a launch blocker in a human-readable release checklist. Do NOT claim clearance or attempt to resolve legal clearance in code.
+5. Use the temporary brand label "Posiblo" in public-facing copy as the report does, but mark trademark/name clearance as a launch blocker in a human-readable release checklist. Do NOT claim clearance or attempt to resolve legal clearance in code.
 
 DESIRED EXPERIENCE
 - Primary audience: Israeli B2B owners, self-employed operators and SMBs; equally welcome: individuals and entrepreneurs with significant digital problems/ideas. Do not imply consumer device repair or universal IT support.
@@ -26,7 +26,7 @@ REPOSITORY AUDIT — DO FIRST
 
 INFORMATION ARCHITECTURE AND COPY IMPLEMENTATION
 Implement these seven Hebrew routes using the repository's conventions. Preserve existing compatible slugs when doing so avoids breaking public links; otherwise add appropriate routes and redirects. Use semantic HTML landmarks, one H1 per page, accessible headings, meaningful internal links and distinct metadata per route.
-1. Home / דף הבית: every Part J home section in order: hero eyebrow/headline/body and two CTAs, meeting reassurance, "נשמע מוכר?" five problem cards, "אז מה Bottomline עושה?" six capabilities, two audience pathways, five-stage process, "לא כל דבר צריך AI", all six FAQs, and closing CTA. Avoid duplicate filler or unsupported trust metrics.
+1. Home / דף הבית: every Part J home section in order: hero eyebrow/headline/body and two CTAs, meeting reassurance, "נשמע מוכר?" five problem cards, "אז מה Posiblo עושה?" six capabilities, two audience pathways, five-stage process, "לא כל דבר צריך AI", all six FAQs, and closing CTA. Avoid duplicate filler or unsupported trust metrics.
 2. Solutions / פתרונות: exact lead and all six problem/solution sections, capability toolbox and meeting CTA.
 3. Business / לעסקים: the B2B headline and intro, symptoms, improvable processes, "לא מחליפים מערכת רק כי אפשר", first-contact explanation and CTA.
 4. Individuals & entrepreneurs / לפרטיים וליזמים: all four use cases, "לא כל רעיון צריך אפליקציה", CTA.
@@ -74,19 +74,19 @@ IMPORTANT ORDER OF PRECEDENCE
 (1) Truth, actual verified functionality, safety, privacy, legal limitations; (2) Part J final Hebrew copy; (3) remaining appended research strategy and recommendations; (4) existing design conventions, provided they support the new positioning. If research material is uncertain, distinguish recommendation from verifiable fact.
 
 ================ BEGIN COMPLETE RESEARCH REFERENCE ================
-# Bottomline Israel: Market Strategy, Positioning, and Publication-Ready Website Copy
+# Posiblo Israel: Market Strategy, Positioning, and Publication-Ready Website Copy
 
 ## Executive summary and market opportunity
 
 **Part A — Executive summary**
 
-Bottomline should **not** position itself primarily as an AI company, an automation agency, a web-development studio, or an app-development company.
+Posiblo should **not** position itself primarily as an AI company, an automation agency, a web-development studio, or an app-development company.
 
 The strongest position is:
 
 > **A technology problem-solving studio that first understands what is slowing the customer down, then chooses or builds the right solution.**
 
-The central commercial idea is therefore **problem first, technology second**. The customer should not be expected to arrive knowing whether they need AI, an automation, an app, an integration, a website, or custom software. Bottomline's job is to discover that.
+The central commercial idea is therefore **problem first, technology second**. The customer should not be expected to arrive knowing whether they need AI, an automation, an app, an integration, a website, or custom software. Posiblo's job is to discover that.
 
 This fits the Israeli small-business market particularly well. The Small and Medium Business Agency identifies finding customers, production costs, and labor availability among the persistent barriers facing SMEs, while 61.5% of Israeli businesses operate without employees, making owner time and operational capacity especially scarce. citeturn16search0turn24search0
 
@@ -121,7 +121,7 @@ The overarching customer journey should be:
 ```mermaid
 flowchart LR
     A["Problem, frustration or idea"] --> B["Website"]
-    B --> C["Tell Bottomline what is happening"]
+    B --> C["Tell Posiblo what is happening"]
     C --> D["20–30 min discovery meeting"]
     D --> E{"Problem sufficiently clear?"}
     E -->|Yes| F["Clear proposal"]
@@ -132,7 +132,7 @@ flowchart LR
     I --> J["Optional support & improvement"]
 ```
 
-**The strategic change is subtle but fundamental:** today the site effectively says *"We do automation and AI—tell us which task to automate."* The new Bottomline should say *"Tell me what is getting in your way. We'll decide together what, if anything, should be built."*
+**The strategic change is subtle but fundamental:** today the site effectively says *"We do automation and AI—tell us which task to automate."* The new Posiblo should say *"Tell me what is getting in your way. We'll decide together what, if anything, should be built."*
 
 **Part B — Market opportunities and customer needs**
 
@@ -140,13 +140,13 @@ flowchart LR
 
 The Israeli SMB market is large and heavily weighted toward very small operators. The SBA's April 2026 analysis examined about 625,000 businesses as of the end of 2025 and found that 61.5% operated without employees. citeturn24search0
 
-This matters because Bottomline is not only selling "digital transformation." For a solo professional or five-person business, removing a recurring administrative bottleneck can effectively create additional operating capacity without adding another employee. That is a **strategic inference**, not a measured ROI claim.
+This matters because Posiblo is not only selling "digital transformation." For a solo professional or five-person business, removing a recurring administrative bottleneck can effectively create additional operating capacity without adding another employee. That is a **strategic inference**, not a measured ROI claim.
 
 Recent official research also points to a market under significant cost and operational pressure. The SBA's 2019–2024 series identifies customer acquisition, production costs and workforce availability as recurring SME barriers; in 2024 one in four surveyed business owners considered closing their business. citeturn16search0turn24search7
 
 Cash flow remains relevant as well. Bank of Israel reported that demand for credit by micro and small businesses continued rising in the fourth quarter of 2025 and associated part of that increase with refinancing, inventory and working-capital needs. In the first quarter of 2026, overall business credit demand rose, while some tightening was reported for higher-risk small-business credit. citeturn16search5turn16search13
 
-That means Bottomline's marketing should not sound like:
+That means Posiblo's marketing should not sound like:
 
 > "Adopt the future of AI."
 
@@ -207,7 +207,7 @@ The strongest B2C opportunities are likely to be:
 
 Examples include a person with an app idea, an entrepreneur validating a side project, someone who needs a purpose-built personal tool, a professional purchasing the solution personally rather than through a company, or someone with a recurring process that existing products do not solve.
 
-Bottomline should **not** become:
+Posiblo should **not** become:
 
 > "Anything technology-related for anyone."
 
@@ -237,38 +237,38 @@ Several smaller competitors deliberately make direct founder/expert contact part
 **"How much is this going to turn into?"**  
 Competitors increasingly clarify project versus tool versus maintenance costs, and some publish fixed-price or starting-price structures. citeturn18search0turn18search3turn21search3
 
-This is why Bottomline's strongest sales style should be **consultative, transparent and technically confident without being technology-first**.
+This is why Posiblo's strongest sales style should be **consultative, transparent and technically confident without being technology-first**.
 
 ## Competitive landscape and recommended positioning
 
 **Part C — Competitor analysis**
 
-The Israeli market is already crowded with providers describing themselves through AI, automation, software development, CRM, apps or digital transformation. The opportunity is therefore not to claim that Bottomline can also build those things; competitors already do. The differentiation must be in **how Bottomline decides what should be built and how personally the customer is guided through that decision**. citeturn18search2turn19search0turn19search2turn21search8
+The Israeli market is already crowded with providers describing themselves through AI, automation, software development, CRM, apps or digital transformation. The opportunity is therefore not to claim that Posiblo can also build those things; competitors already do. The differentiation must be in **how Posiblo decides what should be built and how personally the customer is guided through that decision**. citeturn18search2turn19search0turn19search2turn21search8
 
 ### Israeli/Israel-focused competitor comparison
 
-| Provider | Main positioning observed | What they do well | Strategic implication for Bottomline |
+| Provider | Main positioning observed | What they do well | Strategic implication for Posiblo |
 |---|---|---|---|
-| **SFB** | AI/automation tied to business outcomes | Direct expert contact, process-first explanations, transparent separation of build/tool/maintenance cost | Personal contact alone is not unique; Bottomline must broaden beyond automation and make discovery deeper. citeturn18search0turn18search3 |
-| **STSICONIC** | AI, automation and custom software | Broad technical scope; consultative selling around business challenges | Direct overlap with broad Bottomline capabilities means a generic "AI + software" pitch will not differentiate. citeturn18search4turn18search7 |
-| **UIDB** | Boutique R&D/software + AI/automation | Strong technical authority, SaaS, CRM, DevOps and custom software | Bottomline should compete on accessibility, personal ownership and SMB problem discovery—not enterprise breadth. citeturn18search2turn18search8 |
-| **SLAtech** | Production-grade AI/software | Technical depth, RAG, architecture, AI opportunity assessment | Shows that technical AI expertise is becoming commoditized as positioning; Bottomline should lead with diagnosis. citeturn19search0 |
-| **Smartup / Automation School** | Automation + AI for businesses | Strong educational marketing, concrete processes, business-language messaging | Bottomline needs useful educational content but should avoid becoming perceived only as an automation specialist. citeturn19search1turn19search2 |
-| **Dogma** | Apps and complex digital products | App-development authority plus AI, automation and integrations | Good benchmark for customers who already know they need an app; Bottomline can own the stage *before* that conclusion. citeturn21search1turn21search9 |
-| **Globalbit** | Israeli software company, apps/web/AI | Strong portfolio/development-company positioning and published SMB offering | Bottomline should not imitate agency scale; it should emphasize direct accountability and right-sized solutions. citeturn21search2turn21search30 |
-| **Unit 01** | Boutique product studio | Free scoping call, fixed-price proposals, MVPs/apps/SaaS/AI/automation | Very close structural competitor; Bottomline must make business-process diagnosis, not just product scoping, its signature. citeturn21search3 |
+| **SFB** | AI/automation tied to business outcomes | Direct expert contact, process-first explanations, transparent separation of build/tool/maintenance cost | Personal contact alone is not unique; Posiblo must broaden beyond automation and make discovery deeper. citeturn18search0turn18search3 |
+| **STSICONIC** | AI, automation and custom software | Broad technical scope; consultative selling around business challenges | Direct overlap with broad Posiblo capabilities means a generic "AI + software" pitch will not differentiate. citeturn18search4turn18search7 |
+| **UIDB** | Boutique R&D/software + AI/automation | Strong technical authority, SaaS, CRM, DevOps and custom software | Posiblo should compete on accessibility, personal ownership and SMB problem discovery—not enterprise breadth. citeturn18search2turn18search8 |
+| **SLAtech** | Production-grade AI/software | Technical depth, RAG, architecture, AI opportunity assessment | Shows that technical AI expertise is becoming commoditized as positioning; Posiblo should lead with diagnosis. citeturn19search0 |
+| **Smartup / Automation School** | Automation + AI for businesses | Strong educational marketing, concrete processes, business-language messaging | Posiblo needs useful educational content but should avoid becoming perceived only as an automation specialist. citeturn19search1turn19search2 |
+| **Dogma** | Apps and complex digital products | App-development authority plus AI, automation and integrations | Good benchmark for customers who already know they need an app; Posiblo can own the stage *before* that conclusion. citeturn21search1turn21search9 |
+| **Globalbit** | Israeli software company, apps/web/AI | Strong portfolio/development-company positioning and published SMB offering | Posiblo should not imitate agency scale; it should emphasize direct accountability and right-sized solutions. citeturn21search2turn21search30 |
+| **Unit 01** | Boutique product studio | Free scoping call, fixed-price proposals, MVPs/apps/SaaS/AI/automation | Very close structural competitor; Posiblo must make business-process diagnosis, not just product scoping, its signature. citeturn21search3 |
 | **Entrypoint** | Broad AI and software solutions | AI agents, voice, MVPs, no-code, custom/complex systems | Demonstrates how quickly a capability catalogue becomes very broad; reinforces the case for problem-led navigation. citeturn21search8 |
 | **AllBeeWeb** | AI automation for Israeli businesses | Personal/specialist positioning around existing tools and repetitive work | Direct competition at the small-provider end; reinforces need for broader custom-development story. citeturn21search12 |
 
 ### Competitive white space
 
-There is no claim here that Bottomline is the only provider that begins with a problem—some competitors explicitly say they do so. SFB, for example, publishes process-led automation guidance, and STSICONIC describes consultative discovery. citeturn18search9turn18search7
+There is no claim here that Posiblo is the only provider that begins with a problem—some competitors explicitly say they do so. SFB, for example, publishes process-led automation guidance, and STSICONIC describes consultative discovery. citeturn18search9turn18search7
 
 The opportunity is to make this principle **the entire brand architecture**, not one sentence inside an automation service.
 
 That means:
 
-> **Bottomline is not the place you go when you know you need an automation. It is the place you go when you know something is not working well enough and want someone technical to help figure out what should change.**
+> **Posiblo is not the place you go when you know you need an automation. It is the place you go when you know something is not working well enough and want someone technical to help figure out what should change.**
 
 That is broader, more human and more aligned with the user's intended business model.
 
@@ -311,11 +311,11 @@ When a project requires additional expertise or capacity, bring collaborators in
 
 **One-sentence proposition**
 
-> **Bottomline פותרת בעיות שגוזלות לעסקים ולאנשים זמן, כסף ואנרגיה — בעזרת הפתרון הטכנולוגי שבאמת מתאים, מאוטומציה ו-AI ועד אתר, אפליקציה, אינטגרציה או מערכת בהתאמה אישית.**
+> **Posiblo פותרת בעיות שגוזלות לעסקים ולאנשים זמן, כסף ואנרגיה — בעזרת הפתרון הטכנולוגי שבאמת מתאים, מאוטומציה ו-AI ועד אתר, אפליקציה, אינטגרציה או מערכת בהתאמה אישית.**
 
 **Elevator pitch**
 
-> **ב-Bottomline לא מתחילים מהטכנולוגיה. מתחילים בשיחה. מבינים איך הדברים עובדים היום, איפה נתקעים, מה עולה לכם בזמן או בכסף ומה הייתם רוצים שיקרה במקום. רק אחר כך בוחרים את הדרך הנכונה — אוטומציה, AI, אתר, אפליקציה, אינטגרציה, מערכת מותאמת או פתרון פשוט יותר. המטרה היא לא להוסיף עוד כלי. המטרה היא לפתור את הבעיה.**
+> **ב-Posiblo לא מתחילים מהטכנולוגיה. מתחילים בשיחה. מבינים איך הדברים עובדים היום, איפה נתקעים, מה עולה לכם בזמן או בכסף ומה הייתם רוצים שיקרה במקום. רק אחר כך בוחרים את הדרך הנכונה — אוטומציה, AI, אתר, אפליקציה, אינטגרציה, מערכת מותאמת או פתרון פשוט יותר. המטרה היא לא להוסיף עוד כלי. המטרה היא לפתור את הבעיה.**
 
 ### Three recommended headline directions
 
@@ -368,7 +368,7 @@ This is not a determination that the name cannot legally be used. It is a recomm
 
 | Architecture | Advantage | Weakness | Verdict |
 |---|---|---|---|
-| Technology-led: AI / apps / automation / websites | Easy to understand and SEO-friendly | Forces customers to self-diagnose; commoditizes Bottomline | Do not use as primary architecture |
+| Technology-led: AI / apps / automation / websites | Easy to understand and SEO-friendly | Forces customers to self-diagnose; commoditizes Posiblo | Do not use as primary architecture |
 | Problem-led: save time / connect systems / build missing tool | Customer-centric and differentiated | Can become vague; harder for service-specific searches | Strong brand architecture |
 | **Hybrid** | Problem-led discovery plus explicit technical capability | Requires good hierarchy | **Recommended** |
 
@@ -378,7 +378,7 @@ The service/capability layer should exist underneath for customers who already k
 
 ### Recommended solution architecture
 
-**Problems Bottomline solves**
+**Problems Posiblo solves**
 
 > **להפסיק עבודה ידנית שחוזרת על עצמה**  
 > **לחבר מערכות שלא מדברות אחת עם השנייה**  
@@ -406,7 +406,7 @@ That line is important.
 
 **Part F — Discovery meeting design**
 
-The discovery meeting should become one of Bottomline's strongest brand assets.
+The discovery meeting should become one of Posiblo's strongest brand assets.
 
 Name it:
 
@@ -437,7 +437,7 @@ A key sales discipline should be:
 
 That is not only a sales technique. It embodies the brand.
 
-### Questions Bottomline should learn to ask
+### Questions Posiblo should learn to ask
 
 Not all must appear on a form. They belong in conversation:
 
@@ -498,7 +498,7 @@ I recommend crediting some or all of the diagnostic fee toward the project when 
 
 Israeli competitors demonstrate multiple structures rather than one clear market standard. SFB describes a fixed implementation quote after diagnosis, with tool costs and optional monthly monitoring separated; Unit 01 advertises a free 30-minute scoping call and fixed-price proposal; Globalbit publishes fixed-pricing positioning for its small-business service and a project starting point. These are provider-specific commercial models, not representative market averages. citeturn18search0turn18search3turn21search3turn21search30
 
-For Bottomline, use:
+For Posiblo, use:
 
 | Situation | Recommended model |
 |---|---|
@@ -555,9 +555,9 @@ Not:
 
 **large numbers → vague logos → anonymous testimonials → "AI revolution."**
 
-The existing site currently publishes claims including "50+ businesses," "5 years," "up to 90%" time savings and several named testimonials with dramatic numerical outcomes. Those may be legitimate, but the reviewed website does not provide sufficient evidence to independently verify them. Keep only claims for which Bottomline has records and, where appropriate, customer permission. citeturn15view1turn15view2
+The existing site currently publishes claims including "50+ businesses," "5 years," "up to 90%" time savings and several named testimonials with dramatic numerical outcomes. Those may be legitimate, but the reviewed website does not provide sufficient evidence to independently verify them. Keep only claims for which Posiblo has records and, where appropriate, customer permission. citeturn15view1turn15view2
 
-One unusually powerful trust message for Bottomline would be:
+One unusually powerful trust message for Posiblo would be:
 
 > **לא כל בעיה צריכה AI. ולא כל בעיה צריכה פיתוח. אם יש פתרון פשוט יותר — זה הכיוון שנעדיף.**
 
@@ -581,7 +581,7 @@ That immediately demonstrates technology independence.
 | **IMPROVE** | Lead form | Ask about the problem and context, not technical requirements. |
 | **IMPROVE** | About | Introduce the real operator, delivery model and collaboration model. |
 | **REPLACE** | "AI is the reality here and now" style messaging | Replace technology pressure with business relevance. citeturn15view0 |
-| **REPLACE** | Generic "we/company" voice | Use Bottomline brand voice plus transparent first-person founder/operator identity. |
+| **REPLACE** | Generic "we/company" voice | Use Posiblo brand voice plus transparent first-person founder/operator identity. |
 | **REPLACE** | Brand identity | Resolve Bottomline/Sogomatic/אוטומציה חכמה inconsistency. citeturn15view0turn15view1 |
 | **REMOVE pending proof** | 50%, 90%, 50+ etc. | Reinstate only where documented and appropriately contextualized. citeturn15view0turn15view1 |
 | **REMOVE pending proof** | Testimonials/results that cannot be substantiated | Replace with verified case studies when available. citeturn15view2 |
@@ -624,7 +624,7 @@ Primary navigation button:
 
 ### SEO strategy
 
-The following are **keyword-intent hypotheses**, not keyword-volume findings. There is no access here to Bottomline's Search Console, Google Ads Keyword Planner or private analytics, so volume, CPC and conversion potential must be validated empirically.
+The following are **keyword-intent hypotheses**, not keyword-volume findings. There is no access here to Posiblo's Search Console, Google Ads Keyword Planner or private analytics, so volume, CPC and conversion potential must be validated empirically.
 
 Capability/commercial clusters:
 
@@ -756,7 +756,7 @@ Button:
 
 **Footer copy**
 
-> **Bottomline**  
+> **Posiblo**  
 > פתרונות טכנולוגיים שמתחילים בבעיה האמיתית — לא בכלי.
 >
 > אוטומציה | AI | מערכות מותאמות | אפליקציות | אתרים | אינטגרציות
@@ -768,13 +768,13 @@ Button:
 >
 > מדיניות פרטיות | תנאי שימוש | הצהרת נגישות
 >
-> © Bottomline. כל הזכויות שמורות.
+> © Posiblo. כל הזכויות שמורות.
 
 ### Home page — דף הבית
 
 **Meta title**
 
-> Bottomline | פתרונות טכנולוגיים לעסקים ולאנשים — מהבעיה לפתרון
+> Posiblo | פתרונות טכנולוגיים לעסקים ולאנשים — מהבעיה לפתרון
 
 **Meta description**
 
@@ -793,7 +793,7 @@ Button:
 
 > יש משהו שלוקח יותר מדי זמן? תהליך שמלא בעבודה ידנית? מערכות שלא מדברות אחת עם השנייה? רעיון שאתם לא יודעים איך להפוך למוצר?
 >
-> ב-Bottomline מתחילים בשיחה. מבינים איך הדברים עובדים היום, איפה הבעיה ומה באמת צריך להשתנות — ורק אחר כך בוחרים את הפתרון הנכון.
+> ב-Posiblo מתחילים בשיחה. מבינים איך הדברים עובדים היום, איפה הבעיה ומה באמת צריך להשתנות — ורק אחר כך בוחרים את הפתרון הנכון.
 >
 > אוטומציה, AI, אתר, אפליקציה, מערכת מותאמת, אינטגרציה — או לפעמים משהו הרבה יותר פשוט.
 
@@ -847,7 +847,7 @@ CTA:
 
 > **בואו נדבר על מה שקורה אצלכם**
 
-#### Section: אז מה Bottomline עושה?
+#### Section: אז מה Posiblo עושה?
 
 > **פותרים את הבעיה — עם הטכנולוגיה שמתאימה לה.**
 
@@ -984,7 +984,7 @@ CTA:
 
 **Meta title**
 
-> פתרונות טכנולוגיים בהתאמה אישית | Bottomline
+> פתרונות טכנולוגיים בהתאמה אישית | Posiblo
 
 **Meta description**
 
@@ -998,7 +998,7 @@ Intro:
 
 > לפעמים הפתרון הוא אוטומציה של שעה. לפעמים צריך לבנות מערכת. לפעמים מספיק לחבר בין שני כלים שכבר קיימים. ולפעמים הרעיון שנראה כמו "AI" בכלל לא צריך AI.
 >
-> הנה סוגי הבעיות שבהן Bottomline יכולה לעזור.
+> הנה סוגי הבעיות שבהן Posiblo יכולה לעזור.
 
 #### לעבוד פחות ידנית
 
@@ -1060,7 +1060,7 @@ CTA:
 
 **Meta title**
 
-> פתרונות טכנולוגיים לעסקים קטנים ובינוניים | Bottomline
+> פתרונות טכנולוגיים לעסקים קטנים ובינוניים | Posiblo
 
 **Meta description**
 
@@ -1076,7 +1076,7 @@ Intro:
 >
 > בעל העסק הופך למערכת התזכורות. העובדים מעבירים מידע ידנית. לידים נמצאים בכמה מקומות. פעולה שאמורה לקחת דקה הופכת לעשר.
 >
-> Bottomline עוזרת לזהות איפה התהליך נשבר ולבנות את הפתרון שמתאים לעסק — בלי להתחייב מראש לטכנולוגיה מסוימת.
+> Posiblo עוזרת לזהות איפה התהליך נשבר ולבנות את הפתרון שמתאים לעסק — בלי להתחייב מראש לטכנולוגיה מסוימת.
 
 #### מתי כדאי לדבר?
 
@@ -1131,7 +1131,7 @@ CTA:
 
 **Meta title**
 
-> פיתוח פתרונות, אפליקציות ו-MVP לפרטיים וליזמים | Bottomline
+> פיתוח פתרונות, אפליקציות ו-MVP לפרטיים וליזמים | Posiblo
 
 **Meta description**
 
@@ -1181,7 +1181,7 @@ CTA:
 
 **Meta title**
 
-> איך עובדים יחד | פגישת היכרות, אפיון ופיתוח | Bottomline
+> איך עובדים יחד | פגישת היכרות, אפיון ופיתוח | Posiblo
 
 **Meta description**
 
@@ -1197,7 +1197,7 @@ Intro:
 >
 > החלק החשוב יותר הוא להבין למה צריך אותה בכלל.
 >
-> לכן העבודה ב-Bottomline מתחילה בהיכרות אמיתית עם העסק, האדם, הרעיון והתהליך.
+> לכן העבודה ב-Posiblo מתחילה בהיכרות אמיתית עם העסק, האדם, הרעיון והתהליך.
 
 #### פגישת ההיכרות
 
@@ -1254,11 +1254,11 @@ CTA:
 
 **Meta title**
 
-> אודות Bottomline | קודם מבינים את הבעיה
+> אודות Posiblo | קודם מבינים את הבעיה
 
 **Meta description**
 
-> Bottomline היא סטודיו טכנולוגי עצמאי שמתחיל מהבעיה ורק אחר כך בוחר את הפתרון — אוטומציה, AI, תוכנה, אתר, אפליקציה או אינטגרציה.
+> Posiblo היא סטודיו טכנולוגי עצמאי שמתחיל מהבעיה ורק אחר כך בוחר את הפתרון — אוטומציה, AI, תוכנה, אתר, אפליקציה או אינטגרציה.
 
 **H1**
 
@@ -1266,9 +1266,9 @@ CTA:
 
 Body:
 
-> מאחורי Bottomline עומד **[שם מלא — נדרש להשלמה]**, מפתח תוכנה שעובד ישירות עם עסקים, יזמים ואנשים שרוצים לפתור בעיה אמיתית בעזרת טכנולוגיה.
+> מאחורי Posiblo עומד **[שם מלא — נדרש להשלמה]**, מפתח תוכנה שעובד ישירות עם עסקים, יזמים ואנשים שרוצים לפתור בעיה אמיתית בעזרת טכנולוגיה.
 >
-> הרעיון מאחורי Bottomline פשוט:
+> הרעיון מאחורי Posiblo פשוט:
 >
 > יותר מדי פרויקטים מתחילים במשפט כמו "אנחנו צריכים AI", "אנחנו צריכים אפליקציה" או "אנחנו צריכים אוטומציה".
 >
@@ -1318,7 +1318,7 @@ CTA:
 
 **Meta title**
 
-> קביעת פגישת היכרות | Bottomline
+> קביעת פגישת היכרות | Posiblo
 
 **Meta description**
 
@@ -1410,7 +1410,7 @@ This section is strategic guidance, not legal advice. Final privacy, consumer, c
 
 Israel's Privacy Protection Law underwent a major update through Amendment 13, which entered into force on August 14, 2025. The amendment revised definitions, enforcement and database-related obligations, among other matters. citeturn22search0turn22search16
 
-The existing Bottomline privacy policy says it was last updated in December 2024, before Amendment 13 took effect. It also references the old "אוטומציה חכמה" identity, `smart-automation.co.il` contact addresses, and a `050-1234567` telephone number that must be verified before publication. citeturn25view2
+The existing Posiblo privacy policy says it was last updated in December 2024, before Amendment 13 took effect. It also references the old "אוטומציה חכמה" identity, `smart-automation.co.il` contact addresses, and a `050-1234567` telephone number that must be verified before publication. citeturn25view2
 
 **Action:** rewrite and legally review the privacy policy based on the actual production stack: form provider, analytics, cookies, scheduling provider, hosting, CRM, email, WhatsApp, AI processing, retention and third-party processors.
 
@@ -1438,7 +1438,7 @@ Use separate consent where necessary and maintain unsubscribe handling.
 
 ### B2C consumer obligations
 
-Because Bottomline explicitly intends to serve consumers, Consumer Protection Law requirements become more important. Israeli authorities provide specific rules regarding distance transactions and cancellation rights; exact rights vary with the transaction and service circumstances. citeturn22search3turn22search15
+Because Posiblo explicitly intends to serve consumers, Consumer Protection Law requirements become more important. Israeli authorities provide specific rules regarding distance transactions and cancellation rights; exact rights vary with the transaction and service circumstances. citeturn22search3turn22search15
 
 **Action:** have the service agreement, cancellation process, disclosures, price presentation and digital sales flow reviewed for B2C applicability.
 
@@ -1537,26 +1537,26 @@ The brief mentions "10 specific questions" without enumerating them, so the foll
 
 | Question | Verdict |
 |---|---|
-| **What business should Bottomline say it is?** | A technology problem-solving studio / independent technology partner, not an AI or automation agency. |
+| **What business should Posiblo say it is?** | A technology problem-solving studio / independent technology partner, not an AI or automation agency. |
 | **Who is it for?** | B2B and B2C both remain first-class audiences; within B2B, self-employed and small/medium Israeli businesses are an especially strong fit. |
 | **Should B2B and B2C live on the same site?** | Yes. One shared brand promise, followed by separate customer journeys. |
-| **Should Bottomline show its huge technical range?** | Yes, but below the problem statement. Problems first; technologies second. |
+| **Should Posiblo show its huge technical range?** | Yes, but below the problem statement. Problems first; technologies second. |
 | **What is the main differentiator?** | Discovery-led, technology-neutral problem solving plus direct personal ownership. |
 | **Should AI lead the homepage?** | No. AI should remain prominent but as one capability among several. Official research shows both rising adoption and a significant understanding gap, supporting an outcome-first message. citeturn24search9turn17view0 |
 | **How important should the initial meeting be?** | Extremely important. It should become a named part of the product experience: "פגישת היכרות ומיפוי". |
-| **How should Bottomline charge?** | Free short fit meeting; paid discovery for ambiguity; fixed-price scoped projects/milestones; capped T&M for uncertainty; optional recurring maintenance; third-party costs separated. |
+| **How should Posiblo charge?** | Free short fit meeting; paid discovery for ambiguity; fixed-price scoped projects/milestones; capped T&M for uncertainty; optional recurring maintenance; third-party costs separated. |
 | **What are the biggest website problems today?** | Narrow automation positioning, unsupported/unclear numerical claims, unverifiable proof, fragmented branding, underdeveloped contact page, outdated legal identity, and a serious potential Bottomline name collision. citeturn15view0turn15view1turn15view2turn25view0turn23search0 |
 | **What should happen first?** | Clear the brand name, clean up trust claims, replace the homepage positioning, build the discovery/contact experience, and then acquire traffic. |
 
 ### Final strategic verdict
 
-The strongest version of Bottomline is **not broader because it lists more technologies**.
+The strongest version of Posiblo is **not broader because it lists more technologies**.
 
 It is broader because it owns an earlier and more valuable moment in the customer's thinking:
 
 > **"Something isn't working properly. I need someone who understands technology to understand the situation with me and figure out what to do."**
 
-That gives Bottomline permission to build an automation today, an internal application tomorrow, an AI workflow the day after, and an MVP next month—without constantly repositioning the company.
+That gives Posiblo permission to build an automation today, an internal application tomorrow, an AI workflow the day after, and an MVP next month—without constantly repositioning the company.
 
 The website therefore needs to sell three things in this order:
 
@@ -1576,9 +1576,9 @@ The market analysis prioritizes Israeli government and institutional sources: th
 
 Competitive analysis is based on the providers' own current websites and therefore describes **how those companies market themselves**, not independently verified performance. Sources include SFB, UIDB, STSICONIC, SLAtech, Smartup, Dogma, Globalbit, Unit 01, Entrypoint and AllBeeWeb. citeturn18search3turn18search2turn18search4turn19search0turn19search2turn21search9turn21search2turn21search3turn21search8turn21search12
 
-The website audit is based on the live Bottomline Vercel site as accessible during this research, including its home, about, testimonials, contact, terms and privacy pages. citeturn15view0turn15view1turn15view2turn25view0turn25view1turn25view2
+The website audit is based on the live Posiblo Vercel site as accessible during this research, including its home, about, testimonials, contact, terms and privacy pages. citeturn15view0turn15view1turn15view2turn25view0turn25view1turn25view2
 
-No access was available to Bottomline's Google Analytics, Search Console, advertising history, CRM, historical lead quality, project margins, customer interviews, actual testimonials, contracts or financial records. Therefore **SEO keywords are intent hypotheses rather than volume rankings; B2C segments are hypotheses rather than proven demand pools; pricing recommendations are operating-model recommendations rather than claimed Israeli market averages; and all existing Bottomline performance/testimonial claims should be independently verified before reuse.**
+No access was available to Posiblo's Google Analytics, Search Console, advertising history, CRM, historical lead quality, project margins, customer interviews, actual testimonials, contracts or financial records. Therefore **SEO keywords are intent hypotheses rather than volume rankings; B2C segments are hypotheses rather than proven demand pools; pricing recommendations are operating-model recommendations rather than claimed Israeli market averages; and all existing Posiblo performance/testimonial claims should be independently verified before reuse.**
 
 The most important piece of research still missing is not another industry report. It is **first-party evidence**. After launch, the next strategy iteration should be based on approximately the first meaningful cohort of discovery meetings: what customers actually say their problem is, what they thought they needed before the meeting, what solution was ultimately recommended, what they were willing to pay, why proposals were won or lost, and whether B2B and B2C demand develops differently. That evidence should eventually drive the site's vertical pages, pricing anchors, case studies and acquisition mix.
 ================ END COMPLETE RESEARCH REFERENCE ================

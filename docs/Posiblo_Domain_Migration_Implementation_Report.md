@@ -14,7 +14,7 @@ This report records the completed local implementation and verification from the
 - Updated `src/lib/contact-config.ts` to deliver inquiries to **posiblo.contact@gmail.com**.
 - Set the documented sender to **website@posiblo.com**, preserving environment-based sender configuration and the visitor's validated email as Reply-To.
 - Updated the privacy draft's recipient without removing its draft notice or noindex safeguard.
-- Updated `.env.example`, `README.md`, `docs/Contact_Form_Setup.md`, `docs/BOTTOMLINE_WEBSITE_BRIEF.md`, `scripts/verify-release.mjs`, and related tests.
+- Updated `.env.example`, `README.md`, `docs/Contact_Form_Setup.md`, `docs/POSIBLO_WEBSITE_BRIEF.md`, `scripts/verify-release.mjs`, and related tests.
 - Documented that Google Workspace was cancelled and is not used. The receiving inbox is a free personal Gmail account; Resend sending authorization remains a separate requirement.
 - Preserved the existing rebranding work, nine public routes, API contracts, strict origin checks, Redis namespaces, rate limiting, validation, consent handling, retries, and Resend idempotency identifiers.
 - Preserved the existing GitHub repository and Vercel project. No competing host redirect rules were introduced.
@@ -31,7 +31,7 @@ No private environment files, dependencies, external settings, commits, pushes, 
 | `.env.example` | New public origin and approved sender; conservative indexing/form defaults retained. |
 | `README.md` | Domain/email configuration, deployment checklist, historical-evidence clarification. |
 | `docs/Contact_Form_Setup.md` | Current Gmail/Resend setup, existing-service reuse, and authorized live-test instructions. |
-| `docs/BOTTOMLINE_WEBSITE_BRIEF.md` | Superseding owner decision for the new origin and email configuration. |
+| `docs/POSIBLO_WEBSITE_BRIEF.md` | Superseding owner decision for the new origin and email configuration. |
 | `scripts/verify-release.mjs` | New-domain sitemap and Open Graph assertions. |
 | `src/test/seo.test.ts` | New canonical origin, Open Graph URLs, and old/alternate-host indexing rejection. |
 | `src/test/contact-config.test.ts` | Approved production configuration and log-redaction assertions. |

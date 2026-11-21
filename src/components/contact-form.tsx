@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { operator } from '@/lib/brand'
+import { Icon } from '@/components/icon'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { callerTypes, emptyInquiry, Inquiry, InquiryErrors, inquiryLimits, inquirySuccess, meetingFormats, privacyAcknowledgement, unavailableMessage, validateInquiry } from '@/lib/inquiry'
 import { inquiryTracking, type InquiryTracking } from '@/lib/inquiry'
@@ -114,12 +115,12 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
           </fieldset>
           <div className="field"><label htmlFor="callerType">אני פונה בתור *</label><select {...attrs('callerType')} required><option value="">בחרו אפשרות</option>{callerTypes.map(type => <option key={type}>{type}</option>)}</select>{errorFor('callerType')}</div>
           <div className="field"><label htmlFor="message">מה הייתם רוצים לפתור? *</label><textarea {...attrs('message')} required rows={6} placeholder="ספרו לי במילים שלכם. מה קורה היום? מה מעכב, מתסכל או פשוט לוקח יותר מדי זמן?" />{errorFor('message')}</div>
-          <div className="field"><label htmlFor="systems">אם רלוונטי — באילו כלים או מערכות אתם משתמשים היום?</label><textarea {...attrs('systems')} dir="auto" rows={2} placeholder="לדוגמה: WhatsApp, Gmail, Sheets, CRM, מערכת חשבוניות, אתר..." />{errorFor('systems')}</div>
+          <div className="field"><label htmlFor="systems">אם רלוונטי — באילו כלים או מערכות אתם משתמשים היום?</label><textarea {...attrs('systems')} dir="rtl" rows={2} placeholder="לדוגמה: WhatsApp, Gmail, Sheets, CRM, מערכת חשבוניות, אתר..." />{errorFor('systems')}</div>
           <div className="field"><label htmlFor="budget">יש טווח השקעה משוער שחשוב לדעת?</label><input {...attrs('budget')} aria-describedby={errors.budget ? 'budget-help budget-error' : 'budget-help'} /><p className="field-help" id="budget-help">לא חובה. גם &quot;עדיין לא יודע/ת&quot; זו תשובה מצוינת.</p>{errorFor('budget')}</div>
           <fieldset className="meeting-options" id="meeting" aria-describedby={errors.meeting ? 'meeting-error' : undefined}><legend>איך תרצו להיפגש?</legend><div>{meetingFormats.map(format => <label key={format}><input type="radio" name="meeting" value={format} checked={values.meeting === format} onChange={() => change('meeting', format)} />{format}</label>)}</div>{errorFor('meeting')}</fieldset>
           <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input {...attrs('website')} tabIndex={-1} autoComplete="off" /></div>
           <div className="field"><label className="privacy-label" htmlFor="privacy"><input id="privacy" name="privacy" type="checkbox" required aria-label={privacyAcknowledgement} checked={values.privacy} onChange={event => change('privacy', event.target.checked)} aria-invalid={!!errors.privacy} aria-describedby={errors.privacy ? 'privacy-error' : undefined} /><span>{privacyAcknowledgement.split('מדיניות הפרטיות')[0]}<Link href="/legal/privacy">מדיניות הפרטיות</Link>.</span></label>{errorFor('privacy')}</div>
-          <button type="submit" className="action" disabled={!enabled || !hydrated || pending || !values.privacy}>{pending ? 'שולחים את הפנייה…' : 'שליחת הפנייה'}<span aria-hidden="true">↖</span></button>
+          <button type="submit" className="action" disabled={!enabled || !hydrated || pending || !values.privacy}><span>{pending ? 'שולחים את הפנייה…' : 'שליחת הפנייה'}</span><Icon name="arrow" size={20} /></button>
           {!values.privacy && <p className="field-help">כדי לשלוח את הפנייה, יש לסמן את אישור השימוש בפרטים.</p>}
           {pending && <p role="status">הפנייה נשלחת. ממתינים לאישור.</p>}
         </fieldset>

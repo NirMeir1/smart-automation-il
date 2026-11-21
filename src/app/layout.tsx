@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
+import { MobileActionBar } from '@/components/layout/mobile-action-bar'
 import { brand } from '@/lib/brand'
 import { ProfessionalServiceData } from '@/components/structured-data'
 
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Navigation />
         <main id="main" tabIndex={-1}>{children}</main>
         <Footer />
+        <MobileActionBar />
       </body>
     </html>
   )

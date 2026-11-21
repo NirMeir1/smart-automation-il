@@ -20,7 +20,7 @@ export async function inquiryReceivedAt(submissionId: string): Promise<number> {
   if (config) {
     const response = await fetch(config.url, {
       method: 'POST', headers: { Authorization: `Bearer ${config.token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(['EVAL', receiptScript, '1', `bottomline:inquiry:receipt:v1:${submissionId}`, String(now), String(RECEIPT_TTL_SECONDS)]),
+      body: JSON.stringify(['EVAL', receiptScript, '1', `posiblo:inquiry:receipt:v1:${submissionId}`, String(now), String(RECEIPT_TTL_SECONDS)]),
       signal: AbortSignal.timeout(3000), cache: 'no-store', redirect: 'error',
     })
     if (!response.ok) throw new Error('Receipt storage is unavailable')

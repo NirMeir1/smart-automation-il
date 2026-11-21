@@ -36,7 +36,7 @@ function clientKey(headers: Headers, secret: string) {
   } else if (process.env.NODE_ENV === 'production') {
     throw new Error('Trusted ingress is not configured')
   }
-  return `bottomline:inquiry:rate:v1:${createHmac('sha256', secret).update(identity).digest('hex')}`
+  return `posiblo:inquiry:rate:v1:${createHmac('sha256', secret).update(identity).digest('hex')}`
 }
 
 // One atomic script gives every instance the same fixed-window count and TTL.

@@ -27,6 +27,8 @@ const contentSecurityPolicy = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Lets a phone on the same Wi-Fi use the dev server (LAN IP of this PC).
+  allowedDevOrigins: ['192.168.1.9'],
   experimental: {
     agentUpgrade: 'security',
   },

@@ -45,7 +45,7 @@ describe('Inquiry email and server receipt', () => {
     expect(command[0]).toBe('EVAL')
     expect(command[1]).toContain("redis.call('GET'")
     expect(command[1]).toContain("'EX'")
-    expect(command[3]).toBe('bottomline:inquiry:receipt:v1:example-uuid')
+    expect(command[3]).toBe('posiblo:inquiry:receipt:v1:example-uuid')
     expect(command[5]).toBe('90000')
   })
   it.each([{ result: null }, { result: 'bad' }, { error: 'private detail' }])('fails safely on malformed shared receipt results: %j', async result => {

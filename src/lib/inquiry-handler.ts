@@ -78,7 +78,7 @@ export async function submitInquiry(request: NextRequest) {
       subject: `פנייה חדשה מאתר ${brand.name}`,
       text: inquiryEmailText(data, receivedAt),
       ...(data.email ? { replyTo: data.email } : {}),
-    }, { idempotencyKey: `bottomline-inquiry/${data.submissionId}`, signal: AbortSignal.any([deliveryTimeout, request.signal]) })
+    }, { idempotencyKey: `posiblo-inquiry/${data.submissionId}`, signal: AbortSignal.any([deliveryTimeout, request.signal]) })
     if (result.error || !result.data?.id) {
       // Resend normalizes fetch aborts into error results rather than throwing.
       if (deliveryTimeout.aborted) {
@@ -99,7 +99,7 @@ export async function submitInquiry(request: NextRequest) {
             const confirmation = await resend.emails.send({
               from: `${brand.name} <${process.env.CONTACT_FROM_EMAIL!}>`,
               to: [data.email], replyTo: publicContact.email, ...await inquiryAutoReplyWithLogo(),
-            }, { idempotencyKey: `bottomline-inquiry-autoreply/${data.submissionId}`, signal: AbortSignal.timeout(5000) })
+            }, { idempotencyKey: `posiblo-inquiry-autoreply/${data.submissionId}`, signal: AbortSignal.timeout(5000) })
             recordContactOutcome(confirmation.error || !confirmation.data?.id ? 'autoreply_failed' : 'autoreply_accepted', requestId, startedAt)
           } catch { recordContactOutcome('autoreply_failed', requestId, startedAt) }
         })

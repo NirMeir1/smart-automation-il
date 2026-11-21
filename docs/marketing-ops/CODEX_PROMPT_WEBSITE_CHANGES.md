@@ -57,7 +57,7 @@ You are a senior full-stack engineer working in an existing Next.js 16 (App Rout
 ### 4. Auto-reply confirmation email  (spec #8)
 - After the owner email is accepted by Resend in `src/lib/inquiry-handler.ts`, if `data.email` exists send a short confirmation to the visitor via the same Resend client and sender.
 - **Never let the auto-reply break or delay the main flow:** send it after success is known, catch all errors, record an outcome with `recordContactOutcome` only if the existing helper supports it without leaking content, and still return `{ success: true }`.
-- Use an idempotency key `bottomline-inquiry-autoreply/${submissionId}` so retries do not send twice.
+- Use an idempotency key `posiblo-inquiry-autoreply/${submissionId}` so retries do not send twice.
 - Plain-text only. **Do not include the visitor's message or any other submitted field**, and do not include their name unless sanitized (strip control characters, cap at 60 chars). `replyTo` = `posiblo.contact@gmail.com`.
 - Subject: `קיבלתי את הפנייה שלך — Posiblo`
 - Body (Hebrew, adapt greeting if the name is empty):
@@ -86,7 +86,7 @@ Posiblo
 
 ### 6. Home meta description  (spec #10)
 - In `src/content/pages.json` set `home.description` to: `יש תהליך שגוזל זמן או רעיון שרוצים להפוך למציאות? מתחילים בהבנת הבעיה ובונים פתרון מתאים: אוטומציה, מערכות, אתר או אינטגרציה.` (target 135–155 characters; count and report the final length).
-- Run `npm run content:check`. If it fails because `docs/BOTTOMLINE_WEBSITE_BRIEF.md` is the compared source, update the compared text in the brief and the generator expectations consistently (do not disable the check). Report what you changed.
+- Run `npm run content:check`. If it fails because `docs/POSIBLO_WEBSITE_BRIEF.md` is the compared source, update the compared text in the brief and the generator expectations consistently (do not disable the check). Report what you changed.
 
 ### 7. Structured data (JSON-LD)  (spec #11)
 - Add a small server component that renders `<script type="application/ld+json">` with escaped JSON (`JSON.stringify` and replace `<` with `<`).

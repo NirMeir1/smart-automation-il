@@ -98,7 +98,7 @@ test('consent controls the gray disabled button and blocks Enter submission', as
   await expect(page.getByRole('link', { name: 'למדיניות הפרטיות המלאה' })).toHaveAttribute('href', '/legal/privacy')
   await expect(page.locator('#privacy')).toHaveAccessibleName('אני מאשר/ת שימוש בפרטים שמסרתי לצורך טיפול בפנייה וחזרה אליי, בהתאם למדיניות הפרטיות.')
   await expect(button).toBeDisabled()
-  await expect(button).toHaveCSS('background-color', 'rgb(228, 234, 243)')
+  await expect(button).toHaveCSS('background-color', 'rgb(229, 236, 231)')
   await fill(page)
   await expect(button).toBeEnabled()
   await page.locator('#privacy').focus()

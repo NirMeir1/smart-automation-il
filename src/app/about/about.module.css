@@ -3,11 +3,6 @@
   text-align: start;
 }
 
-.about :global(.hero-layout) {
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  align-items: start;
-}
-
 .profile {
   width: 100%;
   max-width: 320px;
@@ -24,9 +19,9 @@
   overflow: hidden;
   display: grid;
   place-items: center;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  background: var(--surface-canvas);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
 }
 
 .portrait img {
@@ -37,7 +32,7 @@
 
 .placeholder {
   padding: 28px;
-  color: var(--muted-ink);
+  color: var(--text-secondary);
   text-align: center;
   font-size: 16px;
 }
@@ -49,12 +44,6 @@
 }
 
 .pendingLink, .profileLink {
-  color: var(--muted-ink);
+  color: var(--text-secondary);
   font-size: 14px;
-}
-
-@media (max-width: 900px) {
-  .about :global(.hero-layout) {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }

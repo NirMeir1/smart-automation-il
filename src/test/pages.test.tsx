@@ -7,16 +7,24 @@ import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 import { pages } from '@/content/pages'
 import { pageTextNodes } from '@/content/schema'
+import { visiblePage } from '@/content/presentation'
 import { routes, pageMetadata } from '@/lib/site'
 import { publicRoutes } from '@/lib/routes'
 import { inquirySuccess } from '@/lib/inquiry'
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }))
 const normalize = (s: string) => s.replace(/\s+/g, ' ').trim()
+// Approved copy the owner chose not to show (presentation `hidden` / `heroHidden`).
+const hiddenCopy = (key: keyof typeof pages) => {
+  const textsOf = (page: typeof pages[typeof key]) => [...pageTextNodes(page).map(node => node.text), ...page.sections.map(section => section.title)].map(normalize)
+  const visible = textsOf(visiblePage(key))
+  const hidden = textsOf(pages[key]).filter(text => !visible.includes(text))
+  return (quote: string) => hidden.some(text => text.includes(quote)) && !visible.some(text => text.includes(quote))
+}
 
 describe('Part J pages', () => {
   for (const [index, route] of routes.entries()) it(`${route.href} preserves every customer quote from the authoritative brief`, () => {
-    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8')
+    const source = readFileSync('docs/POSIBLO_WEBSITE_BRIEF.md', 'utf8')
     const deck = source.slice(source.indexOf('### Home page —')).split('## 8. Functional Requirements')[0]
     const originalChunk = deck.split(/(?=^### .+ page — )/m).filter(Boolean)[index]
     // The owner supplied the founder facts, replacing only the About placeholders.
@@ -28,10 +36,11 @@ describe('Part J pages', () => {
     // Success is conditional; the form tests verify it renders only after backend confirmation.
     const successText = route.key === 'contact' ? Object.values(inquirySuccess).join(' ') : ''
     const text = normalize([container.textContent, ...attributes, successText, pages[route.key].title, pages[route.key].description].join(' '))
+    const isHidden = hiddenCopy(route.key)
     for (const line of chunk.split(/\r?\n/)) {
       if (!line.startsWith('>')) continue
       const quote = normalize(line.replace(/^> ?/, '').replace(/\*\*/g, ''))
-      if (!quote) continue
+      if (!quote || isHidden(quote)) continue
       // Provider acceptance cannot truthfully claim inbox delivery or personal receipt.
       const expected = route.key === 'contact'
         ? quote.replace('תודה. קיבלתי את הפנייה.', inquirySuccess.title).replace('אעבור על מה שכתבתם ונוכל להבין יחד מה הצעד הבא המתאים.', inquirySuccess.body)
@@ -40,16 +49,17 @@ describe('Part J pages', () => {
     }
     for (const line of chunk.split(/\r?\n/)) {
       if (line.startsWith('#### ') && /[\u0590-\u05ff]/.test(line)) {
-        expect(text).toContain(normalize(line.replace(/^#### (Section: )?/, '')))
+        const heading = normalize(line.replace(/^#### (Section: )?/, ''))
+        if (!isHidden(heading)) expect(text).toContain(heading)
       }
       if (route.key === 'contact' && /^\*\*.*[\u0590-\u05ff].*\*\*$/.test(line)) {
         expect(text).toContain(normalize(line.replace(/\*\*/g, '').replace(/\\\*/g, '*')))
       }
     }
   })
-  for (const route of publicRoutes) it(`${route.href} renders its entire reviewed copy and exact metadata`, () => {
+  for (const route of publicRoutes) it(`${route.href} renders all of its visible reviewed copy and exact metadata`, () => {
     const { container } = render(<CopyPage pageKey={route.key} />)
-    const page = pages[route.key]
+    const page = visiblePage(route.key)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(normalize(screen.getByRole('heading', { level: 1 }).textContent!)).toBe(normalize(page.h1))
     const rendered = normalize(container.textContent!)
@@ -59,25 +69,27 @@ describe('Part J pages', () => {
     const metadata = pageMetadata(route.key)
     expect(metadata.title).toBe(page.title)
     expect(metadata.description).toBe(page.description)
-    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8')
+    const source = readFileSync('docs/POSIBLO_WEBSITE_BRIEF.md', 'utf8')
     expect(source).toContain(page.title)
     expect(source).toContain(page.description)
     expect(rendered).not.toMatch(/Sogomatic|50%|90%|50\+/)
     for (const link of container.querySelectorAll('a')) {
-      const path = link.getAttribute('href')?.split(/[?#]/)[0]
+      const href = link.getAttribute('href')!
+      // Same-page links (jump navigation, table of contents) must target a section on this page.
+      if (href.startsWith('#')) { expect(container.querySelector(href), href).toBeInTheDocument(); continue }
+      const path = href.split(/[?#]/)[0]
       expect(publicRoutes.some(r => r.href === path) || path === '/legal/accessibility').toBe(true)
     }
   })
-  it('includes five problem cards, six capabilities, five stages and six native FAQ disclosures', () => {
+  it('keeps the home page short: problems, audiences, process and closing only', () => {
     const { container } = render(<CopyPage pageKey="home" />)
-    const cardCount = (id: string) => {
-      const section = pages.home.sections.find(section => section.id === id)
-      return section?.kind === 'cards' ? section.nodes.filter(node => node.type === 'card').length : 0
-    }
-    expect(cardCount('problems')).toBe(5)
-    expect(cardCount('capabilities')).toBe(6)
-    expect(cardCount('process')).toBe(5)
-    expect(container.querySelectorAll('details summary')).toHaveLength(6)
+    expect([...container.querySelectorAll('section.content-section')].map(section => section.id)).toEqual(['problems', 'audiences', 'process', 'closing'])
+    expect(container.querySelectorAll('#problems .copy-card')).toHaveLength(5)
+    expect(container.querySelectorAll('#process .timeline-step')).toHaveLength(5)
+    expect(container.querySelector('details')).toBeNull()
+    expect(container.querySelector('.signature-line')).toBeNull()
+    expect(container.textContent).not.toContain('ב־Posiblo מתחילים בהבנת הצורך')
+    expect(container.textContent).not.toContain('זה יכול להיות אוטומציה, AI')
   })
   it('has ordered navigation and Escape returns focus to the mobile toggle', () => {
     render(<Navigation />)
@@ -90,7 +102,7 @@ describe('Part J pages', () => {
     expect(button).toHaveFocus()
   })
   it('preserves every shared navigation/footer quote and legal destination', () => {
-    const source = readFileSync('docs/BOTTOMLINE_WEBSITE_BRIEF.md', 'utf8')
+    const source = readFileSync('docs/POSIBLO_WEBSITE_BRIEF.md', 'utf8')
     const shell = source.split('### Global navigation and footer')[1].split('### Home page —')[0]
     const { container } = render(<><Navigation /><Footer /></>)
     const text = normalize(container.textContent!)

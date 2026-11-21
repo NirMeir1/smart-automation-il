@@ -33,8 +33,8 @@ describe('SEO configuration', () => {
       expect(pageMetadata(route.key).alternates?.canonical).toBe(origin + route.href)
       expect(pageMetadata(route.key).robots).toEqual({ index: true, follow: true })
       expect(pageMetadata(route.key).metadataBase?.toString()).toBe(origin + '/')
-      expect(pageMetadata(route.key).openGraph?.images).toEqual([{ url: '/brand/og-image-1200x630.png', width: 1200, height: 630, alt: 'Posiblo — פתרונות טכנולוגיים לעסקים' }])
-      expect(pageMetadata(route.key).twitter).toMatchObject({ card: 'summary_large_image', images: [{ url: '/brand/og-image-1200x630.png', alt: 'Posiblo — פתרונות טכנולוגיים לעסקים' }] })
+      expect(pageMetadata(route.key).openGraph?.images).toEqual([{ url: '/brand/og-image-1200x630.png', width: 1200, height: 630, alt: 'Posiblo — פתרונות טכנולוגיים לעסקים ולאנשים' }])
+      expect(pageMetadata(route.key).twitter).toMatchObject({ card: 'summary_large_image', images: [{ url: '/brand/og-image-1200x630.png', alt: 'Posiblo — פתרונות טכנולוגיים לעסקים ולאנשים' }] })
     }
     expect(robots()).toHaveProperty('sitemap', origin + '/sitemap.xml')
     expect(robots().rules).toEqual([

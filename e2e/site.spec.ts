@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { routes, publicRoutes } from '../src/lib/routes'
 import { pages } from '../src/content/pages'
 import { pageTextNodes } from '../src/content/schema'
+import { visiblePage } from '../src/content/presentation'
 import { browserTestOrigin } from '../scripts/browser-test-env.mjs'
 import { operator } from '../src/lib/brand'
 import { publicContact } from '../src/lib/contact-public'
@@ -39,8 +40,9 @@ test('contact links, logo assets and social metadata match the approved identity
   await expect(page.locator('head meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image')
   const types = () => page.locator('head script[type="application/ld+json"]').evaluateAll(scripts => scripts.map(script => JSON.parse(script.textContent!)))
   const home = await types()
-  expect(home.map(data => data['@type']).sort()).toEqual(['FAQPage', 'ProfessionalService'])
-  expect(home.find(data => data['@type'] === 'FAQPage').mainEntity).toHaveLength(await page.locator('details').count())
+  // The home FAQ is hidden, so no FAQPage rich result may describe questions visitors cannot see.
+  expect(home.map(data => data['@type'])).toEqual(['ProfessionalService'])
+  await expect(page.locator('details')).toHaveCount(0)
   const menu = page.getByRole('button', { name: 'פתיחת תפריט' })
   if (await menu.isVisible()) await menu.click()
   await page.getByRole('navigation', { name: 'ניווט ראשי', exact: true }).getByRole('link', { name: 'אודות', exact: true }).click()
@@ -169,8 +171,8 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
     await expect(page.locator('bdi[dir="ltr"]').filter({ hasText: 'FDE' })).toHaveCount(1)
     expect(mainText).not.toMatch(/נדרש להשלמה|שם מלא תמונה מקצועית/)
   }
-  for (const node of pageTextNodes(pages[route.key])) expect(mainText).toContain(normalize(node.text))
-  for (const section of pages[route.key].sections) await expect(page.locator(`#${section.id}-heading`)).toHaveText(section.title)
+  for (const node of pageTextNodes(visiblePage(route.key))) expect(mainText).toContain(normalize(node.text))
+  for (const section of visiblePage(route.key).sections) await expect(page.locator(`#${section.id}-heading`)).toHaveText(section.title)
   for (const href of await page.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')))) {
     if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
     if (href?.startsWith('mailto:')) { expect(href.split('?')[0]).toBe(`mailto:${operator.email}`); continue }
@@ -219,14 +221,14 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
     await page.setViewportSize({ width, height: 1000 })
     await page.goto('/')
     await page.evaluate(() => document.fonts.ready)
-    await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(0, 96, 252)')
+    await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(141, 220, 146)')
     const layout = await page.evaluate(() => {
       const video = document.querySelector('.video-surface')!.getBoundingClientRect()
       const copy = document.querySelector('.hero-copy')!.getBoundingClientRect()
       const bodyStyle = getComputedStyle(document.body)
       return {
         overflow: document.documentElement.scrollWidth > innerWidth,
-        white: bodyStyle.backgroundColor, navy: bodyStyle.color,
+        white: bodyStyle.backgroundColor, ink: bodyStyle.color,
         font: bodyStyle.fontFamily,
         video: { x: video.x, y: video.y, width: video.width, height: video.height },
         copy: { x: copy.x, bottom: copy.bottom },
@@ -234,7 +236,7 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
     })
     expect(layout.overflow, `width ${width}`).toBe(false)
     expect(layout.white).toBe('rgb(255, 255, 255)')
-    expect(layout.navy).toBe('rgb(3, 39, 86)')
+    expect(layout.ink).toBe('rgb(18, 48, 31)')
     expect(layout.font.toLowerCase()).toContain('heebo')
     expect(layout.video.width / layout.video.height).toBeCloseTo(9 / 16, 2)
     expect(layout.video.width).toBeLessThanOrEqual(260)
@@ -263,12 +265,18 @@ test('mobile disclosure closes on Escape and internal navigation works', async (
   await expect(page).toHaveURL('/individuals')
 })
 
-test('FAQ is keyboard operable and skip link moves focus', async ({ page }) => {
+test('skip link moves focus to the main content', async ({ page }) => {
   await page.goto('/')
   await page.keyboard.press('Tab')
   await expect(page.getByRole('link', { name: 'דלג לתוכן הראשי' })).toBeFocused()
   await page.keyboard.press('Enter')
   await expect(page.locator('#main')).toBeFocused()
+})
+
+// Runs again automatically if the home FAQ is un-hidden in src/content/presentation.ts.
+test('FAQ is keyboard operable', async ({ page }) => {
+  test.skip(!visiblePage('home').sections.some(section => section.kind === 'faq'), 'The home FAQ is hidden')
+  await page.goto('/')
   const question = page.locator('summary').first()
   await question.focus(); await page.keyboard.press('Enter')
   await expect(question.locator('..')).toHaveAttribute('open', '')

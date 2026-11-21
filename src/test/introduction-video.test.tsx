@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { IntroductionVideo } from '@/components/introduction-video'
 
 describe('Introduction video', () => {
@@ -14,6 +14,18 @@ describe('Introduction video', () => {
     expect(screen.getByText('כאן יופיע סרטון ההיכרות')).toBeInTheDocument()
     expect(container.querySelector('.video-surface')).toBeInTheDocument()
     expect(container.querySelector('video, button, img')).toBeNull()
+  })
+
+  it('invites playback with a labelled play button that starts the video and hands over to native controls', () => {
+    const play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined)
+    render(<IntroductionVideo media={{ src: '/operator.mp4', embeddedCaptions: true, duration: 82 }} />)
+    const button = screen.getByRole('button', { name: 'הפעלת סרטון ההיכרות, באורך דקה ו־22 שניות' })
+    expect(button).toHaveTextContent('צפו בסרטון · 1:22')
+    fireEvent.click(button)
+    expect(play).toHaveBeenCalledOnce()
+    expect(screen.queryByRole('button', { name: /הפעלת סרטון ההיכרות/ })).not.toBeInTheDocument()
+    expect(screen.getByLabelText('סרטון ההיכרות עם מייסד Posiblo')).toHaveFocus()
+    play.mockRestore()
   })
 
   it('supports native controls and captions without autoplay when real media is configured', () => {

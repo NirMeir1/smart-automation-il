@@ -16,7 +16,7 @@ describe('Confirmation duplicate protection', () => {
     const { claimAutoReply } = await import('@/lib/inquiry-autoreply')
     expect(await claimAutoReply('submission-fixture')).toBe(true)
     expect(await claimAutoReply('submission-fixture')).toBe(false)
-    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual(['SET', 'bottomline:inquiry:autoreply:v1:submission-fixture', '1', 'EX', '90000', 'NX'])
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual(['SET', 'posiblo:inquiry:autoreply:v1:submission-fixture', '1', 'EX', '90000', 'NX'])
   })
   it.each([{ error: 'fixture failure' }, { result: 1 }, { result: 'unexpected' }])('fails closed on malformed claim responses: %j', async body => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json(body)))
