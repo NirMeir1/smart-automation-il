@@ -221,7 +221,7 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
     await page.setViewportSize({ width, height: 1000 })
     await page.goto('/')
     await page.evaluate(() => document.fonts.ready)
-    await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(141, 220, 146)')
+    await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(24, 100, 85)')
     const layout = await page.evaluate(() => {
       const video = document.querySelector('.video-surface')!.getBoundingClientRect()
       const copy = document.querySelector('.hero-copy')!.getBoundingClientRect()
@@ -235,8 +235,8 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
       }
     })
     expect(layout.overflow, `width ${width}`).toBe(false)
-    expect(layout.white).toBe('rgb(255, 255, 255)')
-    expect(layout.ink).toBe('rgb(18, 48, 31)')
+    expect(layout.white).toBe('rgb(250, 251, 248)')
+    expect(layout.ink).toBe('rgb(25, 51, 45)')
     expect(layout.font.toLowerCase()).toContain('heebo')
     expect(layout.video.width / layout.video.height).toBeCloseTo(9 / 16, 2)
     expect(layout.video.width).toBeLessThanOrEqual(260)
