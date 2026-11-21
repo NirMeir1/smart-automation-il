@@ -81,9 +81,10 @@ describe('Part J pages', () => {
       expect(publicRoutes.some(r => r.href === path) || path === '/legal/accessibility').toBe(true)
     }
   })
-  it('keeps the home page short: problems, audiences, process and closing only', () => {
+  it('keeps the home page short: founder strip, problems, audiences, process and closing only', () => {
     const { container } = render(<CopyPage pageKey="home" />)
-    expect([...container.querySelectorAll('section.content-section')].map(section => section.id)).toEqual(['problems', 'audiences', 'process', 'closing'])
+    // The owner approved the founder strip (owner-supplied experience) directly under the hero.
+    expect([...container.querySelectorAll('section.content-section')].map(section => section.getAttribute('aria-labelledby'))).toEqual(['founder-strip-heading', 'problems-heading', 'audiences-heading', 'process-heading', 'closing-heading'])
     expect(container.querySelectorAll('#problems .copy-card')).toHaveLength(5)
     expect(container.querySelectorAll('#process .timeline-step')).toHaveLength(5)
     expect(container.querySelector('details')).toBeNull()

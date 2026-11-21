@@ -164,6 +164,25 @@ p { white-space: pre-line; text-wrap: pretty; }
 .jump-nav a:hover { border-color: var(--border-strong); color: var(--text-accent); }
 .home-hero + .content-section { padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
 
+/* Signature motif: a path from the problem (amber start) to the solution (teal end). Decorative only. */
+.eyebrow-path { flex-wrap: wrap; gap: 10px; }
+.eyebrow-path::before { display: none; }
+.path-start, .path-end { display: inline-flex; align-items: center; gap: 8px; }
+.path-start::before, .path-end::before { content: ''; width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; }
+.path-start::before { background: var(--decor-accent); }
+.path-end::before { background: var(--cta-bg); }
+.path-end { color: var(--text-heading); }
+.path-line { width: 36px; height: 2px; border-radius: 2px; background: var(--border-strong); }
+
+/* Founder strip: who visitors work with (owner-supplied facts). */
+.founder-strip { background: var(--surface-alt); }
+.founder-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 1rem + 4vw, 4.5rem); align-items: center; }
+.founder-copy { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.founder-copy h2 { font-size: var(--text-2xl); }
+.founder-copy .copy-paragraph { font-size: var(--text-md); color: var(--text-primary); max-width: var(--measure); }
+.founder-facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.founder-facts li { display: flex; gap: 14px; align-items: flex-start; background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 18px 20px; font-weight: 500; color: var(--text-heading); line-height: 1.6; }
+
 /* Lists derived from multi-line copy */
 .item-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .item-check, .item-cross { flex-direction: column; gap: 10px; }
@@ -263,10 +282,13 @@ p { white-space: pre-line; text-wrap: pretty; }
 .v-timeline { background: var(--surface-canvas); }
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
 .timeline-step { display: flex; flex-direction: column; gap: 10px; position: relative; min-width: 0; }
-.timeline-step::after { content: ''; position: absolute; top: 21px; inset-inline-start: 56px; inset-inline-end: -8px; height: 2px; background: var(--border-default); }
+.timeline-step::after { content: ''; position: absolute; top: 21px; inset-inline-start: 56px; inset-inline-end: -8px; height: 2px; background: var(--border-strong); opacity: .45; }
 .timeline-step:last-child::after { display: none; }
 .step-dot { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-heading); font-weight: 600; background: var(--surface-card); border: 1.5px solid var(--border-strong); color: var(--text-accent); position: relative; z-index: 1; }
-.timeline-step:first-child .step-dot { background: var(--surface-inverse); border-color: var(--surface-inverse); color: var(--text-on-inverse); }
+/* Path motif: amber ring marks the start (the problem), teal fill marks the outcome. */
+.timeline-step:first-child .step-dot, .contact-steps li:first-child .step-dot { background: var(--surface-inverse); border-color: var(--surface-inverse); color: var(--text-on-inverse); box-shadow: 0 0 0 3px var(--surface-canvas), 0 0 0 5px var(--decor-accent); }
+.timeline-step:last-child .step-dot, .contact-steps li:last-child .step-dot { background: var(--cta-bg); border-color: var(--cta-bg); color: var(--text-on-cta); }
+.contact-steps li:first-child .step-dot { box-shadow: 0 0 0 3px var(--surface-alt), 0 0 0 5px var(--decor-accent); }
 .timeline-step h3 { font-size: var(--text-md); }
 .timeline-step p { font-size: var(--text-sm); color: var(--text-secondary); }
 
@@ -383,6 +405,8 @@ p { white-space: pre-line; text-wrap: pretty; }
 .diagram-step { flex: 1; background: var(--surface-alt); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 14px; text-align: center; font-weight: 600; font-size: var(--text-sm); line-height: 1.5; color: var(--text-heading); }
 /* Outcome step: highlighted, but not styled like a button. */
 .diagram-step.is-last { background: var(--surface-highlight); border-color: var(--border-strong); }
+.diagram-flow-item:first-child .diagram-step::before, .diagram-step.is-last::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-inline-end: 8px; vertical-align: middle; border-radius: 50%; background: var(--decor-accent); }
+.diagram-step.is-last::before { background: var(--cta-bg); }
 .diagram-arrow { color: var(--text-accent); }
 .feature-panel { background: var(--surface-alt); border: 1px solid var(--border-default); border-radius: var(--radius-xl); padding: clamp(1.75rem, 1rem + 3vw, 3.5rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: var(--space-2xl); align-items: start; }
 .cta-band { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-2xl); align-items: center; }
@@ -463,7 +487,6 @@ p { white-space: pre-line; text-wrap: pretty; }
 .contact-steps { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .contact-steps li { display: flex; gap: 12px; align-items: center; font-weight: 500; color: var(--text-heading); }
 .contact-steps .step-dot { width: 32px; height: 32px; flex-basis: 32px; font-size: var(--text-sm); }
-.contact-steps li:first-child .step-dot { background: var(--surface-inverse); border-color: var(--surface-inverse); color: var(--text-on-inverse); }
 .hero-copy .direct-contact { border-top: 1px solid var(--border-default); padding-top: 20px; margin-top: 4px; width: 100%; }
 .hero-form { min-width: 0; }
 .hero-form .inquiry-section { padding: 0; scroll-margin-top: 104px; }
@@ -542,6 +565,7 @@ button:disabled { cursor: not-allowed; }
   .site-container { width: calc(100% - 48px); }
   .hero-layout.has-media, .hero-layout.has-aside, .hero-layout:has(.hero-form) { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .introduction-video { max-width: 420px; }
+  .founder-layout { grid-template-columns: minmax(0, 1fr); }
   .split-layout, .split-layout.is-wide-first, .statement-layout, .cta-panel, .steps-panel, .feature-panel, .cta-band { grid-template-columns: minmax(0, 1fr); }
   .card-grid.three, .group-paths .group-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .row-layout { grid-template-columns: minmax(0, 1fr); gap: 12px; }
