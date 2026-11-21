@@ -113,7 +113,8 @@ try {
     }
   }
   for (const route of serviceRoutes) {
-    for (const parent of ['/', '/solutions', '/business']) {
+    // The home page is intentionally short (its capabilities section is hidden), so it no longer links here.
+    for (const parent of ['/solutions', '/business']) {
       assert.ok(html.get(parent).querySelector(`a[href="${route.href}"]`), `${parent} discovers ${route.href}`);
     }
     assert.ok(html.get(route.href).querySelector('a[href="/solutions"]'));
@@ -131,7 +132,8 @@ try {
       await page.evaluate(() => document.fonts.ready);
       assert.equal(await page.title(), html.get(route.href).title);
       assert.equal(await page.locator('h1').count(), 1);
-      assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), brand.origin + route.href);
+      // Raw attribute: Next.js renders the root canonical as the bare origin (same page as origin + "/").
+      assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), route.href === '/' ? brand.origin : brand.origin + route.href);
       assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'index, follow');
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       await page.screenshot({ path: join(evidence, `${route.key}-${label}.png`), fullPage: true });
