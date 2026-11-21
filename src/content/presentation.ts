@@ -7,7 +7,7 @@ export type SectionVariant =
   | 'bento' | 'split-grid' | 'doors' | 'timeline' | 'statement' | 'faq' | 'cta-panel'
   | 'rows' | 'chips' | 'checklist' | 'tiles' | 'split-links' | 'steps-panel'
   | 'path-card' | 'feature' | 'cta-band' | 'card' | 'card-tint' | 'branches' | 'split'
-  | 'rule-card' | 'experience' | 'numbered' | 'cards' | 'article' | 'callout' | 'article-cta'
+  | 'rule-card' | 'experience' | 'numbered' | 'cards' | 'article' | 'callout' | 'article-cta' | 'note'
 
 export type FlowDiagram = { kind: 'flow'; steps: string[] }
 export type ColumnsDiagram = { kind: 'columns'; columns: { title: string; items: string[]; primary?: boolean }[] }
@@ -124,7 +124,7 @@ export const presentation: Record<PageKey, PagePresentation> = {
   },
   contact: {
     sections: {
-      reassurance: { variant: 'split' },
+      reassurance: { variant: 'note' },
     },
   },
   businessAutomation: {

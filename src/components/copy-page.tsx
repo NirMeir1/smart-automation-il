@@ -227,6 +227,10 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
       <div className="copy-flow"><Nodes nodes={nonCtas(nodes)} /></div>
       <div className="cta-band-actions">{ctas(nodes).map((node, index) => <ContentNodeView node={node} cta={index === ctas(nodes).length - 1 ? 'inverse' : 'link'} key={index} />)}</div>
     </>
+    case 'note': return <div className="note-layout">
+      <Heading section={section} />
+      <div className="copy-flow"><Nodes nodes={nodes} /></div>
+    </div>
     case 'split': case 'faq': default: return <div className="split-layout">
       <div className="split-aside"><Heading section={section} /></div>
       <div className={section.kind === 'cards' ? 'card-grid three' : 'copy-flow'}><Nodes nodes={nodes} /></div>
