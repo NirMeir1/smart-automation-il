@@ -268,13 +268,6 @@ function FounderStrip({ intro }: { intro?: string }) {
   </section>
 }
 
-// Signature motif: the positioning line as a path from the problem (amber start) to the technology (teal end).
-function EyebrowPath({ text }: { text: string }) {
-  const parts = text.split(/(?<=\.)\s+/)
-  if (parts.length !== 2) return <p className="eyebrow"><CopyText text={text} /></p>
-  return <p className="eyebrow eyebrow-path"><span className="path-start"><CopyText text={parts[0]} /></span> <span className="path-line" aria-hidden="true" /> <span className="path-end"><CopyText text={parts[1]} /></span></p>
-}
-
 function HeroCopy({ pageKey }: { pageKey: PageKey }) {
   const page = pages[pageKey]
   const look = presentation[pageKey]
@@ -344,7 +337,7 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
       <div className={`site-container hero-layout${layout}`}>
         <div className="hero-copy">
           {service && <nav className="breadcrumb" aria-label="פירורי לחם"><Link href="/solutions">פתרונות</Link><span aria-hidden="true">/</span><span>{service.label}</span></nav>}
-          {page.hero.filter(node => node.type === 'eyebrow').map((node, index) => look.eyebrowPath ? <EyebrowPath text={node.text} key={index} /> : <ContentNodeView node={node} key={index} />)}
+          {page.hero.filter(node => node.type === 'eyebrow').map((node, index) => <ContentNodeView node={node} key={index} />)}
           {look.tag && <p className="eyebrow">{look.tag}</p>}
           <h1><CopyText text={page.h1} /></h1>
           <div className="copy-flow hero-flow"><HeroCopy pageKey={pageKey} /></div>

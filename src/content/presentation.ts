@@ -45,8 +45,6 @@ export type PagePresentation = {
   heroHidden?: number[]
   // Hero node indices the page renders itself, outside the hero (still visible on the page).
   heroMoved?: number[]
-  // Render the hero eyebrow's two sentences as the problem-to-solution path motif.
-  eyebrowPath?: boolean
   // Show the founder strip (owner-supplied experience) under the hero; it carries the `heroMoved` paragraph.
   founderStrip?: boolean
   sections: Record<string, SectionPresentation>
@@ -59,7 +57,6 @@ export const presentation: Record<PageKey, PagePresentation> = {
     heroHidden: [2, 3],
     // The founder introduction moves to the strip under the hero, which keeps the hero to headline, lead and CTAs.
     heroMoved: [4],
-    eyebrowPath: true,
     founderStrip: true,
     sections: {
       problems: { variant: 'bento', icons: ['copy', 'link', 'alert', 'gear', 'bulb'] },

@@ -164,16 +164,6 @@ p { white-space: pre-line; text-wrap: pretty; }
 .jump-nav a:hover { border-color: var(--border-strong); color: var(--text-accent); }
 .home-hero + .content-section { padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
 
-/* Signature motif: a path from the problem (amber start) to the solution (teal end). Decorative only. */
-.eyebrow-path { flex-wrap: wrap; gap: 10px; }
-.eyebrow-path::before { display: none; }
-.path-start, .path-end { display: inline-flex; align-items: center; gap: 8px; }
-.path-start::before, .path-end::before { content: ''; width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; }
-.path-start::before { background: var(--decor-accent); }
-.path-end::before { background: var(--cta-bg); }
-.path-end { color: var(--text-heading); }
-.path-line { width: 36px; height: 2px; border-radius: 2px; background: var(--border-strong); }
-
 /* Founder strip: who visitors work with (owner-supplied facts). */
 .founder-strip { background: var(--surface-alt); }
 .founder-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 1rem + 4vw, 4.5rem); align-items: center; }
