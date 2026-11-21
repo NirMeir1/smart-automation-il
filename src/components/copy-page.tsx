@@ -307,7 +307,7 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
 
   const sections = look.article
     ? <div className="article-layout site-container">
-      <aside className="article-toc"><nav aria-label="תוכן העמוד"><p className="toc-title">בעמוד הזה</p>{visibleSections.filter(section => section.tone !== 'closing').map(section => <a href={`#${section.id}`} key={section.id}><CopyText text={section.title} /></a>)}</nav></aside>
+      <aside className="article-toc"><nav aria-label="תוכן העמוד"><p className="toc-title">בעמוד הזה</p>{visibleSections.filter(section => section.tone !== 'closing').map(section => <a href={`#${section.id}`} key={section.id}><span><CopyText text={section.title} /></span></a>)}</nav></aside>
       <div className="article-body">{visibleSections.map(renderSection)}</div>
     </div>
     : blocks.map(block => 'group' in block
@@ -323,7 +323,7 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
           {look.tag && <p className="eyebrow">{look.tag}</p>}
           <h1><CopyText text={page.h1} /></h1>
           <div className="copy-flow hero-flow"><HeroCopy pageKey={pageKey} /></div>
-          {look.jumpNav && <nav className="jump-nav" aria-label="סוגי הבעיות בעמוד">{rowSections.map(section => <a href={`#${section.id}`} key={section.id}><CopyText text={section.title} /></a>)}</nav>}
+          {look.jumpNav && <nav className="jump-nav" aria-label="סוגי הבעיות בעמוד">{rowSections.map(section => <a href={`#${section.id}`} key={section.id}><span><CopyText text={section.title} /></span></a>)}</nav>}
           {heroAfter}
         </div>
         {asideNodes.length > 0 && <div className={`hero-aside hero-aside-${look.heroAsideStyle ?? 'rule'}`}>{asideNodes.map((node, index) => <ContentNodeView node={node} key={index} />)}</div>}
