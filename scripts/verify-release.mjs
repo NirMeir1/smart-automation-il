@@ -55,7 +55,8 @@ try {
     assert.ok(document.querySelector('meta[name="description"]').content.length > 20);
     assert.ok(document.title.includes('Posiblo'));
     assert.equal(document.querySelector('meta[property="og:site_name"]').content, 'Posiblo');
-    assert.equal(document.querySelector('meta[property="og:url"]').content, 'https://posiblo.com' + route.href);
+    // Next.js metadata renders the root URL as the bare origin (no trailing "/"); both forms are the same page.
+    assert.equal(document.querySelector('meta[property="og:url"]').content, route.href === '/' ? 'https://posiblo.com' : 'https://posiblo.com' + route.href);
     // Check rendered copy separately from Next.js hydration payloads.
     const visibleBody = document.body.cloneNode(true);
     visibleBody.querySelectorAll('script, style').forEach(node => node.remove());
