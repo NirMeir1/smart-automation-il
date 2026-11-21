@@ -8,7 +8,7 @@ Hebrew-first, responsive RTL website with nine public pages and a server-side co
 
 ## Stack and structure
 
-Next.js 16 App Router, React 19, TypeScript 6, Tailwind CSS 4, ordinary CSS and scoped CSS Modules. Heebo is bundled locally with its license. `libphonenumber-js` validates Israeli and international phone numbers locally; it makes no external requests.
+Next.js 16 App Router, React 19, TypeScript 6, Tailwind CSS 4, ordinary CSS and scoped CSS Modules. Heebo (body) and Rubik (headings) are bundled locally as WOFF2 with their licenses (see `src/app/fonts/README.md`). `libphonenumber-js` validates Israeli and international phone numbers locally; it makes no external requests.
 
 | Location | Purpose |
 |---|---|
