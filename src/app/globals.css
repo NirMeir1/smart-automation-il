@@ -14,6 +14,7 @@
   --mint-50: #eff5f1;     /* alternate background */
   --paper-25: #fafbf8;    /* main background */
   --amber-400: #e4a76b;   /* warm decorative accent: never text on light surfaces (2.0:1) */
+  --amber-ink: #8c4f0f;   /* amber-toned text on light surfaces: 6.24:1 on paper-25, 6.48:1 on white */
   /* Error state only (pre-existing, functional; not part of the brand palette). */
   --red-50: #fff0eb; --red-700: #a12c23; --red-800: #9f241c;
 
@@ -64,6 +65,8 @@
   --border-example: var(--teal-700);
   --border-on-inverse: color-mix(in srgb, var(--white) 18%, transparent);
   --decor-accent: var(--amber-400);
+  --accent-underline: var(--amber-400);
+  --text-on-accent: var(--forest-900);   /* 5.79:1 on amber-400 */
   --focus-ring: var(--forest-900);
   --focus-ring-on-inverse: var(--white);
   --error-bg: var(--red-50);
@@ -176,6 +179,11 @@ p { white-space: pre-line; text-wrap: pretty; }
 /* A label, not a pill: the amber dot is the single warm note per page and is purely decorative. */
 .eyebrow { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; color: var(--text-accent); font-size: var(--text-sm); font-weight: 600; line-height: 1.5; }
 .eyebrow::before { content: ''; width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: var(--decor-accent); }
+/* Home hero: the positioning line as an amber pill (forest text on amber, 5.79:1). */
+.home-hero .eyebrow { padding: 4px 12px; border-radius: var(--radius-full); background: var(--accent-underline); color: var(--text-on-accent); }
+.home-hero .eyebrow::before { display: none; }
+/* Decorative underline under the H1's key phrase; the amber sits behind the letters' lower edge, never as text colour. */
+.h1-highlight { text-decoration: underline; text-decoration-color: var(--accent-underline); text-decoration-thickness: 6px; text-underline-offset: -2px; text-decoration-skip-ink: none; }
 .copy-flow { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; min-width: 0; }
 .copy-flow > * { max-width: var(--measure); }
 .hero-flow { gap: 16px; }

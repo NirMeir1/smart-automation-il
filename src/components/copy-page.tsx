@@ -271,6 +271,13 @@ function FounderStrip({ intro }: { intro?: string }) {
   </section>
 }
 
+// The H1 with an optional decorative highlight on a phrase it already contains.
+function HeroHeading({ text, highlight }: { text: string; highlight?: string }) {
+  const at = highlight ? text.indexOf(highlight) : -1
+  if (!highlight || at < 0) return <h1><CopyText text={text} /></h1>
+  return <h1><CopyText text={text.slice(0, at)} /><span className="h1-highlight"><CopyText text={highlight} /></span><CopyText text={text.slice(at + highlight.length)} /></h1>
+}
+
 function HeroCopy({ pageKey }: { pageKey: PageKey }) {
   const page = pages[pageKey]
   const look = presentation[pageKey]
@@ -343,7 +350,7 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
           {service && <nav className="breadcrumb" aria-label="פירורי לחם"><Link href="/solutions">פתרונות</Link><span aria-hidden="true">/</span><span>{service.label}</span></nav>}
           {page.hero.filter(node => node.type === 'eyebrow').map((node, index) => <ContentNodeView node={node} key={index} />)}
           {look.tag && <p className="eyebrow">{look.tag}</p>}
-          <h1><CopyText text={page.h1} /></h1>
+          <HeroHeading text={page.h1} highlight={look.h1Highlight} />
           <div className="copy-flow hero-flow"><HeroCopy pageKey={pageKey} /></div>
           {look.jumpNav && <nav className="jump-nav" aria-label="סוגי הבעיות בעמוד">{rowSections.map(section => <a href={`#${section.id}`} key={section.id}><span><CopyText text={section.title} /></span></a>)}</nav>}
           {heroAfter}

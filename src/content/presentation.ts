@@ -35,6 +35,8 @@ export type SectionPresentation = {
 
 export type PagePresentation = {
   tag?: string
+  // Words of the existing H1 that get the amber underline (decoration only: the text is unchanged).
+  h1Highlight?: string
   // Hero node indices (into page.hero) shown in the side column instead of the main column.
   heroAside?: number[]
   heroAsideStyle?: 'quote' | 'rule'
@@ -55,6 +57,7 @@ export type PagePresentation = {
 
 export const presentation: Record<PageKey, PagePresentation> = {
   home: {
+    h1Highlight: 'מה הייתם רוצים לשנות',
     heroChecklistLead: 'פגישת היכרות ראשונה ללא תשלום',
     // Shorter home page: the process and offering paragraphs are covered by /process and /solutions.
     heroHidden: [2, 3],
