@@ -13,6 +13,8 @@ export function Footer() {
       <nav aria-label="ניווט תחתון" className="footer-navigation">{routes.map(r => <Link key={r.key} href={r.href}>{r.label}</Link>)}</nav>
       <div className="footer-contact"><h2>רוצים לדבר על משהו שמעכב אתכם?</h2><p>ספרו לי מה קורה היום, ונבדוק יחד מה הדרך הנכונה לשפר אותו.</p><ContactLinks includeEmail={false} /><FooterTopLink className="action action-inverse" href="/contact"><span>לקביעת פגישה</span><Icon name="arrow" size={20} /></FooterTopLink></div>
     </div>
+    {/* Decorative outlined wordmark above the bottom row; hidden from assistive tech, never selectable or clickable. */}
+    <div className="footer-wordmark" aria-hidden="true" dir="ltr">{brand.name}</div>
     <div className="footer-bottom"><nav aria-label="מידע משפטי"><Link href="/legal/privacy">מדיניות פרטיות</Link><Link href="/legal/terms">תנאי שימוש</Link><Link href="/legal/accessibility">הצהרת נגישות</Link></nav><p>© <bdi dir="ltr">{brand.name}</bdi>. כל הזכויות שמורות.</p></div>
   </div></footer>
 }

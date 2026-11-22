@@ -65,6 +65,7 @@
   --border-error: var(--red-700);
   --border-example: var(--teal-700);
   --border-on-inverse: color-mix(in srgb, var(--white) 18%, transparent);
+  --wordmark-stroke: color-mix(in srgb, var(--mint-150) 25%, transparent);   /* decorative outline on forest */
   --decor-accent: var(--amber-400);
   --timeline-line: var(--teal-700);   /* process connector on forest; decorative */
   --timeline-fill: var(--amber-400);  /* filled connector on forest (5.79:1); decorative */
@@ -561,6 +562,10 @@ p { white-space: pre-line; text-wrap: pretty; }
 .footer-contact h2 { font-size: var(--text-lg); color: var(--text-on-inverse); }
 .footer-contact .action { margin-top: 6px; }
 .site-footer .footer-contact .action-inverse { color: var(--text-heading); }
+/* Brand moment: a large outlined wordmark in its own row, resting on the bottom row's rule. It never sits under
+   footer text, so no text loses contrast; it is clipped sideways so it cannot widen the page. */
+.footer-wordmark { margin-top: var(--space-2xl); overflow-x: clip; text-align: center; white-space: nowrap; font-family: var(--font-heading); font-size: clamp(80px, 12vw, 160px); font-weight: var(--weight-display); line-height: 1; letter-spacing: var(--tracking-display); color: transparent; -webkit-text-stroke: 1px var(--wordmark-stroke); pointer-events: none; user-select: none; }
+.footer-wordmark + .footer-bottom { margin-top: 0; }
 .footer-bottom { margin-top: var(--space-2xl); border-top: 1px solid var(--border-on-inverse); padding-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; font-size: var(--text-sm); }
 .footer-bottom nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .footer-bottom nav a { min-height: 44px; display: inline-flex; align-items: center; }
