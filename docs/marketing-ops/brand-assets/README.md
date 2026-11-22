@@ -3,10 +3,11 @@
 | File | What it is | Use for |
 |---|---|---|
 | `posiblo-logo.webp` | The original file Nir supplied: 1254×1254 px, white background, raster | Archive only |
-| `posiblo-logo-transparent.png` | Full logo (mark + dark green wordmark), transparent background, 1254×1254 | Light backgrounds: documents, website header (until an SVG exists), presentations |
+| `posiblo-logo-transparent.png` | Full logo (mark + forest wordmark), transparent background, 1254×1254 | Light backgrounds: documents, website header (until an SVG exists), presentations |
 | `posiblo-logo-white-wordmark.png` | Mark + white wordmark, transparent | Dark backgrounds |
 | `posiblo-mark-avatar-1080.png` | The "P" mark alone, centred with margin on white, 1080×1080 | Profile pictures (Instagram, Facebook, LinkedIn, TikTok); safe inside a circle crop |
-| `posiblo-mark-transparent.png` | The "P" mark alone, transparent, 1080×1080 | Overlays, video end cards |
+| `posiblo-mark-transparent.png` | The "P" mark alone, transparent, 1080×1080 | Overlays and video end cards on light backgrounds |
+| `posiblo-mark-on-dark-transparent.png` | The "P" mark alone in the dark-background colours, transparent, 1080×1080 | Overlays and video end cards on dark backgrounds |
 | `preview-sheet.png` | Contact sheet to check the versions | Review only |
 
 **How these were made:** by script from the supplied 1254 px image (background removed, wordmark recoloured white, mark cropped). They are **raster derivatives, not redrawn vectors.** Edges are clean at the supplied size; do not enlarge beyond 1254 px (blurry) and do not use for print or signage. A proper vector (SVG) must come from the logo's original source.
@@ -14,9 +15,10 @@
 ## Vector redraw (SVG) — approximation, needs Nir's approval
 | File | Use |
 |---|---|
-| `posiblo-logo.svg` | Full logo, navy wordmark, for light backgrounds |
+| `posiblo-logo.svg` | Full logo, forest wordmark, for light backgrounds |
 | `posiblo-logo-white-wordmark.svg` | Full logo, white wordmark, for dark backgrounds |
-| `posiblo-mark.svg` | The "P" mark alone |
+| `posiblo-mark.svg` | The "P" mark alone, for light backgrounds |
+| `posiblo-mark-on-dark.svg` | The "P" mark alone, for dark backgrounds |
 
 **How it was made:** with no source file, I traced the outlines of the supplied image into vector paths (the "P" is one shape, the letters are 12 paths) and rebuilt the gradient with two overlapping linear gradients, using colours sampled from the image. I compared the render with the original side by side: the shapes and colours are very close. **It is a redraw, not the designer's original file.** Edges are made of short straight segments (about 0.35 px tolerance at 1254 px), so very large enlargements may show slight facets, and the gradient is an approximation (at most slightly different tones in the middle of the mark). A designer should replace it with a clean redraw before any print or signage use. For the website, social images and documents it is suitable once Nir approves it.
 
@@ -26,3 +28,6 @@
 The brand colour changed from blue to light green (see `BRAND_GUIDELINES.md` section 9). The three SVGs were recoloured: each blue gradient stop was mapped to a green of matching brightness, and the navy wordmark became the ink colour `#12301f`. The PNG files (`posiblo-logo-transparent.png`, `posiblo-logo-white-wordmark.png`, `posiblo-mark-avatar-1080.png`, `posiblo-mark-transparent.png`, `preview-sheet.png`) were **re-rendered from these SVGs**, at the same sizes and framing, and `og-image-1200x630.png` is a copy of the website's share image. `posiblo-logo.webp` is unchanged: it is the archive of the original blue file.
 
 Because the PNGs now come from the traced SVG and not the original image, viewing them at full size shows slightly faceted curves and a faint hairline where two shapes of the "P" meet. Neither is visible at normal display sizes (profile pictures, website header, email). A designer's clean redraw would remove both.
+
+## Teal recolour (22 Nov 2026)
+The mark moved to the website's teal family (see `BRAND_GUIDELINES.md` section 10). Each gradient now has two stops: on light backgrounds `#186455` → `#3a9a7e`, on dark backgrounds `#3a9a7e` → `#8fd3b5`. The light-background wordmark is forest `#163c36`. `posiblo-mark-on-dark.svg` and its PNG are new. All PNGs were re-rendered from the SVGs with the framing fitted to the previous files (mean pixel difference under 0.4/255 when the old SVGs were rendered the same way); the preview sheet's dark panels now use forest `#163c36`. `og-image-1200x630.png` is a copy of the website's share image, recoloured in place: the same layout and text, with the teal logo, a mint-to-teal top bar, a forest headline and a teal-700 subtitle. `posiblo-logo.webp` is still the archive of the original blue file.

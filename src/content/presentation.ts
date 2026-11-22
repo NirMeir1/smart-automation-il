@@ -1,6 +1,7 @@
 import type { PageContent, PageKey } from './schema'
 import { pages } from './pages'
 import type { IconName } from '@/components/icon'
+import { founderHighlights } from './about-profile'
 
 // Presentation only: layout choices per page and section. Copy stays in pages.json.
 export type SectionVariant =
@@ -28,10 +29,14 @@ export type SectionPresentation = {
   whatsapp?: boolean
   // Kept in the approved copy source but not rendered (owner asked for a shorter page).
   hidden?: boolean
+  // Headings for the role cards of an 'experience' section, in order (short forms of the same facts).
+  titles?: readonly string[]
 }
 
 export type PagePresentation = {
   tag?: string
+  // Words of the existing H1 that get the amber underline (decoration only: the text is unchanged).
+  h1Highlight?: string
   // Hero node indices (into page.hero) shown in the side column instead of the main column.
   heroAside?: number[]
   heroAsideStyle?: 'quote' | 'rule'
@@ -52,6 +57,7 @@ export type PagePresentation = {
 
 export const presentation: Record<PageKey, PagePresentation> = {
   home: {
+    h1Highlight: 'מה הייתם רוצים לשנות',
     heroChecklistLead: 'פגישת היכרות ראשונה ללא תשלום',
     // Shorter home page: the process and offering paragraphs are covered by /process and /solutions.
     heroHidden: [2, 3],
@@ -121,8 +127,12 @@ export const presentation: Record<PageKey, PagePresentation> = {
   },
   about: {
     tag: 'אודות',
+    // The "why" behind the studio sits beside the introduction, so the main column stays who and what.
+    heroAside: [2, 3, 4, 5],
+    heroAsideStyle: 'rule',
     sections: {
-      'professional-experience': { variant: 'experience' },
+      // Each role card leads with its short form, so the experience can be scanned before it is read.
+      'professional-experience': { variant: 'experience', titles: founderHighlights.slice(1) },
       expertise: { variant: 'cards', icons: ['code', 'link', 'route'] },
       'direct-ownership': { variant: 'statement', highlight: 1 },
       principles: { variant: 'numbered' },

@@ -2,7 +2,10 @@
 import { pages } from '@/content/pages'
 import { introductionVideo } from '@/content/introduction-video'
 import { IntroductionVideo } from '@/components/introduction-video'
+import { HeroDemo } from '@/components/hero-demo'
 import { Icon, type IconName } from '@/components/icon'
+import { TimelineFill } from '@/components/timeline-fill'
+import { CardCarousel } from '@/components/card-carousel'
 import { presentation, sectionPresentation, visiblePage, type ColumnsDiagram, type FlowDiagram, type SectionPresentation } from '@/content/presentation'
 import { serviceRoutes } from '@/lib/routes'
 import { experienceTitle, founderHighlights } from '@/content/about-profile'
@@ -106,7 +109,7 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
   switch (look.variant) {
     case 'bento': return <>
       <header className="section-header"><Heading section={section} /><Nodes nodes={intro} /></header>
-      <div className="card-grid bento">{cards.map((card, index) => <Card card={card} icon={look.icons?.[index]} key={card.text} />)}</div>
+      <CardCarousel className="card-grid bento" label={`${section.title} — כרטיסים בגלילה לצדדים`} count={cards.length}>{cards.map((card, index) => <Card card={card} icon={look.icons?.[index]} key={card.text} />)}</CardCarousel>
       {outro.length > 0 && <div className="section-outro"><Nodes nodes={outro} cta="link" /></div>}
     </>
     case 'split-grid': return <div className="split-layout">
@@ -119,11 +122,11 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
     </>
     case 'timeline': return <>
       <header className="section-header split-header"><div><Heading section={section} /><Nodes nodes={intro} /></div><Nodes nodes={outro} cta="link" /></header>
-      <ol className="timeline">{cards.map((card, index) => <li className="timeline-step" key={card.text}>
+      <TimelineFill className="timeline">{cards.map((card, index) => <li className="timeline-step" style={{ '--step': index } as React.CSSProperties} key={card.text}>
         <span className="step-dot" aria-hidden="true">{index + 1}</span>
         <h3><CopyText text={card.text} /></h3>
         <Nodes nodes={card.nodes} />
-      </li>)}</ol>
+      </li>)}</TimelineFill>
     </>
     case 'cards': return <>
       <header className="section-header"><Heading section={section} /><Nodes nodes={intro} /></header>
@@ -209,7 +212,10 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
       const roles = nodes.filter(node => node.type === 'p' && !node.strongPrefix)
       return <>
         <header className="section-header"><Heading section={section} /></header>
-        <div className="experience-grid">{roles.map((node, index) => <div className="experience-card" key={index}><ContentNodeView node={node} /></div>)}</div>
+        <div className="experience-grid">{roles.map((node, index) => <div className="experience-card" key={index}>
+          {look.titles?.[index] && <h3><CopyText text={look.titles[index]} /></h3>}
+          <ContentNodeView node={node} />
+        </div>)}</div>
         <div className="experience-summary"><Nodes nodes={nodes.filter(node => !roles.includes(node))} /></div>
       </>
     }
@@ -268,6 +274,13 @@ function FounderStrip({ intro }: { intro?: string }) {
   </section>
 }
 
+// The H1 with an optional decorative highlight on a phrase it already contains.
+function HeroHeading({ text, highlight }: { text: string; highlight?: string }) {
+  const at = highlight ? text.indexOf(highlight) : -1
+  if (!highlight || at < 0) return <h1><CopyText text={text} /></h1>
+  return <h1><CopyText text={text.slice(0, at)} /><span className="h1-highlight"><CopyText text={highlight} /></span><CopyText text={text.slice(at + highlight.length)} /></h1>
+}
+
 function HeroCopy({ pageKey }: { pageKey: PageKey }) {
   const page = pages[pageKey]
   const look = presentation[pageKey]
@@ -281,7 +294,8 @@ function HeroCopy({ pageKey }: { pageKey: PageKey }) {
     if (node.type === 'cta') {
       const group = [node]
       while (items[i + 1]?.node.type === 'cta') group.push(items[++i].node as FlowNode & { type: 'cta' })
-      blocks.push(<div className="hero-actions" key={`cta-${index}`}>{group.map((cta, position) => <ContentNodeView node={cta} cta={position === 0 ? 'primary' : 'secondary'} key={position} />)}</div>)
+      // Solid styling is reserved for the meeting request; navigation (e.g. back to all solutions) stays secondary.
+      blocks.push(<div className="hero-actions" key={`cta-${index}`}>{group.map((cta, position) => <ContentNodeView node={cta} cta={position === 0 && cta.href.startsWith('/contact') ? 'primary' : 'secondary'} key={position} />)}</div>)
       seenCta = true
       continue
     }
@@ -339,13 +353,13 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
           {service && <nav className="breadcrumb" aria-label="פירורי לחם"><Link href="/solutions">פתרונות</Link><span aria-hidden="true">/</span><span>{service.label}</span></nav>}
           {page.hero.filter(node => node.type === 'eyebrow').map((node, index) => <ContentNodeView node={node} key={index} />)}
           {look.tag && <p className="eyebrow">{look.tag}</p>}
-          <h1><CopyText text={page.h1} /></h1>
+          <HeroHeading text={page.h1} highlight={look.h1Highlight} />
           <div className="copy-flow hero-flow"><HeroCopy pageKey={pageKey} /></div>
           {look.jumpNav && <nav className="jump-nav" aria-label="סוגי הבעיות בעמוד">{rowSections.map(section => <a href={`#${section.id}`} key={section.id}><span><CopyText text={section.title} /></span></a>)}</nav>}
           {heroAfter}
         </div>
         {asideNodes.length > 0 && <div className={`hero-aside hero-aside-${look.heroAsideStyle ?? 'rule'}`}>{asideNodes.map((node, index) => <ContentNodeView node={node} key={index} />)}</div>}
-        {page.heroVideo && <IntroductionVideo media={introductionVideo} />}
+        {page.heroVideo && <div className="hero-media"><HeroDemo /><IntroductionVideo media={introductionVideo} /></div>}
         {heroAside}
       </div>
     </section>

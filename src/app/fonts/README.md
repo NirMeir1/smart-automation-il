@@ -22,6 +22,6 @@ Source: https://raw.githubusercontent.com/google/fonts/main/ofl/rubik/Rubik%5Bwg
 
 Original TTF SHA-256: `1b3a7437ba2af80e465e773ed60c5036d1ba6ace492d89046dbcf18fb31e4e88`
 
-`Rubik-Variable.woff2` was reduced with fontTools: weight axis limited to 500–700 (`varLib.instancer wght=500:700`) and subset to Basic Latin, Latin-1, Hebrew (U+0590–05FF, U+FB1D–FB4F) and common punctuation and currency (including ₪), keeping all OpenType layout features.
+`Rubik-Variable.woff2` was reduced with fontTools: weight axis limited to 500–800 (`varLib.instancer wght=500:800`) and subset to Basic Latin, Latin-1, Hebrew (U+0590–05FF, U+FB1D–FB4F) and common punctuation and currency (including ₪), keeping all OpenType layout features.
 
-SHA-256: `6de6aa30121fc09362a0c1f6dd83d04883cbd0d867218cc8ead5324b42ca7ae1`
+SHA-256: `b100b07cdd500be8f65de706da636e8a0784af13b7c11c830317c8ccd886dc95`

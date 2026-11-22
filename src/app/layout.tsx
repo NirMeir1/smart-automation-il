@@ -15,10 +15,10 @@ const heebo = localFont({
   display: 'swap',
 })
 
-// Headings only: subset to Hebrew + Latin and weights 500–700 (see fonts/README.md).
+// Headings only: subset to Hebrew + Latin and weights 500–800 (see fonts/README.md); 800 is the display weight.
 const rubik = localFont({
   src: './fonts/Rubik-Variable.woff2',
-  weight: '500 700',
+  weight: '500 800',
   variable: '--font-rubik',
   display: 'swap',
 })
@@ -33,9 +33,11 @@ export default function RootLayout({
   structuredData: React.ReactNode
 }) {
   return (
-    <html lang="he" dir="rtl">
+    // The font variables live on <html>: --font-heading and --font-body are declared on :root, and a custom
+    // property only resolves var() references defined on the same element or its ancestors.
+    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
       <head><ProfessionalServiceData />{structuredData}</head>
-      <body className={`${heebo.className} ${heebo.variable} ${rubik.variable}`}>
+      <body className={heebo.className}>
         <a href="#main" className="skip-link" tabIndex={0}>
           דלג לתוכן הראשי
         </a>

@@ -135,3 +135,22 @@ Nir changed the brand colour from blue to light green. **This supersedes the blu
 - **Never use light green for text on white.** Use the deep green for links and accent text (about 5.4:1) and the ink colour for body text (about 14:1).
 - On dark (ink) backgrounds, use white or the light green `#9fe6a5` for text.
 - Contrast figures were calculated with the WCAG formula; all text pairs listed pass WCAG AA.
+
+---
+
+## 10. DECISION (22 Nov 2026): the logo mark uses the website's teal gradient
+The website moved to the forest/teal "Direction C" palette (`src/app/globals.css`) after section 9, so the light-green token table above no longer matches the code. The logo mark still used the light-green gradient, the only place that green appeared on the site. The mark now uses the site's teal family. **This supersedes the logo rows of section 9.** The logo shape is unchanged.
+
+| Version | Mark gradient | Wordmark | Use on |
+|---|---|---|---|
+| Light background | `#186455` → `#3a9a7e` | `#163c36` (forest-900, the heading colour) | White and light surfaces: website header, documents, email, share image |
+| Dark background | `#3a9a7e` → `#8fd3b5` | `#ffffff` | Forest and dark surfaces: website footer, dark social posts |
+
+Website tokens: `--teal-800` (`#186455`), `--teal-500` (`#3a9a7e`), `--mint-300` (`#8fd3b5`), `--forest-900` (`#163c36`).
+
+**Why:** one green family across the logo, buttons, links and graphics; the mark stays readable on both backgrounds (each gradient colour is at least 3.4:1 against the surface it is meant for; the old light end was 1.39:1 on white and the old dark end 2.25:1 on forest); and none of the nine competitor sites in the 2026 design-audit screenshots uses forest/teal as its main colour.
+
+**Usage rules:**
+- Use the light-background version on white or pale surfaces and the dark-background version on forest or dark surfaces. Don't put the light-background mark on dark surfaces (its dark end is 1.73:1 on forest).
+- The mark colours are decorative. For text use forest `#163c36` (headings), ink `#19332d` (body) and teal-700 `#276d62` (links and accent text, 6.09:1 on white).
+- The favicon (`src/app/icon.svg`) switches to the dark-background colours when the browser uses a dark theme.
