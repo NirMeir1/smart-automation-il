@@ -170,6 +170,15 @@ p { white-space: pre-line; text-wrap: pretty; }
 
 /* ── Header ── */
 .site-header { background: var(--surface-header); border-bottom: 1px solid var(--border-default); position: sticky; top: 0; z-index: var(--z-sticky); backdrop-filter: saturate(1.2) blur(8px); }
+/* Reading progress: a 2px teal line along the header's lower edge, growing from the inline start as the page scrolls.
+   Pure CSS (scroll-driven animation), decorative and not exposed to assistive tech; only where supported and
+   when motion is allowed. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header::after { content: ''; position: absolute; inset-inline: 0; bottom: -1px; height: 2px; background: var(--cta-bg); transform: scaleX(0); transform-origin: var(--inline-start-edge) center; animation: scroll-progress linear both; animation-timeline: scroll(root block); pointer-events: none; }
+    @keyframes scroll-progress { to { transform: scaleX(1); } }
+  }
+}
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 80px; }
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
 .brand-logo { display: block; width: 62px; height: auto; }
@@ -290,7 +299,8 @@ p { white-space: pre-line; text-wrap: pretty; }
 .video-surface > p { color: var(--text-on-inverse); padding: 24px; }
 .introduction-description { font-size: var(--text-sm); line-height: var(--leading-small); color: var(--text-secondary); }
 .video-a11y { font-size: var(--text-xs); line-height: var(--leading-small); color: var(--text-secondary); }
-.video-a11y a { color: var(--text-accent); text-decoration: underline; }
+/* Inline-block with block padding: each line of the link is a target at least 24px tall (WCAG 2.5.8). */
+.video-a11y a { display: inline-block; padding-block: 4px; color: var(--text-accent); text-decoration: underline; }
 
 /* ── Sections ── */
 .content-section { padding-block: var(--section-space); }
