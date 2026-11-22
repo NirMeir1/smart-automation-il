@@ -37,7 +37,7 @@
   --space-xs: 0.25rem; --space-sm: 0.5rem; --space-md: 1rem; --space-lg: 1.5rem; --space-xl: 2rem; --space-2xl: 3rem; --space-3xl: 4rem; --space-4xl: 6rem;
   --section-space: clamp(3.5rem, 2rem + 4.5vw, 6rem);
   --radius-xs: 4px; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-full: 999px;
-  --duration-fast: .15s; --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: .15s; --duration-lift: 180ms; --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --z-sticky: 30; --z-action-bar: 40; --z-skip-link: 100;
 
   /* ── Semantic roles: what components use. A future theme remaps only this layer. ── */
@@ -78,6 +78,7 @@
   --disabled-text: var(--slate-600);
   --shadow-card: 0 1px 2px color-mix(in srgb, var(--forest-900) 5%, transparent), 0 12px 32px -20px color-mix(in srgb, var(--forest-900) 22%, transparent);
   --shadow-media: 0 24px 48px -24px color-mix(in srgb, var(--forest-900) 40%, transparent);
+  --shadow-lift: 0 10px 28px -8px color-mix(in srgb, var(--forest-900) 25%, transparent);   /* rgba(22,60,54,.25) */
   --shadow-raised: 0 16px 32px -24px color-mix(in srgb, var(--forest-900) 45%, transparent);
   --surface-hero: var(--white);
   --cta-bg-active: var(--forest-900);
@@ -152,7 +153,16 @@ p { white-space: pre-line; text-wrap: pretty; }
 .action-inverse:active { background: var(--cta-inverse-bg-active); border-color: var(--cta-inverse-bg-active); color: var(--text-heading); }
 .action-card { width: 100%; justify-content: space-between; text-align: start; background: var(--surface-card); color: var(--text-heading); border: var(--card-border); border-radius: var(--radius-card); padding: 20px 24px; font-size: var(--text-md); }
 .action-card .icon { color: var(--text-accent); }
-.action-card:hover { background: var(--surface-card); color: var(--text-heading); border-color: var(--border-strong); box-shadow: var(--shadow-card); }
+.action-card:hover { background: var(--surface-card); color: var(--text-heading); }
+/* Linked cards only (link rows and the audience cards): lift, shadow and a teal edge on hover and keyboard focus.
+   The focus ring stays as well. Non-link cards (e.g. the problem cards) get no hover effect. */
+.action-card, .doors .copy-card { transition: transform var(--duration-lift) ease-out, box-shadow var(--duration-lift) ease-out, border-color var(--duration-lift) ease-out; }
+@media (hover: hover) {
+  .action-card:hover, .doors .copy-card:has(.action:hover) { transform: translateY(-2px); box-shadow: var(--shadow-lift); border-color: var(--border-strong); }
+}
+.action-card:focus-visible, .doors .copy-card:has(.action:focus-visible) { transform: translateY(-2px); border-color: var(--border-strong); }
+.action-card:focus-visible { box-shadow: 0 0 0 6px var(--surface-canvas), var(--shadow-lift); }
+.doors .copy-card:has(.action:focus-visible) { box-shadow: var(--shadow-lift); }
 .action-card:active { background: var(--surface-alt); color: var(--text-heading); }
 .text-link { display: inline-flex; align-items: center; min-height: 44px; vertical-align: middle; margin-inline: 22px; text-decoration: underline; color: var(--text-accent); }
 .text-link:hover { color: var(--cta-bg-hover); }
@@ -329,6 +339,9 @@ p { white-space: pre-line; text-wrap: pretty; }
 .doors h3 { font-size: var(--text-h3); font-weight: var(--weight-heading); }
 .doors .copy-card > p:first-of-type { font-size: var(--text-md); color: var(--text-primary); }
 .doors .action { margin-top: auto; }
+/* The card's own link covers the whole card, so the card is one target and one tab stop. */
+.doors .copy-card { position: relative; }
+.doors .copy-card .action::after { content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); }
 
 /* Timeline: on the home page the process is the page's one dark, full-bleed band (forest-900).
    Headings white (12.11:1), body mint-150 (9.95:1); colour and focus rules are shared with .dark-panel below. */
