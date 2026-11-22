@@ -11,6 +11,10 @@
   --slate-600: #52655c;   /* secondary text */
   --mist-200: #d4e3db;    /* borders */
   --mint-150: #d8eee3;    /* soft highlight */
+  /* Logo mark gradient (the SVGs in public/brand hold these values; images cannot read CSS variables).
+     On light surfaces: teal-800 -> teal-500. On dark surfaces: teal-500 -> mint-300. Decorative, never text. */
+  --teal-500: #3a9a7e;
+  --mint-300: #8fd3b5;
   --mint-50: #eff5f1;     /* alternate background */
   --paper-25: #fafbf8;    /* main background */
   --amber-400: #e4a76b;   /* warm decorative accent: never text on light surfaces (2.0:1) */
