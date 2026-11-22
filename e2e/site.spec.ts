@@ -76,14 +76,19 @@ test('native video can be reached and toggled using the keyboard', async ({ page
   await expect(video.locator('source')).toHaveAttribute('src', '/videos/founder-introduction-blurred.mp4')
   await expect(page.getByText(/בסרטון משולבות כתוביות בעברית/)).toBeVisible()
   await video.evaluate((element: HTMLVideoElement) => { element.muted = true })
-  await video.focus()
+  // The compact row's play button opens the player and hands focus to the video.
+  const play = page.getByRole('button', { name: /הפעלת סרטון ההיכרות/ })
+  await play.focus()
+  await page.keyboard.press('Enter')
+  await expect(video).toBeVisible()
   expect(await video.evaluate(element => document.activeElement === element)).toBe(true)
   expect(await video.evaluate(element => getComputedStyle(element).outlineStyle)).not.toBe('none')
-  await page.keyboard.press('Space')
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true)
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.currentTime), { timeout: 10000 }).toBeGreaterThan(0)
   await page.keyboard.press('Space')
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true)
+  await page.keyboard.press('Space')
+  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true)
 })
 
 test('intentional video originals and derivatives remain directly accessible', async ({ request }) => {
@@ -217,21 +222,23 @@ test('repeated contact anchor navigation keeps a single fragment', async ({ page
   }
 })
 
-test('brand tokens and responsive portrait founder introduction', async ({ page }) => {
+test('brand tokens, hero demo card and founder introduction row', async ({ page }) => {
   for (const width of [320, 390, 768, 820, 1024, 1440, 1536, 1920]) {
     await page.setViewportSize({ width, height: 1000 })
     await page.goto('/')
     await page.evaluate(() => document.fonts.ready)
     await expect(page.locator('.home-hero .action').first()).toHaveCSS('background-color', 'rgb(24, 100, 85)')
     const layout = await page.evaluate(() => {
-      const video = document.querySelector('.video-surface')!.getBoundingClientRect()
+      const demo = document.querySelector('.hero-demo')!.getBoundingClientRect()
+      const row = document.querySelector('.video-row')!.getBoundingClientRect()
       const copy = document.querySelector('.hero-copy')!.getBoundingClientRect()
       const bodyStyle = getComputedStyle(document.body)
       return {
         overflow: document.documentElement.scrollWidth > innerWidth,
         white: bodyStyle.backgroundColor, ink: bodyStyle.color,
         font: bodyStyle.fontFamily,
-        video: { x: video.x, y: video.y, width: video.width, height: video.height },
+        demo: { x: demo.x, y: demo.y, width: demo.width, bottom: demo.bottom },
+        row: { y: row.y, height: row.height },
         copy: { x: copy.x, bottom: copy.bottom },
       }
     })
@@ -239,16 +246,18 @@ test('brand tokens and responsive portrait founder introduction', async ({ page 
     expect(layout.white).toBe('rgb(250, 251, 248)')
     expect(layout.ink).toBe('rgb(25, 51, 45)')
     expect(layout.font.toLowerCase()).toContain('heebo')
-    expect(layout.video.width / layout.video.height).toBeCloseTo(9 / 16, 2)
-    expect(layout.video.width).toBeLessThanOrEqual(260)
-    if (width <= 900) expect(layout.video.y).toBeGreaterThanOrEqual(layout.copy.bottom)
-    else expect(layout.video.x + layout.video.width).toBeLessThan(layout.copy.x)
+    expect(layout.demo.width).toBeLessThanOrEqual(width <= 600 ? width : 560)
+    // Mobile order: headline and CTAs, then the demo card, then the video row. Desktop: the card beside the copy.
+    if (width <= 900) expect(layout.demo.y).toBeGreaterThanOrEqual(layout.copy.bottom)
+    else expect(layout.demo.x + layout.demo.width).toBeLessThan(layout.copy.x)
+    expect(layout.row.y).toBeGreaterThanOrEqual(layout.demo.bottom)
+    expect(layout.row.height).toBeGreaterThanOrEqual(72)
+    await expect(page.locator('.hero-demo')).toContainText('דוגמה')
+    await expect(page.locator('.hero-demo figcaption')).toContainText('דוגמה להמחשה')
     await expect(page.locator('.introduction-video')).toHaveAttribute('dir', 'rtl')
     await expect(page.locator('.introduction-video h2')).toHaveText('בואו נכיר')
     await expect(page.locator('.introduction-video video')).toHaveAttribute('preload', 'none')
-    const cta = page.locator('.introduction-next-step a.action')
-    await expect(cta).toHaveAttribute('href', '/contact#inquiry')
-    expect((await cta.boundingBox())!.y).toBeGreaterThanOrEqual(layout.video.y + layout.video.height)
+    await expect(page.locator('.introduction-video video')).toBeHidden()
   }
 })
 

@@ -36,7 +36,8 @@ describe('Introduction video', () => {
     expect(video).not.toHaveAttribute('autoplay')
     expect(video).not.toHaveAttribute('loop')
     expect(video).toHaveAttribute('preload', 'none')
-    expect(screen.getByRole('link', { name: 'לקביעת פגישת היכרות' })).toHaveAttribute('href', '/contact#inquiry')
+    // The hero's own CTA is the next step; the compact introduction row carries no second meeting link.
+    expect(screen.queryByRole('link', { name: 'לקביעת פגישת היכרות' })).not.toBeInTheDocument()
     expect(container.querySelector('source')).toHaveAttribute('src', '/operator.mp4')
     expect(container.querySelector('track')).toHaveAttribute('kind', 'captions')
     expect(container.querySelector('track')).toHaveAttribute('srclang', 'he')

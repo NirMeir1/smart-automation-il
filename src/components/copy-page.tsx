@@ -2,6 +2,7 @@
 import { pages } from '@/content/pages'
 import { introductionVideo } from '@/content/introduction-video'
 import { IntroductionVideo } from '@/components/introduction-video'
+import { HeroDemo } from '@/components/hero-demo'
 import { Icon, type IconName } from '@/components/icon'
 import { TimelineFill } from '@/components/timeline-fill'
 import { presentation, sectionPresentation, visiblePage, type ColumnsDiagram, type FlowDiagram, type SectionPresentation } from '@/content/presentation'
@@ -357,7 +358,7 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
           {heroAfter}
         </div>
         {asideNodes.length > 0 && <div className={`hero-aside hero-aside-${look.heroAsideStyle ?? 'rule'}`}>{asideNodes.map((node, index) => <ContentNodeView node={node} key={index} />)}</div>}
-        {page.heroVideo && <IntroductionVideo media={introductionVideo} />}
+        {page.heroVideo && <div className="hero-media"><HeroDemo /><IntroductionVideo media={introductionVideo} /></div>}
         {heroAside}
       </div>
     </section>

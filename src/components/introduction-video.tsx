@@ -1,24 +1,13 @@
 import Link from 'next/link'
-import { Icon } from '@/components/icon'
 import { IntroductionPlayer } from '@/components/introduction-player'
 import type { IntroductionVideoMedia } from '@/content/introduction-video'
 
+// The founder introduction as a compact row under the hero demo: the hero's own CTA stays the one next step.
 export function IntroductionVideo({ media }: { media?: IntroductionVideoMedia }) {
+  const heading = <h2 id="founder-introduction-heading">בואו נכיר</h2>
   return <section className="introduction-video" dir="rtl" aria-labelledby="founder-introduction-heading">
-    <div className="introduction-copy">
-      <h2 id="founder-introduction-heading">בואו נכיר</h2>
-      <p id="founder-introduction-description">אני מאמין שפתרון טכנולוגי טוב מתחיל בהבנה של הבעיה. בסרטון קצר אני מספר איך אני עובד ואיך אפשר להתקדם יחד.</p>
-    </div>
-    <div className="video-surface">
-      {media ? <IntroductionPlayer media={media} /> : <p>כאן יופיע סרטון ההיכרות</p>}
-    </div>
-    <div className="introduction-next-step">
-      {media && !media.captions?.length && <p>{media.embeddedCaptions ? 'בסרטון משולבות כתוביות בעברית. טרם פורסם תמליל מלא.' : 'לסרטון עדיין אין קובץ כתוביות או תמליל מלא מאומת.'} <Link href="/legal/accessibility">למידע על נגישות הסרטון ולבקשת חלופה נגישה</Link>.</p>}
-      {/* Native navigation avoids duplicate fragments on repeated contact anchors. */}
-      {/* Secondary style: the hero's own solid CTA stays the single dominant next step. */}
-      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-      <a className="action action-secondary" href="/contact#inquiry"><span>לקביעת פגישת היכרות</span><Icon name="arrow" size={20} /></a>
-      <p>לא צריך להגיע עם אפיון או לדעת מראש מה הפתרון.</p>
-    </div>
+    {media ? <IntroductionPlayer media={media}>{heading}</IntroductionPlayer> : <>{heading}<div className="video-surface"><p>כאן יופיע סרטון ההיכרות</p></div></>}
+    <p className="introduction-description" id="founder-introduction-description">אני מאמין שפתרון טכנולוגי טוב מתחיל בהבנה של הבעיה. בסרטון קצר אני מספר איך אני עובד ואיך אפשר להתקדם יחד.</p>
+    {media && !media.captions?.length && <p className="video-a11y">{media.embeddedCaptions ? 'בסרטון משולבות כתוביות בעברית. טרם פורסם תמליל מלא.' : 'לסרטון עדיין אין קובץ כתוביות או תמליל מלא מאומת.'} <Link href="/legal/accessibility">למידע על נגישות הסרטון ולבקשת חלופה נגישה</Link>.</p>}
   </section>
 }
