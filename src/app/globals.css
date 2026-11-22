@@ -658,7 +658,8 @@ button:disabled { cursor: not-allowed; }
   .timeline-step:nth-child(3)::after, .timeline-step:nth-child(3)::before { display: none; }
 }
 @media (max-width: 900px) {
-  .site-container { width: calc(100% - 48px); }
+  :root { --gutter: 24px; }
+  .site-container { width: calc(100% - 2 * var(--gutter)); }
   .hero-layout.has-media, .hero-layout.has-aside, .hero-layout:has(.hero-form) { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .outcome-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .outcome-tile:last-child:nth-child(odd) { grid-column: 1 / -1; }
@@ -708,7 +709,8 @@ button:disabled { cursor: not-allowed; }
   .v-article-cta .cta-band-actions { max-width: none; }
 }
 @media (max-width: 600px) {
-  .site-container { width: calc(100% - 32px); }
+  :root { --gutter: 16px; }
+  .site-container { width: calc(100% - 2 * var(--gutter)); }
   body { font-size: 1rem; }
   h1 { max-width: none; }
   .outcome-strip, .bento, .card-grid.three, .doors, .capability-grid, .experience-grid, .group-grid, .group-paths .group-grid, .branches, .diagram-columns, .v-checklist .item-check, .footer-top, .numbered-list, .item-tiles, .form-grid { grid-template-columns: minmax(0, 1fr); }
@@ -738,5 +740,18 @@ button:disabled { cursor: not-allowed; }
   .diagram-arrow { transform: rotate(-90deg); }
   .faq-list summary { font-size: var(--text-base); }
   .footer-brand { grid-column: auto; }
+}
+/* Problem cards on phones and small tablets: one horizontal scroll-snap row instead of a tall stack.
+   The row bleeds to the screen edges (inside its own scroller, so the page never scrolls sideways),
+   starts at the inline start (right in RTL), and shows part of the next card. */
+.carousel-dots { display: none; }
+@media (max-width: 767px) {
+  .bento { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); padding-block: 4px; scroll-padding-inline: var(--gutter); }
+  .bento::-webkit-scrollbar { display: none; }
+  .bento > .copy-card, .bento > .copy-card:nth-child(-n+2) { flex: 0 0 85vw; scroll-snap-align: start; }
+  .bento:focus-visible { outline-offset: -3px; box-shadow: none; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+  .carousel-dots span { width: 8px; height: 8px; border-radius: var(--radius-full); background: color-mix(in srgb, var(--teal-700) 30%, transparent); }
+  .carousel-dots .is-active { width: 22px; background: var(--teal-700); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

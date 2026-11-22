@@ -5,6 +5,7 @@ import { IntroductionVideo } from '@/components/introduction-video'
 import { HeroDemo } from '@/components/hero-demo'
 import { Icon, type IconName } from '@/components/icon'
 import { TimelineFill } from '@/components/timeline-fill'
+import { CardCarousel } from '@/components/card-carousel'
 import { presentation, sectionPresentation, visiblePage, type ColumnsDiagram, type FlowDiagram, type SectionPresentation } from '@/content/presentation'
 import { serviceRoutes } from '@/lib/routes'
 import { experienceTitle, founderHighlights } from '@/content/about-profile'
@@ -108,7 +109,7 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
   switch (look.variant) {
     case 'bento': return <>
       <header className="section-header"><Heading section={section} /><Nodes nodes={intro} /></header>
-      <div className="card-grid bento">{cards.map((card, index) => <Card card={card} icon={look.icons?.[index]} key={card.text} />)}</div>
+      <CardCarousel className="card-grid bento" label={`${section.title} — כרטיסים בגלילה לצדדים`} count={cards.length}>{cards.map((card, index) => <Card card={card} icon={look.icons?.[index]} key={card.text} />)}</CardCarousel>
       {outro.length > 0 && <div className="section-outro"><Nodes nodes={outro} cta="link" /></div>}
     </>
     case 'split-grid': return <div className="split-layout">
