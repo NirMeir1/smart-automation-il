@@ -209,7 +209,10 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
       const roles = nodes.filter(node => node.type === 'p' && !node.strongPrefix)
       return <>
         <header className="section-header"><Heading section={section} /></header>
-        <div className="experience-grid">{roles.map((node, index) => <div className="experience-card" key={index}><ContentNodeView node={node} /></div>)}</div>
+        <div className="experience-grid">{roles.map((node, index) => <div className="experience-card" key={index}>
+          {look.titles?.[index] && <h3><CopyText text={look.titles[index]} /></h3>}
+          <ContentNodeView node={node} />
+        </div>)}</div>
         <div className="experience-summary"><Nodes nodes={nodes.filter(node => !roles.includes(node))} /></div>
       </>
     }
@@ -281,7 +284,8 @@ function HeroCopy({ pageKey }: { pageKey: PageKey }) {
     if (node.type === 'cta') {
       const group = [node]
       while (items[i + 1]?.node.type === 'cta') group.push(items[++i].node as FlowNode & { type: 'cta' })
-      blocks.push(<div className="hero-actions" key={`cta-${index}`}>{group.map((cta, position) => <ContentNodeView node={cta} cta={position === 0 ? 'primary' : 'secondary'} key={position} />)}</div>)
+      // Solid styling is reserved for the meeting request; navigation (e.g. back to all solutions) stays secondary.
+      blocks.push(<div className="hero-actions" key={`cta-${index}`}>{group.map((cta, position) => <ContentNodeView node={cta} cta={position === 0 && cta.href.startsWith('/contact') ? 'primary' : 'secondary'} key={position} />)}</div>)
       seenCta = true
       continue
     }

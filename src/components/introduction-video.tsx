@@ -15,8 +15,9 @@ export function IntroductionVideo({ media }: { media?: IntroductionVideoMedia })
     <div className="introduction-next-step">
       {media && !media.captions?.length && <p>{media.embeddedCaptions ? 'בסרטון משולבות כתוביות בעברית. טרם פורסם תמליל מלא.' : 'לסרטון עדיין אין קובץ כתוביות או תמליל מלא מאומת.'} <Link href="/legal/accessibility">למידע על נגישות הסרטון ולבקשת חלופה נגישה</Link>.</p>}
       {/* Native navigation avoids duplicate fragments on repeated contact anchors. */}
+      {/* Secondary style: the hero's own solid CTA stays the single dominant next step. */}
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-      <a className="action" href="/contact#inquiry"><span>לקביעת פגישת היכרות</span><Icon name="arrow" size={20} /></a>
+      <a className="action action-secondary" href="/contact#inquiry"><span>לקביעת פגישת היכרות</span><Icon name="arrow" size={20} /></a>
       <p>לא צריך להגיע עם אפיון או לדעת מראש מה הפתרון.</p>
     </div>
   </section>

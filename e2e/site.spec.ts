@@ -168,7 +168,8 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
     await expect(page.locator('main > article')).toHaveAttribute('dir', 'rtl')
     await expect(page.getByText('כאן תופיע תמונה מקצועית של ניר מאיר', { exact: true })).toHaveCount(0)
     await expect(page.locator('main img, main a[href*="linkedin"], main a[href*="github"]')).toHaveCount(0)
-    await expect(page.locator('bdi[dir="ltr"]').filter({ hasText: 'FDE' })).toHaveCount(1)
+    // Both mentions (the role card heading and its description) are isolated as LTR text.
+    await expect(page.locator('bdi[dir="ltr"]').filter({ hasText: 'FDE' })).toHaveCount(2)
     expect(mainText).not.toMatch(/נדרש להשלמה|שם מלא תמונה מקצועית/)
   }
   for (const node of pageTextNodes(visiblePage(route.key))) expect(mainText).toContain(normalize(node.text))
