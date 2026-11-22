@@ -3,6 +3,7 @@ import { pages } from '@/content/pages'
 import { introductionVideo } from '@/content/introduction-video'
 import { IntroductionVideo } from '@/components/introduction-video'
 import { Icon, type IconName } from '@/components/icon'
+import { TimelineFill } from '@/components/timeline-fill'
 import { presentation, sectionPresentation, visiblePage, type ColumnsDiagram, type FlowDiagram, type SectionPresentation } from '@/content/presentation'
 import { serviceRoutes } from '@/lib/routes'
 import { experienceTitle, founderHighlights } from '@/content/about-profile'
@@ -119,11 +120,11 @@ function SectionBody({ section, look, ordinal }: { section: ContentSection; look
     </>
     case 'timeline': return <>
       <header className="section-header split-header"><div><Heading section={section} /><Nodes nodes={intro} /></div><Nodes nodes={outro} cta="link" /></header>
-      <ol className="timeline">{cards.map((card, index) => <li className="timeline-step" key={card.text}>
+      <TimelineFill className="timeline">{cards.map((card, index) => <li className="timeline-step" style={{ '--step': index } as React.CSSProperties} key={card.text}>
         <span className="step-dot" aria-hidden="true">{index + 1}</span>
         <h3><CopyText text={card.text} /></h3>
         <Nodes nodes={card.nodes} />
-      </li>)}</ol>
+      </li>)}</TimelineFill>
     </>
     case 'cards': return <>
       <header className="section-header"><Heading section={section} /><Nodes nodes={intro} /></header>

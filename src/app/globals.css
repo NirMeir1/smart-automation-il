@@ -65,6 +65,8 @@
   --border-example: var(--teal-700);
   --border-on-inverse: color-mix(in srgb, var(--white) 18%, transparent);
   --decor-accent: var(--amber-400);
+  --timeline-line: var(--teal-700);   /* process connector on forest; decorative */
+  --timeline-fill: var(--amber-400);  /* filled connector on forest (5.79:1); decorative */
   --accent-underline: var(--amber-400);
   --text-on-accent: var(--forest-900);   /* 5.79:1 on amber-400 */
   --focus-ring: var(--forest-900);
@@ -96,8 +98,8 @@
 /* ── Base ── */
 * { box-sizing: border-box; }
 /* +1 in LTR, -1 in RTL: lets transforms follow the inline direction (transforms have no logical form). */
-:root { --inline-sign: 1; }
-[dir=rtl] { --inline-sign: -1; }
+:root { --inline-sign: 1; --inline-start-edge: left; }
+[dir=rtl] { --inline-sign: -1; --inline-start-edge: right; }
 html { scroll-padding-top: 104px; }
 body { margin: 0; background: var(--surface-canvas); color: var(--text-primary); font-family: var(--font-body); line-height: var(--leading-body); font-size: var(--text-base); -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-underline-offset: .24em; }
@@ -206,22 +208,18 @@ p { white-space: pre-line; text-wrap: pretty; }
 .jump-nav a:hover { border-color: var(--border-strong); color: var(--text-accent); }
 .home-hero + .content-section { padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
 
-/* Founder strip: who visitors work with (owner-supplied facts). The forest band gives the trust block
-   the page's strongest contrast right after the hero, instead of another pale-green section. */
-.founder-strip { background: var(--surface-inverse); color: var(--text-on-inverse); border-top: 0 !important; }
+/* Founder strip: who visitors work with (owner-supplied facts). Light, so the process band stays the page's one dark band. */
+.founder-strip { background: var(--surface-alt); border-top: 0 !important; }
 .founder-strip + .content-section { border-top: 0 !important; }
 .founder-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 1rem + 4vw, 4.5rem); align-items: center; }
 .founder-copy { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
 /* Amber marks a beginning across the site (eyebrow dot, path start); here it opens the introduction. */
 .founder-copy::before { content: ''; width: 32px; height: 3px; border-radius: 2px; background: var(--decor-accent); }
-.founder-copy h2 { color: var(--text-on-inverse); }
-.founder-copy .copy-paragraph { font-size: var(--text-md); color: var(--text-muted-on-inverse); max-width: var(--measure); }
-.founder-copy .action-link { color: var(--text-on-inverse); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--white) 45%, transparent); }
-.founder-copy .action-link:hover { color: var(--text-on-inverse); text-decoration-color: currentColor; }
-.founder-strip :focus-visible { outline-color: var(--focus-ring-on-inverse); box-shadow: 0 0 0 6px var(--surface-inverse); }
-.founder-facts { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--border-on-inverse); }
-.founder-facts li { display: flex; gap: 16px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border-on-inverse); font-family: var(--font-heading); font-size: var(--text-md); font-weight: var(--weight-control); color: var(--text-on-inverse); line-height: var(--leading-snug); }
-.founder-facts .item-mark { background: color-mix(in srgb, var(--white) 12%, transparent); color: var(--text-accent-on-inverse); margin-top: 0; }
+.founder-copy .copy-paragraph { font-size: var(--text-md); color: var(--text-primary); max-width: var(--measure); }
+.founder-strip :focus-visible { box-shadow: 0 0 0 6px var(--surface-alt); }
+.founder-facts { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--border-default); }
+.founder-facts li { display: flex; gap: 16px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border-default); font-family: var(--font-heading); font-size: var(--text-md); font-weight: var(--weight-control); color: var(--text-heading); line-height: var(--leading-snug); }
+.founder-facts .item-mark { background: var(--surface-card); margin-top: 0; }
 
 /* Lists derived from multi-line copy */
 .item-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
@@ -318,18 +316,33 @@ p { white-space: pre-line; text-wrap: pretty; }
 .doors .copy-card > p:first-of-type { font-size: var(--text-md); color: var(--text-primary); }
 .doors .action { margin-top: auto; }
 
-/* Timeline */
-.v-timeline { background: var(--surface-canvas); }
+/* Timeline: on the home page the process is the page's one dark, full-bleed band (forest-900).
+   Headings white (12.11:1), body mint-150 (9.95:1); colour and focus rules are shared with .dark-panel below. */
+.v-timeline { background: var(--surface-inverse); color: var(--text-on-inverse); border-top: 0 !important; padding-block: var(--section-space); }
+.v-timeline + .content-section { border-top: 0 !important; }
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
 .timeline-step { display: flex; flex-direction: column; gap: 10px; position: relative; min-width: 0; }
-.timeline-step::after { content: ''; position: absolute; top: 21px; inset-inline-start: 56px; inset-inline-end: -8px; height: 2px; background: var(--border-strong); opacity: .45; }
-.timeline-step:last-child::after { display: none; }
+/* Connector (::after, teal-700) and its amber fill (::before). Both start at the step's own dot and run in the
+   inline direction, so they follow RTL reading order. Decorative only. Without JS the fill is shown complete;
+   TimelineFill sets data-fill=pending, then filled when the list scrolls into view. */
+.timeline-step::after, .timeline-step::before { content: ''; position: absolute; top: 21px; inset-inline-start: 56px; height: 2px; border-radius: 2px; }
+.timeline-step::after { inset-inline-end: -8px; background: var(--timeline-line); }
+.timeline-step::before { z-index: 1; inset-inline-end: -8px; background: var(--timeline-fill); transform-origin: var(--inline-start-edge) center; }
+.timeline[data-fill=pending] .timeline-step::before { transform: scaleX(0); }
+.timeline[data-fill=filled] .timeline-step::before { transition: transform .5s var(--ease-out) calc(var(--step, 0) * .35s); }
+.timeline-step:last-child::after, .timeline-step:last-child::before { display: none; }
 .step-dot { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-heading); font-weight: 600; background: var(--surface-card); border: 1.5px solid var(--border-strong); color: var(--text-accent); position: relative; z-index: 1; }
 /* Path motif: amber ring marks the start (the problem), teal fill marks the outcome. */
 .timeline-step:first-child .step-dot, .contact-steps li:first-child .step-dot { background: var(--surface-inverse); border-color: var(--surface-inverse); color: var(--text-on-inverse); box-shadow: 0 0 0 3px var(--surface-canvas), 0 0 0 5px var(--decor-accent); }
 .timeline-step:last-child .step-dot, .contact-steps li:last-child .step-dot { background: var(--cta-bg); border-color: var(--cta-bg); color: var(--text-on-cta); }
 .contact-steps li:first-child .step-dot { box-shadow: 0 0 0 3px var(--surface-alt), 0 0 0 5px var(--decor-accent); }
 .timeline-step p { font-size: var(--text-sm); color: var(--text-secondary); }
+/* Step circles on forest: mint ring 9.95:1, amber start ring 5.79:1, mint-filled outcome 9.95:1 (all >= 3:1, WCAG 1.4.11). */
+.v-timeline .step-dot { background: var(--surface-inverse); border: 2px solid var(--mint-150); color: var(--text-on-inverse); }
+.v-timeline .timeline-step:first-child .step-dot { background: var(--surface-inverse); border-color: var(--decor-accent); color: var(--text-on-inverse); box-shadow: none; }
+.v-timeline .timeline-step:last-child .step-dot { background: var(--mint-150); border-color: var(--mint-150); color: var(--text-heading); }
+.v-timeline .timeline-step h3 { color: var(--text-on-inverse); }
+.v-timeline .timeline-step p, .v-timeline .section-header .emphasis { color: var(--text-muted-on-inverse); }
 
 /* Dark statement band */
 .v-statement { background: var(--surface-inverse); color: var(--text-on-inverse); border-top: 0 !important; }
@@ -359,7 +372,7 @@ p { white-space: pre-line; text-wrap: pretty; }
 /* CTA panel: the soft highlight is reserved for this closing invitation. */
 /* The panel carries its own color, so after a canvas section it only needs that section's bottom spacing. */
 .v-cta-panel { border-top: 0 !important; padding-top: 0; }
-.content-section:is(.v-split-grid, .v-chips, .v-tiles, .v-branches, .v-doors) + .v-cta-panel { padding-top: var(--section-space); }
+.content-section:is(.v-split-grid, .v-chips, .v-tiles, .v-branches, .v-doors, .v-timeline) + .v-cta-panel { padding-top: var(--section-space); }
 .cta-panel { background: var(--surface-highlight); border-radius: var(--radius-panel); padding: var(--panel-pad); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--space-2xl); align-items: center; }
 .cta-panel-copy { display: flex; flex-direction: column; gap: 14px; }
 .cta-panel-copy .copy-paragraph { font-size: var(--text-md); color: var(--text-primary); }
@@ -385,12 +398,12 @@ p { white-space: pre-line; text-wrap: pretty; }
 .v-split-links .copy-flow h2 { margin-bottom: 4px; }
 .v-split-links .copy-flow > .copy-paragraph:last-child { color: var(--text-heading); font-weight: 600; font-size: var(--text-md); }
 .dark-panel { background: var(--surface-inverse); color: var(--text-on-inverse); border-radius: var(--radius-panel); padding: var(--panel-pad); }
-.dark-panel h2 { color: var(--text-on-inverse); }
-.dark-panel .copy-paragraph { color: var(--text-muted-on-inverse); }
+.dark-panel h2, .v-timeline h2 { color: var(--text-on-inverse); }
+.dark-panel .copy-paragraph, .v-timeline .copy-paragraph { color: var(--text-muted-on-inverse); }
 .dark-panel .emphasis { color: var(--text-on-inverse); }
-.dark-panel .action-link { color: var(--text-on-inverse); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--white) 45%, transparent); }
-.dark-panel .action-link:hover { color: var(--text-on-inverse); text-decoration-color: currentColor; }
-.dark-panel :focus-visible { outline-color: var(--focus-ring-on-inverse); box-shadow: 0 0 0 6px var(--surface-inverse); }
+.dark-panel .action-link, .v-timeline .action-link { color: var(--text-on-inverse); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--white) 45%, transparent); }
+.dark-panel .action-link:hover, .v-timeline .action-link:hover { color: var(--text-on-inverse); text-decoration-color: currentColor; }
+.dark-panel :focus-visible, .v-timeline :focus-visible { outline-color: var(--focus-ring-on-inverse); box-shadow: 0 0 0 6px var(--surface-inverse); }
 .v-steps-panel, .v-cta-band, .v-feature, .v-experience + .v-cards { border-top: 0 !important; }
 /* Self-contained panels reuse the previous section's bottom spacing instead of stacking a second gap on it. */
 .v-steps-panel, .v-cta-band, .v-feature, .v-experience + .v-cards { padding-top: 0; }
@@ -599,7 +612,7 @@ button:disabled { cursor: not-allowed; }
   .primary-nav .header-action { margin: 12px 0 0; justify-content: center; min-height: var(--control-h); font-size: var(--text-base); }
   .header-row { min-height: 72px; }
   .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 36px; }
-  .timeline-step:nth-child(3)::after { display: none; }
+  .timeline-step:nth-child(3)::after, .timeline-step:nth-child(3)::before { display: none; }
 }
 @media (max-width: 900px) {
   .site-container { width: calc(100% - 48px); }
@@ -613,8 +626,12 @@ button:disabled { cursor: not-allowed; }
   .timeline { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
   .timeline-step { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; padding-bottom: 28px; }
   .timeline-step > .step-dot { grid-row: span 2; }
-  .timeline-step::after, .timeline-step:nth-child(3)::after { display: block; top: 48px; bottom: 0; inset-inline-start: 21px; inset-inline-end: auto; width: 2px; height: auto; }
-  .timeline-step:last-child::after { display: none; }
+  /* Vertical on narrow screens: the line runs down from each dot towards the next. */
+  .timeline-step::after, .timeline-step::before, .timeline-step:nth-child(3)::after, .timeline-step:nth-child(3)::before { display: block; top: 48px; inset-inline-start: 21px; inset-inline-end: auto; width: 2px; }
+  .timeline-step::after, .timeline-step::before { bottom: 0; height: auto; }
+  .timeline-step::before { transform-origin: center top; }
+  .timeline[data-fill=pending] .timeline-step::before { transform: scaleY(0); }
+  .timeline-step:last-child::after, .timeline-step:last-child::before { display: none; }
   .timeline-step h3 { padding-top: 8px; }
   .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .footer-brand { grid-column: 1 / -1; }
