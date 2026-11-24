@@ -112,8 +112,15 @@ try {
       assert.ok(destination.getElementById(url.hash.slice(1)), `Fragment: ${href}`);
     }
   }
+  const serviceExamples = {
+    businessAutomation: { link: 'אוטומציה לעסקים', section: 'lead-workflow', text: 'התזכורות נפסקות' },
+    systemsIntegration: { link: 'חיבור בין מערכות', section: 'integration-example', text: 'החיבור מעביר אוטומטית' },
+  };
   for (const route of serviceRoutes) {
-    // The home page is intentionally short (its capabilities section is hidden), so it no longer links here.
+    const example = serviceExamples[route.key];
+    const homeLink = html.get('/').querySelector(`main a[href="${route.href}"]`);
+    assert.equal(homeLink?.textContent.trim(), example.link);
+    assert.ok(html.get(route.href).getElementById(example.section)?.textContent.includes(example.text));
     for (const parent of ['/solutions', '/business']) {
       assert.ok(html.get(parent).querySelector(`a[href="${route.href}"]`), `${parent} discovers ${route.href}`);
     }
@@ -138,6 +145,16 @@ try {
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       await page.screenshot({ path: join(evidence, `${route.key}-${label}.png`), fullPage: true });
     }
+    for (const route of serviceRoutes) {
+      const example = serviceExamples[route.key];
+      await page.goto(base);
+      await page.getByRole('main').getByRole('link', { name: example.link, exact: true }).click();
+      await expect(page).toHaveURL(base + route.href);
+      const exampleSection = page.locator(`#${example.section}`);
+      await expect(exampleSection).toBeVisible();
+      await expect(exampleSection).toContainText(example.text);
+      await expect(exampleSection).toHaveCSS('direction', 'rtl');
+    }
     await page.getByRole('main').getByRole('link', { name: /איך נראית/ }).click();
     await expect(page).toHaveURL(base + '/process');
     assert.equal(new URL(page.url()).pathname, '/process');
@@ -147,7 +164,7 @@ try {
     await page.locator('#inquiry').waitFor();
   }
   assert.deepEqual(issues, []);
-  console.log(`PASS: ${publicRoutes.length} production pages, canonicals, SSR, robots, sitemap, legal/404/redirects; ${checked.size} internal links/fragments; Edge desktop/mobile service→process→contact. Screenshots: ${evidence}`);
+  console.log(`PASS: ${publicRoutes.length} production pages, canonicals, SSR, robots, sitemap, legal/404/redirects; ${checked.size} internal links/fragments; Edge desktop/mobile homepage→service examples and service→process→contact. Screenshots: ${evidence}`);
 } finally {
   await browser?.close();
   server.kill();
