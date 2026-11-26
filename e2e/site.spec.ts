@@ -132,6 +132,7 @@ for (const [path, title] of [
   expect(await page.locator('main').innerText()).not.toMatch(/טיוטה|טרם אושרה|להשלמה|localhost:3000|\[.*?\]/)
   for (const href of await page.locator('main a').evaluateAll(links => links.map(link => link.getAttribute('href')!))) {
     if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
+    if (path === '/legal/privacy' && href === 'https://policies.google.com/technologies/partner-sites?hl=he') continue
       if (href.startsWith('mailto:')) expect(href.split('?')[0]).toBe(`mailto:${operator.email}`)
     else {
       expect(href).toMatch(/^\//)

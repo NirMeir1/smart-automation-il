@@ -7,17 +7,20 @@ if (process.env.VERCEL_ENV === 'production' && legalReleaseBlockers().length) {
 }
 
 const isDev = process.env.NODE_ENV === 'development';
+const analyticsEnabled = /^G-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? '');
+const googleTag = analyticsEnabled ? ' https://www.googletagmanager.com' : '';
+const googleAnalytics = analyticsEnabled ? ' https://*.google-analytics.com' : '';
 
 // Keep static rendering/CDN caching. Next.js hydration requires inline scripts;
 // nonce-based CSP would require dynamically rendering every page instead.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}${googleTag}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob:${googleTag}${googleAnalytics}`,
   "font-src 'self'",
   "media-src 'self'",
-  `connect-src 'self'${isDev ? ' ws: wss:' : ''}`,
+  `connect-src 'self'${isDev ? ' ws: wss:' : ''}${googleTag}${googleAnalytics}${analyticsEnabled ? ' https://*.google.com' : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

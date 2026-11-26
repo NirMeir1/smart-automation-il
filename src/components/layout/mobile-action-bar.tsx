@@ -11,6 +11,6 @@ export function MobileActionBar() {
     {/* Native anchor avoids Next 16 appending a repeated #inquiry fragment. */}
     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
     <a href="/contact#inquiry" className="action">לקביעת פגישת היכרות</a>
-    <a href={publicContact.whatsappHref} target="_blank" rel="noopener noreferrer" className="mobile-whatsapp" aria-label="כתבו לי בוואטסאפ"><ContactIcon channel="whatsapp" /></a>
+    <a href={publicContact.whatsappHref} target="_blank" rel="noopener noreferrer" className="mobile-whatsapp" aria-label="כתבו לי בוואטסאפ" data-analytics-whatsapp><ContactIcon channel="whatsapp" /></a>
   </div>
 }

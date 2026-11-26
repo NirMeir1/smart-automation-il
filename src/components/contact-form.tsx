@@ -6,6 +6,7 @@ import { Icon } from '@/components/icon'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { callerTypes, emptyInquiry, Inquiry, InquiryErrors, inquiryLimits, inquirySuccess, meetingFormats, privacyAcknowledgement, unavailableMessage, validateInquiry } from '@/lib/inquiry'
 import { inquiryTracking, type InquiryTracking } from '@/lib/inquiry'
+import { trackAnalytics } from '@/lib/analytics'
 
 const subscribeToHydration = () => () => undefined
 const clientSnapshot = () => true
@@ -81,6 +82,7 @@ export function ContactForm({ enabled, initialIntent = '' }: { enabled: boolean;
       }
       setSuccess(true)
       setValues({ ...emptyInquiry })
+      trackAnalytics('generate_lead')
     } catch {
       setFailure('לא התקבל אישור שליחה. ייתכן שהפנייה נשלחה, אך לא ניתן לאשר זאת כרגע. אפשר לנסות שוב בהמשך.')
     } finally { submitting.current = false; setPending(false) }

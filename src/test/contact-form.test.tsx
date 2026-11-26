@@ -2,6 +2,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ContactForm } from '@/components/contact-form'
 import { inquirySuccess, privacyAcknowledgement, unavailableMessage } from '@/lib/inquiry'
+import { trackAnalytics } from '@/lib/analytics'
+
+vi.mock('@/lib/analytics', () => ({ trackAnalytics: vi.fn() }))
 
 const fetchMock = vi.fn()
 beforeEach(() => { fetchMock.mockReset(); vi.stubGlobal('fetch', fetchMock); window.history.replaceState({}, '', '/contact'); Object.defineProperty(document, 'referrer', { value: '', configurable: true }) })
@@ -111,6 +114,7 @@ describe('Contact form', () => {
     expect(sent[contact.includes('@') ? 'email' : 'phone']).toBe(contact); expect(sent.privacy).toBe(true)
     expect(sent).not.toHaveProperty('marketingConsent')
     expect(localStorage.setItem).not.toHaveBeenCalled()
+    expect(trackAnalytics).toHaveBeenCalledExactlyOnceWith('generate_lead')
   })
   it('retains entered data and shows failure on server or network error', async () => {
     fetchMock.mockResolvedValueOnce({ ok: false, json: async () => ({ error: 'לא נשלח' }) }).mockRejectedValueOnce(new Error('network'))
@@ -121,6 +125,7 @@ describe('Contact form', () => {
     expect(screen.queryByText(inquirySuccess.title)).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: /שליחת הפנייה/ }))
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('לא התקבל אישור שליחה'))
+    expect(trackAnalytics).not.toHaveBeenCalled()
   })
   it('keeps the same retry ID until the visitor changes the inquiry', async () => {
     fetchMock.mockResolvedValue({ ok: false, json: async () => ({ error: 'לא נשלח' }) })
@@ -149,6 +154,7 @@ describe('Contact form', () => {
     resolve({ ok: true, json: async () => ({}) })
     await screen.findByRole('alert')
     expect(screen.queryByText(inquirySuccess.title)).not.toBeInTheDocument()
+    expect(trackAnalytics).not.toHaveBeenCalled()
   })
   it('offers all three meeting formats, optional budget/tools and links the actual privacy page', () => {
     render(<ContactForm enabled />)

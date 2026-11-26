@@ -67,6 +67,7 @@ Use Node **24.22.0** (`.node-version`) and npm **11.19.1**. Run `npm ci`; for fi
 | Variable | Purpose |
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | Public HTTPS website origin; canonical production origin is `https://posiblo.com` |
+| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | Optional GA4 web stream ID set at build time. Leave blank outside production. |
 | `SITE_INDEXING_ENABLED` | Defaults to `false`; set `true` only for the approved production release at the canonical origin; previews and development remain noindex |
 | `CONTACT_FORM_ENABLED` | Defaults to `false`; set to `true` when sending configuration is ready |
 | `RESEND_API_KEY` | Private Resend key with sending access |
@@ -76,6 +77,14 @@ Use Node **24.22.0** (`.node-version`) and npm **11.19.1**. Run `npm ci`; for fi
 | `CONTACT_RATE_LIMIT_SECRET` | Private random secret of at least 32 characters, shared across instances |
 | `CONTACT_TRUST_PROXY` | Set to `true` only behind an ingress that overwrites `x-forwarded-for` with the client IP |
 | `CONTACT_ALLOW_LOCAL_ORIGIN` | Optional local `npm start` only: set `true` to accept the matching `http://localhost:<port>` origin. Ignored when `VERCEL` or `VERCEL_ENV` is set; keep disabled on hosting. Delivery and rate limiting still use the configured providers. |
+
+### Enable Google Analytics 4
+
+1. In Google Analytics, reuse the Posiblo property and `https://posiblo.com` web data stream, or create them if missing. Copy the stream measurement ID to the production environment variable `NEXT_PUBLIC_GA4_MEASUREMENT_ID` for the next authorized build. [GA4 setup](https://support.google.com/analytics/answer/14183469)
+2. Turn off Enhanced measurement in that stream. The site sends its own `page_view`, `generate_lead`, and `whatsapp_click`, and obtains analytics consent before loading the tag. Keep email redaction enabled. [Page views](https://developers.google.com/analytics/devguides/collection/ga4/views) · [Data redaction](https://support.google.com/analytics/answer/13544947)
+3. In **Admin → Events**, mark `generate_lead` and `whatsapp_click` as key events. Use once per event for submitted inquiries and once per session if using WhatsApp as a contact-intent indicator. The site has no confirmed booking event. [Key events](https://support.google.com/analytics/answer/13128484)
+4. In the verified Google Business Profile, edit the website field to `https://posiblo.com/?utm_source=google&utm_medium=organic&utm_campaign=google_business_profile`. Check the link in Search or Maps after it is published. [Edit Business Profile](https://support.google.com/business/answer/3039617) · [Campaign URLs](https://support.google.com/analytics/answer/10917952)
+5. After the site is released, use Tag Assistant and GA4 DebugView to verify no Analytics requests before opt-in or after opting out, one `page_view` per page load or client-side route change, one `generate_lead` per successful test submission, and one `whatsapp_click` per click. Use the tagged profile link and check `google / organic` with campaign `google_business_profile` in Traffic acquisition after processing. [DebugView](https://support.google.com/analytics/answer/7201382)
 
 Production requires the origin, trusted ingress, Redis and Resend settings. Development may use in-memory rate/receipt storage when Redis is absent. Local development accepts the local request origin even when the production URL is configured. The recipient is fixed server-side in `src/lib/contact-config.ts`; `CONTACT_TO_EMAIL` and `LEGAL_REVIEW_APPROVED` are obsolete.
 

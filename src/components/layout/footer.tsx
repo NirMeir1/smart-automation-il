@@ -6,6 +6,10 @@ import { FooterTopLink } from './footer-top-link'
 import { BrandLogo } from '@/components/brand-logo'
 import { Icon } from '@/components/icon'
 import { brand } from '@/lib/brand'
+import { AnalyticsConsent } from '@/components/analytics-consent'
+
+const measurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim()
+
 export function Footer() {
   return <footer className="site-footer"><div className="site-container">
     <div className="footer-top">
@@ -15,6 +19,6 @@ export function Footer() {
     </div>
     {/* Decorative outlined wordmark above the bottom row; hidden from assistive tech, never selectable or clickable. */}
     <div className="footer-wordmark" aria-hidden="true" dir="ltr">{brand.name}</div>
-    <div className="footer-bottom"><nav aria-label="מידע משפטי"><Link href="/legal/privacy">מדיניות פרטיות</Link><Link href="/legal/terms">תנאי שימוש</Link><Link href="/legal/accessibility">הצהרת נגישות</Link></nav><p>© <bdi dir="ltr">{brand.name}</bdi>. כל הזכויות שמורות.</p></div>
+    <div className="footer-bottom"><nav aria-label="מידע משפטי"><Link href="/legal/privacy">מדיניות פרטיות</Link><Link href="/legal/terms">תנאי שימוש</Link><Link href="/legal/accessibility">הצהרת נגישות</Link>{measurementId && /^G-[A-Z0-9]+$/.test(measurementId) && <AnalyticsConsent id={measurementId} />}</nav><p>© <bdi dir="ltr">{brand.name}</bdi>. כל הזכויות שמורות.</p></div>
   </div></footer>
 }
