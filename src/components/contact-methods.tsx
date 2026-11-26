@@ -1,5 +1,6 @@
 import { publicContact } from '@/lib/contact-public'
 import { ContactIcon } from './contact-icon'
+import { SocialLinks } from './social-links'
 
 export function ContactLinks({ includeEmail = true }: { includeEmail?: boolean }) {
   return <div className="direct-contact-links">
@@ -10,9 +11,9 @@ export function ContactLinks({ includeEmail = true }: { includeEmail?: boolean }
 }
 
 export function ContactMethods() {
-  return <section className="direct-contact site-container" aria-labelledby="direct-contact-heading">
+  return <section className="direct-contact" aria-labelledby="direct-contact-heading">
     <h2 id="direct-contact-heading">אפשר גם ליצור קשר ישירות</h2>
     <ContactLinks />
-    <p>אני עונה לכל פנייה בתוך יום עסקים אחד.</p>
+    <SocialLinks showLabel />
   </section>
 }

@@ -18,6 +18,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   const { intent = '' } = await searchParams
   const initialIntent = ['business', 'idea', 'problem'].includes(intent) ? intent : ''
   return <CopyPage pageKey="contact"
-    heroAfter={<><NextSteps /><ContactMethods /></>}
-    heroAside={<div className="hero-form"><ContactForm enabled={contactAvailable()} initialIntent={initialIntent} /></div>} />
+    heroAfter={<NextSteps />}
+    heroAside={<div className="hero-form"><ContactForm enabled={contactAvailable()} initialIntent={initialIntent} /></div>}
+    heroBottom={<ContactMethods />} />
 }

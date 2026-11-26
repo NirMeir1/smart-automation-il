@@ -47,6 +47,8 @@ export function measurePage(id: string, page: string, referrer: string) {
     window.gtag = function () { queue.push(arguments) }
     window.gtag('consent', 'default', denied)
     window.gtag('consent', 'update', granted)
+    // The Google tag can initialize its destination before processing the stream config.
+    window.gtag('set', 'send_page_view', false)
     window.gtag('js', new Date())
     window.gtag('set', pageDetails)
     window.gtag('config', id, {

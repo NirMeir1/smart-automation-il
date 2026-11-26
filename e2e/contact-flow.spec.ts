@@ -147,6 +147,7 @@ test('shows pending state and confirms only a successful backend receipt', async
   await expect(page.getByRole('heading', { name: inquirySuccess.title, exact: true })).toBeVisible()
   await expect(page.getByRole('status')).toBeFocused()
   await expect(page.getByRole('status')).toContainText(inquirySuccess.body)
+  await expect(page.locator('body')).not.toContainText('יום עסקים')
   expect(requests).toBe(1)
   expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0])
 })

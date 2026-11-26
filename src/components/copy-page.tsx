@@ -317,7 +317,7 @@ function HeroCopy({ pageKey }: { pageKey: PageKey }) {
   return <>{blocks}</>
 }
 
-export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey: PageKey; children?: React.ReactNode; heroAside?: React.ReactNode; heroAfter?: React.ReactNode }) {
+export function CopyPage({ pageKey, children, heroAside, heroAfter, heroBottom }: { pageKey: PageKey; children?: React.ReactNode; heroAside?: React.ReactNode; heroAfter?: React.ReactNode; heroBottom?: React.ReactNode }) {
   const page = pages[pageKey]
   const look = presentation[pageKey]
   const service = serviceRoutes.find(route => route.key === pageKey)
@@ -361,6 +361,7 @@ export function CopyPage({ pageKey, children, heroAside, heroAfter }: { pageKey:
         {asideNodes.length > 0 && <div className={`hero-aside hero-aside-${look.heroAsideStyle ?? 'rule'}`}>{asideNodes.map((node, index) => <ContentNodeView node={node} key={index} />)}</div>}
         {page.heroVideo && <div className="hero-media"><HeroDemo /><IntroductionVideo media={introductionVideo} /></div>}
         {heroAside}
+        {heroBottom}
       </div>
     </section>
     {look.founderStrip && <FounderStrip intro={(look.heroMoved ?? []).map(index => page.hero[index]).find(node => node?.type === 'p')?.text} />}

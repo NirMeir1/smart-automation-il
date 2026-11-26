@@ -34,6 +34,10 @@ it('measures one view per route and each WhatsApp activation only after analytic
     ['consent', 'default', expect.objectContaining({ analytics_storage: 'denied', ad_storage: 'denied' })],
     ['consent', 'update', expect.objectContaining({ analytics_storage: 'granted', ad_storage: 'denied' })],
   ])
+  expect(commands().slice(2, 4)).toEqual([
+    ['set', 'send_page_view', false],
+    ['js', expect.any(Date)],
+  ])
   const measured = `${location.origin}/about?utm_source=google&utm_medium=organic&utm_campaign=google_business_profile`
   expect(events()).toEqual([['event', 'page_view', expect.objectContaining({ page_location: measured })]])
   expect(JSON.stringify(commands())).not.toContain('person@example.test')

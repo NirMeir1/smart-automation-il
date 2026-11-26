@@ -8,6 +8,51 @@ import { browserTestOrigin } from '../scripts/browser-test-env.mjs'
 import { operator } from '../src/lib/brand'
 import { publicContact } from '../src/lib/contact-public'
 
+const socialProfiles = [
+  { name: 'Facebook', href: 'https://www.facebook.com/posiblo/' },
+  { name: 'Instagram', href: 'https://www.instagram.com/posiblo.il/' },
+]
+const directAndSocialHrefs = new Set([publicContact.telHref, publicContact.whatsappHref, ...socialProfiles.map(profile => profile.href)])
+
+test('social profiles follow primary contact actions in both placements', async ({ page }) => {
+  await page.goto('/contact')
+  const contact = page.getByRole('region', { name: 'אפשר גם ליצור קשר ישירות' })
+  const footer = page.getByRole('contentinfo')
+  await expect(contact.getByRole('group', { name: 'עקבו אחריי' })).toContainText('עקבו אחריי')
+  for (const placement of [contact, footer]) {
+    const group = placement.getByRole('group', { name: 'עקבו אחריי' })
+    const [facebook, instagram] = socialProfiles.map(({ name }) => group.getByRole('link', { name, exact: true }))
+    for (const { name, href } of socialProfiles) {
+      const link = group.getByRole('link', { name, exact: true })
+      await expect(link).toHaveAttribute('href', href)
+      await expect(link.locator('svg[aria-hidden="true"]')).toBeVisible()
+      const box = (await link.boundingBox())!
+      expect(box.width).toBeGreaterThanOrEqual(44)
+      expect(box.height).toBeGreaterThanOrEqual(44)
+    }
+    const facebookBox = (await facebook.boundingBox())!
+    const instagramBox = (await instagram.boundingBox())!
+    expect(facebookBox.y).toBeCloseTo(instagramBox.y, 0)
+    expect(instagramBox.x + instagramBox.width).toBeLessThan(facebookBox.x)
+    const whatsapp = (await placement.getByRole('link', { name: 'שליחת הודעה בוואטסאפ' }).boundingBox())!
+    expect(facebookBox.y).toBeGreaterThanOrEqual(whatsapp.y + whatsapp.height)
+    await facebook.focus()
+    await page.keyboard.press('Tab')
+    await expect(instagram).toBeFocused()
+    await expect(instagram).toHaveCSS('outline-style', 'solid')
+    await expect(instagram).toHaveCSS('outline-width', '3px')
+  }
+  if (page.viewportSize()!.width <= 900) {
+    const form = (await page.locator('#inquiry').boundingBox())!
+    expect((await contact.boundingBox())!.y).toBeGreaterThanOrEqual(form.y + form.height)
+  }
+  await page.goto('/')
+  const actionBar = page.locator('.mobile-action-bar')
+  if (page.viewportSize()!.width <= 900) await expect(actionBar).toBeVisible()
+  await expect(actionBar.locator('a')).toHaveCount(2)
+  await expect(actionBar.locator('a').last()).toHaveAttribute('href', publicContact.whatsappHref)
+})
+
 test('contact links, logo assets and social metadata match the approved identity', async ({ page, request }) => {
   await page.goto('/contact')
   const contact = page.getByRole('region', { name: 'אפשר גם ליצור קשר ישירות' })
@@ -167,7 +212,7 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', browserTestOrigin + (route.href === '/' ? '' : route.href))
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
   const body = await page.locator('body').innerText()
-  expect(body).not.toMatch(/Bottomline|BottomLine|Sogomatic|אוטומציה חכמה|smart-automation\.co\.il|50%|90%|50\+|050-1234567|24 שעות/)
+  expect(body).not.toMatch(/Bottomline|BottomLine|Sogomatic|אוטומציה חכמה|smart-automation\.co\.il|50%|90%|50\+|050-1234567|24 שעות|יום עסקים/)
   const normalize = (value: string) => value.replace(/\s+/g, ' ').trim()
   const mainText = normalize((await page.locator('main').textContent())!)
   if (route.key === 'about') {
@@ -181,12 +226,14 @@ for (const route of publicRoutes) test(`${route.href}: copy, metadata, links, la
   for (const node of pageTextNodes(visiblePage(route.key))) expect(mainText).toContain(normalize(node.text))
   for (const section of visiblePage(route.key).sections) await expect(page.locator(`#${section.id}-heading`)).toHaveText(section.title)
   for (const href of await page.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')))) {
-    if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
+    if (href && directAndSocialHrefs.has(href)) continue
     if (href?.startsWith('mailto:')) { expect(href.split('?')[0]).toBe(`mailto:${operator.email}`); continue }
     expect(href).toMatch(/^(\/|#)/)
     const path = href!.split(/[?#]/)[0]
     if (path) expect([...publicRoutes.map(r => r.href), '/legal/privacy', '/legal/terms', '/legal/accessibility']).toContain(path)
   }
+  // Audit the rendered copy after the home demo's entrance animation settles.
+  if (route.key === 'home') await expect(page.locator('.demo-step').last()).toHaveCSS('opacity', '1')
   const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
   expect(accessibility.violations).toEqual([])
   expect(issues).toEqual([])
@@ -197,7 +244,7 @@ test('navigation and every page CTA reach their real internal destinations', asy
   for (const route of routes) {
     await page.goto(route.href)
     for (const href of await page.locator('main a, footer a').evaluateAll(links => links.map(link => link.getAttribute('href')!))) {
-      if (href === publicContact.telHref || href === publicContact.whatsappHref) continue
+      if (directAndSocialHrefs.has(href)) continue
       if (href.startsWith('mailto:')) { expect(href.split('?')[0]).toBe(`mailto:${operator.email}`); continue }
       if (checked.has(href)) continue
       checked.add(href)

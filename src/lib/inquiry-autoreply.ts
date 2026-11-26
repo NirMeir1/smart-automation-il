@@ -31,12 +31,14 @@ export async function claimAutoReply(submissionId: string): Promise<boolean> {
   return true
 }
 
+const followUp = 'תודה על הפנייה. קיבלתי אותה ואחזור אליך כדי לתאם פגישת היכרות.'
+
 // Fixed transactional copy: never echo submitted fields into a visitor email.
 export const inquiryAutoReply = {
   subject: 'קיבלתי את הפנייה שלך — Posiblo',
   text: `היי,
 
-תודה שפנית. קיבלתי את הפנייה ואחזור אליך בתוך יום עסקים אחד כדי לתאם פגישת היכרות.
+${followUp}
 
 הפגישה חינם, נמשכת כ־45 דקות, ואפשר לקיים אותה אונליין או פנים אל פנים בתיאום. אין צורך להכין כלום: מספיק לספר מה קורה היום ומה היית רוצה לשנות.
 
@@ -52,7 +54,7 @@ export const inquiryAutoReply = {
 <table role="presentation" dir="rtl" align="right" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="max-width:600px;direction:rtl;text-align:right;background-color:#ffffff;">
 <tr><td dir="rtl" align="right" style="padding:24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.8;direction:rtl;text-align:right;color:#19332d;">
 <p dir="rtl" style="margin:0 0 20px;direction:rtl;text-align:right;">היי,</p>
-<p dir="rtl" style="margin:0 0 20px;direction:rtl;text-align:right;">תודה שפנית. קיבלתי את הפנייה ואחזור אליך בתוך יום עסקים אחד כדי לתאם פגישת היכרות.</p>
+<p dir="rtl" style="margin:0 0 20px;direction:rtl;text-align:right;">${followUp}</p>
 <p dir="rtl" style="margin:0 0 20px;direction:rtl;text-align:right;">הפגישה חינם, נמשכת כ־45 דקות, ואפשר לקיים אותה אונליין או פנים אל פנים בתיאום. אין צורך להכין כלום: מספיק לספר מה קורה היום ומה היית רוצה לשנות.</p>
 <p dir="rtl" style="margin:0 0 20px;direction:rtl;text-align:right;">אם זה דחוף, אפשר לכתוב לי גם בוואטסאפ: <a href="${publicContact.whatsappHref}" dir="ltr" style="direction:ltr;unicode-bidi:embed;white-space:nowrap;color:#276d62;"><span dir="ltr">${publicContact.phone}</span></a>.</p>
 <p dir="rtl" style="margin:0 0 8px;direction:rtl;text-align:right;">ניר מאיר</p>

@@ -7,6 +7,7 @@ import { BrandLogo } from '@/components/brand-logo'
 import { Icon } from '@/components/icon'
 import { brand } from '@/lib/brand'
 import { AnalyticsConsent } from '@/components/analytics-consent'
+import { SocialLinks } from '@/components/social-links'
 
 const measurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim()
 
@@ -15,7 +16,7 @@ export function Footer() {
     <div className="footer-top">
       <div className="footer-brand"><FooterTopLink href="/" className="wordmark" aria-label="Posiblo — דף הבית"><BrandLogo light /></FooterTopLink><p className="footer-tagline">פתרונות טכנולוגיים שמתחילים בבעיה האמיתית — לא בכלי.</p><ul className="footer-services">{['אוטומציה', 'AI', 'מערכות מותאמות', 'אפליקציות', 'אתרים', 'אינטגרציות'].map(service => <li key={service}><CopyText text={service} /></li>)}</ul></div>
       <nav aria-label="ניווט תחתון" className="footer-navigation">{routes.map(r => <Link key={r.key} href={r.href}>{r.label}</Link>)}</nav>
-      <div className="footer-contact"><h2>רוצים לדבר על משהו שמעכב אתכם?</h2><p>ספרו לי מה קורה היום, ונבדוק יחד מה הדרך הנכונה לשפר אותו.</p><ContactLinks includeEmail={false} /><FooterTopLink className="action action-inverse" href="/contact"><span>לקביעת פגישה</span><Icon name="arrow" size={20} /></FooterTopLink></div>
+      <div className="footer-contact"><h2>רוצים לדבר על משהו שמעכב אתכם?</h2><p>ספרו לי מה קורה היום, ונבדוק יחד מה הדרך הנכונה לשפר אותו.</p><ContactLinks includeEmail={false} /><FooterTopLink className="action action-inverse" href="/contact"><span>לקביעת פגישה</span><Icon name="arrow" size={20} /></FooterTopLink><SocialLinks /></div>
     </div>
     {/* Decorative outlined wordmark above the bottom row; hidden from assistive tech, never selectable or clickable. */}
     <div className="footer-wordmark" aria-hidden="true" dir="ltr">{brand.name}</div>

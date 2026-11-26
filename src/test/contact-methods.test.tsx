@@ -7,7 +7,7 @@ import { publicContact } from '@/lib/contact-public'
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }))
 
 describe('Public contact methods', () => {
-  it('exposes the approved phone, email, WhatsApp message and response promise', () => {
+  it('exposes the approved phone, email and WhatsApp message without a response deadline', () => {
     render(<ContactMethods />)
     expect(screen.getByRole('heading', { name: 'אפשר גם ליצור קשר ישירות' })).toBeInTheDocument()
     const whatsapp = screen.getByRole('link', { name: 'שליחת הודעה בוואטסאפ' })
@@ -19,7 +19,7 @@ describe('Public contact methods', () => {
     expect(phone).toHaveAttribute('href', 'tel:+972522518189')
     expect(phone.querySelector('bdi')).toHaveAttribute('dir', 'ltr')
     expect(screen.getByRole('link', { name: /שליחת אימייל/ })).toHaveAttribute('href', 'mailto:posiblo.contact@gmail.com')
-    expect(screen.getByText('אני עונה לכל פנייה בתוך יום עסקים אחד.')).toBeInTheDocument()
+    expect(screen.getByRole('region')).not.toHaveTextContent('יום עסקים')
     for (const [link, channel] of [[whatsapp, 'whatsapp'], [phone, 'phone'], [screen.getByRole('link', { name: /שליחת אימייל/ }), 'email']] as const) {
       expect(link.querySelector('svg')).toHaveAttribute('data-contact-icon', channel)
       expect(link.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
